@@ -2,6 +2,7 @@ package email
 
 import (
 	"errors"
+	"fmt"
 	"io"
 	"log"
 	"mime"
@@ -11,6 +12,9 @@ import (
 
 	"github.com/emersion/go-message"
 	"github.com/emersion/go-message/mail"
+	"golang.org/x/text/encoding"
+	"golang.org/x/text/encoding/japanese"
+	"golang.org/x/text/transform"
 )
 
 // ParsedEmail holds the extracted information from an email.
@@ -28,7 +32,7 @@ type ParsedEmail struct {
 func Parse(r io.Reader) (*ParsedEmail, error) {
 	entity, err := message.Read(r)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("failed to read message entity: %w", err)
 	}
 
 	mr := mail.NewReader(entity)
@@ -66,11 +70,10 @@ func extractBodyAndURLs(entity *message.Entity) (string, []string, error) {
 	var urls []string
 
 	hrefRegex := regexp.MustCompile(`href\s*=\s*["'](https?://[^"]+)["']`)
-	urlRegex := regexp.MustCompile(`https?://[^\s"'<>]*[^\s"'<>,.?!;)]`)
+	urlRegex := regexp.MustCompile(`https?://[^\s"<>]*[^\s"<>,.?!;)]`)
 
 	if strings.HasPrefix(mediaType, "multipart/") {
-	
-boundary := params["boundary"]
+		boundary := params["boundary"]
 		if boundary == "" {
 			content, _ := io.ReadAll(entity.Body)
 			bodyBuilder.WriteString(string(content))
@@ -87,7 +90,7 @@ boundary := params["boundary"]
 				}
 				defer part.Close()
 
-				partMediaType, _, err := mime.ParseMediaType(part.Header.Get("Content-Type"))
+				partMediaType, partParams, err := mime.ParseMediaType(part.Header.Get("Content-Type"))
 				if err != nil {
 					log.Printf("Warning: could not parse content type of multipart part: %v", err)
 					continue
@@ -97,6 +100,18 @@ boundary := params["boundary"]
 				if err != nil {
 					log.Printf("Warning: could not read content of multipart part: %v", err)
 					continue
+				}
+
+				// Decode charset if specified
+			charset := partParams["charset"]
+			if charset != "" {
+				log.Printf("DEBUG: Decoding part with charset: %s", charset)
+					decodedContent, decodeErr := decodeCharset(partContent, charset)
+					if decodeErr == nil {
+						partContent = decodedContent
+					} else {
+						log.Printf("Warning: Failed to decode charset %s: %v", charset, decodeErr)
+					}
 				}
 
 				partBodyText := string(partContent)
@@ -124,27 +139,40 @@ boundary := params["boundary"]
 		}
 	} else if mediaType == "text/plain" || mediaType == "text/html" {
 		content, err := io.ReadAll(entity.Body)
-		if err != nil {
-			return "", nil, err
-		}
-		bodyText := string(content)
-
-		hrefMatches := hrefRegex.FindAllStringSubmatch(bodyText, -1)
-		for _, match := range hrefMatches {
-			if len(match) > 1 {
-				urls = append(urls, match[1])
+			if err != nil {
+				return "", nil, err
 			}
-		}
 
-		if mediaType == "text/html" {
-			re := regexp.MustCompile(`<.*?>`)
-			bodyText = re.ReplaceAllString(bodyText, " ")
-		}
+			// Decode charset if specified
+			charset := params["charset"]
+			if charset != "" {
+				log.Printf("DEBUG: Decoding main body with charset: %s", charset)
+				decodedContent, decodeErr := decodeCharset(content, charset)
+				if decodeErr == nil {
+					content = decodedContent
+				} else {
+					log.Printf("Warning: Failed to decode charset %s: %v", charset, decodeErr)
+				}
+			}
 
-		foundUrls := urlRegex.FindAllString(bodyText, -1)
-		urls = append(urls, foundUrls...)
+			bodyText := string(content)
 
-		bodyBuilder.WriteString(bodyText)
+			hrefMatches := hrefRegex.FindAllStringSubmatch(bodyText, -1)
+			for _, match := range hrefMatches {
+				if len(match) > 1 {
+					urls = append(urls, match[1])
+				}
+			}
+
+			if mediaType == "text/html" {
+				re := regexp.MustCompile(`<.*?>`)
+				bodyText = re.ReplaceAllString(bodyText, " ")
+			}
+
+			foundUrls := urlRegex.FindAllString(bodyText, -1)
+			urls = append(urls, foundUrls...)
+
+			bodyBuilder.WriteString(bodyText)
 	}
 
 	uniqueUrls := make(map[string]bool)
@@ -158,4 +186,29 @@ boundary := params["boundary"]
 	}
 
 	return strings.TrimSpace(bodyBuilder.String()), resultUrls, nil
+}
+
+// decodeCharset decodes content from a given charset to UTF-8.
+func decodeCharset(content []byte, charset string) ([]byte, error) {
+	charset = strings.ToLower(charset)
+
+	var decoder *encoding.Decoder
+	switch charset {
+	case "iso-2022-jp":
+		decoder = japanese.ISO2022JP.NewDecoder()
+	case "shift_jis", "shift-jis":
+		decoder = japanese.ShiftJIS.NewDecoder()
+	case "euc-jp", "euc_jp":
+		decoder = japanese.EUCJP.NewDecoder()
+	case "utf-8":
+		return content, nil // Already UTF-8
+	default:
+		return nil, fmt.Errorf("unsupported charset: %s", charset)
+	}
+
+	decoded, _, err := transform.Bytes(decoder, content)
+	if err != nil {
+		return nil, fmt.Errorf("failed to decode content from %s: %w", charset, err)
+	}
+	return decoded, nil
 }

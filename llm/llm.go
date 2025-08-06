@@ -6,7 +6,11 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"io/ioutil"
+	"log"
 	"net/http"
+	"regexp"
+	"strings"
 	"time"
 
 	"mail-analyzer/config"
@@ -30,6 +34,7 @@ type APIRequest struct {
 	Tools      []APITool `json:"tools,omitempty"`
 	ToolChoice any       `json:"tool_choice,omitempty"`
 }
+
 
 type Message struct {
 	Role      string     `json:"role"`
@@ -69,6 +74,11 @@ type APIError struct {
 	Message string `json:"message"`
 	Type    string `json:"type"`
 	Code    string `json:"code"`
+}
+
+type LLMToolCallResponse struct {
+	Name      string          `json:"name"`
+	Arguments json.RawMessage `json:"arguments"`
 }
 
 // --- Provider Implementation ---
@@ -117,8 +127,12 @@ func (p *OpenAIProvider) AnalyzeText(ctx context.Context, prompt string, tools [
 	if err != nil {
 		return nil, fmt.Errorf("could not create HTTP request: %w", err)
 	}
+
+	// Only set Authorization header if API key is provided
+	if p.config.OpenAIAPIKey != "" {
+		req.Header.Set("Authorization", "Bearer "+p.config.OpenAIAPIKey)
+	}
 	req.Header.Set("Content-Type", "application/json")
-	req.Header.Set("Authorization", "Bearer "+p.config.OpenAIAPIKey)
 
 	resp, err := p.client.Do(req)
 	if err != nil {
@@ -126,8 +140,13 @@ func (p *OpenAIProvider) AnalyzeText(ctx context.Context, prompt string, tools [
 	}
 	defer resp.Body.Close()
 
+	respBody, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return nil, fmt.Errorf("could not read API response body: %w", err)
+	}
+
 	var apiResponse APIResponse
-	if err := json.NewDecoder(resp.Body).Decode(&apiResponse); err != nil {
+	if err := json.Unmarshal(respBody, &apiResponse); err != nil {
 		return nil, fmt.Errorf("could not decode API response: %w", err)
 	}
 
@@ -135,15 +154,65 @@ func (p *OpenAIProvider) AnalyzeText(ctx context.Context, prompt string, tools [
 		return nil, fmt.Errorf("API error: [%s] %s", apiResponse.Error.Code, apiResponse.Error.Message)
 	}
 
-	if len(apiResponse.Choices) == 0 || len(apiResponse.Choices[0].Message.ToolCalls) == 0 {
-		return nil, errors.New("API did not return a valid tool call")
+	// --- Custom parsing for local LLM tool calls ---
+	// Check if the response contains a message with content that includes tool call markers
+	if len(apiResponse.Choices) > 0 && apiResponse.Choices[0].Message.Content != "" {
+		content := apiResponse.Choices[0].Message.Content
+		log.Printf("DEBUG LLM Response Content: %s", content)
+		// Regex to find the JSON string between [TOOL_REQUEST] and [END_TOOL_REQUEST]
+		re := regexp.MustCompile(`(?s)\[TOOL_REQUEST\](.*)\[END_TOOL_REQUEST\]`)
+		matches := re.FindStringSubmatch(content)
+
+		if len(matches) > 1 {
+			toolCallArgs := strings.TrimSpace(matches[1])
+			log.Printf("DEBUG Extracted Tool Call Args (from TOOL_REQUEST): %s", toolCallArgs)
+
+			var toolCallResponse LLMToolCallResponse
+			if err := json.Unmarshal([]byte(toolCallArgs), &toolCallResponse); err != nil {
+				log.Printf("ERROR: Could not unmarshal tool call response from TOOL_REQUEST: %v", err)
+				return nil, fmt.Errorf("could not unmarshal tool call response: %w", err)
+			}
+
+			var judgment Judgment
+			if err := json.Unmarshal([]byte(toolCallResponse.Arguments), &judgment); err != nil {
+				log.Printf("ERROR: Could not unmarshal judgment from TOOL_REQUEST arguments: %v", err)
+				return nil, fmt.Errorf("could not unmarshal judgment from tool call arguments: %w", err)
+			}
+			log.Printf("DEBUG: Successfully parsed from TOOL_REQUEST.")
+			return &judgment, nil
+		}
+
+		// If no TOOL_REQUEST tags, try to parse the entire content as a JSON tool call
+		trimmedContent := strings.TrimSpace(content)
+		log.Printf("DEBUG Attempting to parse entire content as JSON: %s", trimmedContent)
+		var toolCallResponse LLMToolCallResponse
+		if err := json.Unmarshal([]byte(trimmedContent), &toolCallResponse); err == nil {
+			log.Printf("DEBUG: Successfully unmarshaled entire content to LLMToolCallResponse.")
+			var judgment Judgment
+			if err := json.Unmarshal([]byte(toolCallResponse.Arguments), &judgment); err == nil {
+				log.Printf("DEBUG: Successfully unmarshaled judgment from entire content.")
+				return &judgment, nil
+			} else {
+				log.Printf("ERROR: Could not unmarshal judgment from entire content arguments: %v", err)
+			}
+		} else {
+			log.Printf("ERROR: Could not unmarshal entire content to LLMToolCallResponse: %v", err)
+		}
 	}
 
-	toolCallArgs := apiResponse.Choices[0].Message.ToolCalls[0].Function.Arguments
-	var judgment Judgment
-	if err := json.Unmarshal([]byte(toolCallArgs), &judgment); err != nil {
-		return nil, fmt.Errorf("could not unmarshal tool call arguments: %w", err)
+	// Fallback to standard tool_calls field if custom parsing fails or is not applicable
+	if len(apiResponse.Choices) > 0 && len(apiResponse.Choices[0].Message.ToolCalls) > 0 {
+		toolCallArgs := apiResponse.Choices[0].Message.ToolCalls[0].Function.Arguments
+		log.Printf("DEBUG Attempting to parse from standard tool_calls field: %s", toolCallArgs)
+		var judgment Judgment
+		if err := json.Unmarshal([]byte(toolCallArgs), &judgment); err != nil {
+			log.Printf("ERROR: Could not unmarshal tool call arguments from standard field: %v", err)
+			return nil, fmt.Errorf("could not unmarshal tool call arguments from standard field: %w", err)
+		}
+		log.Printf("DEBUG: Successfully parsed from standard tool_calls field.")
+		return &judgment, nil
 	}
 
-	return &judgment, nil
+	log.Printf("ERROR: API did not return a valid tool call in expected format. Response: %+v", apiResponse)
+	return nil, errors.New("API did not return a valid tool call in expected format")
 }

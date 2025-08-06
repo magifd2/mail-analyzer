@@ -1,12 +1,12 @@
 # AI-Powered Suspicious Email Analyzer
 
-A command-line tool that analyzes emails from an `mbox` file, using a Large Language Model (LLM) to detect suspicious content like phishing or spam. It outputs a structured JSON report for each email.
+A command-line tool that analyzes a single email from an `.eml` file, using a Large Language Model (LLM) to detect suspicious content like phishing or spam. It outputs a structured JSON report for the email.
 
 This tool is designed for flexibility, allowing it to be easily integrated into automated workflows and security analysis pipelines.
 
 ## Features
 
--   **Mbox File Analysis**: Analyzes emails directly from a standard `mbox` file.
+-   **EML File Analysis**: Analyzes a single email directly from a standard `.eml` file.
 -   **LLM-Powered Analysis**: Leverages any OpenAI-compatible API with Tool-Calling capabilities for intelligent and structured email analysis.
 -   **Structured JSON Output**: Provides analysis results in a clean, machine-readable format.
 -   **Flexible Configuration**: Configure via a JSON file and/or environment variables.
@@ -48,9 +48,14 @@ The tool loads its configuration with the following priority: **Environment Vari
 
 ### 1. Configuration File (Recommended)
 
-Create a `config.json` file in the project root or any other location.
+The tool automatically looks for `config.json` in `~/.config/mail-analyzer/`. If you provide a path via the command line, that path will be used instead.
 
-**Example `config.json`:**
+**Directory:**
+```sh
+mkdir -p ~/.config/mail-analyzer
+```
+
+**File (`~/.config/mail-analyzer/config.json`):**
 ```json
 {
   "openai_api_key": "sk-your_openai_api_key_here",
@@ -59,7 +64,7 @@ Create a `config.json` file in the project root or any other location.
 }
 ```
 -   `openai_api_key` (Required): Your API key for the LLM service.
--   `openai_base_url` (Optional): The base URL of the OpenAI-compatible API.
+-   `openai_api_base_url` (Optional): The base URL of the OpenAI-compatible API.
 -   `model_name` (Optional): The model to use for analysis. Defaults to `gpt-4-turbo`.
 
 ### 2. Environment Variables
@@ -80,22 +85,17 @@ You can run the tool directly using `go run` or the compiled binary.
 
 ### Analyze from a File
 
-Provide the path to your `mbox` file and optionally a path to your `config.json`.
-
-```sh
-# Using go run
+Provide the path to your `.eml` file and optionally a path to your `config.json`.
 
 ```go
-go run main.go /path/to/your/emails.mbox /path/to/your/config.json
-```
+# Using go run
+go run main.go /path/to/your/email.eml /path/to/your/config.json
 
 # Using the compiled binary
-
-```go
-./mail-analyzer /path/to/your/emails.mbox /path/to/your/config.json
+./mail-analyzer /path/to/your/email.eml /path/to/your/config.json
 ```
 
-If the config path is omitted, the tool will look for environment variables.
+If the config path is omitted, the tool will look for `~/.config/mail-analyzer/config.json` and then environment variables.
 
 ---
 
@@ -106,7 +106,7 @@ The tool outputs a single JSON object to standard output containing the analysis
 **Example Output:**
 ```json
 {
-  "source_file": "/path/to/your/emails.mbox",
+  "source_file": "/path/to/your/email.eml",
   "analysis_results": [
     {
       "message_id": "<phishing-example-id@mail.example.com>",

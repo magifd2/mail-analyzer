@@ -2,13 +2,14 @@ package main
 
 import (
 	"context"
+	"bytes"
 	"encoding/json"
+	"flag"
 	"fmt"
-	"io"
+	"io/ioutil"
 	"log"
 	"os"
 
-	"github.com/emersion/go-mbox"
 	"github.com/emersion/go-message/mail"
 	"mail-analyzer/analyzer"
 	"mail-analyzer/config"
@@ -32,14 +33,28 @@ type AnalysisResult struct {
 }
 
 func main() {
-	// 1. Load configuration
-	if len(os.Args) < 2 {
-		log.Fatal("Usage: go run main.go <path/to/your/mail.mbox> [config.json]")
+	// Setup logging
+	debug := flag.Bool("debug", false, "Enable debug logging")
+	d := flag.Bool("d", false, "Enable debug logging (shorthand)")
+	flag.Parse()
+
+	if !(*debug || *d) {
+		log.SetOutput(ioutil.Discard) // Discard all log.Printf output
+	} else {
+		log.SetFlags(log.LstdFlags | log.Lshortfile) // Add file and line number to debug logs
 	}
-	mboxPath := os.Args[1]
+
+	// Adjust os.Args after flag parsing
+	args := flag.Args()
+
+	// 1. Load configuration
+	if len(args) < 1 {
+		log.Fatal("Usage: mail-analyzer [--debug|-d] <path/to/your/mail.eml> [config.json]")
+	}
+	emlPath := args[0]
 	configPath := ""
-	if len(os.Args) > 2 {
-		configPath = os.Args[2]
+	if len(args) > 1 {
+		configPath = args[1]
 	}
 
 	cfg, err := config.Load(configPath)
@@ -47,58 +62,45 @@ func main() {
 		log.Fatalf("Error loading configuration: %v", err)
 	}
 
-	if cfg.OpenAIAPIKey == "" {
-		log.Fatal("OPENAI_API_KEY must be set in config file or environment variable.")
+	// Ensure at least one of OpenAIAPIKey or OpenAIAPIBaseURL is set
+	// If OpenAIAPIBaseURL is set, APIKey can be empty (for local LLMs)
+	if cfg.OpenAIAPIKey == "" && cfg.OpenAIBaseURL == "" {
+		log.Fatal("OPENAI_API_KEY or OPENAI_API_BASE_URL must be set in config file or environment variable.")
 	}
 
 	// 2. Setup analyzer
 	llmProvider := llm.NewOpenAIProvider(cfg)
 	emailAnalyzer := analyzer.NewEmailAnalyzer(llmProvider)
 
-	// 3. Open and read mbox file
-	file, err := os.Open(mboxPath)
+	// 3. Read eml file
+	rawMessage, err := os.ReadFile(emlPath)
 	if err != nil {
-		log.Fatalf("Error opening mbox file: %v", err)
+		log.Fatalf("Error reading eml file: %v", err)
 	}
-	defer file.Close()
 
-	// 4. Process each message
+	// 4. Process the message
 	var results []*AnalysisResult
-	mboxReader := mbox.NewReader(file)
-	for {
-		rawMessage, err := mboxReader.NextMessage()
-		if err == io.EOF {
-			break
-		}
-		if err != nil {
-			log.Printf("Warning: Could not read message: %v", err)
-			continue
-		}
-
-		parsedEmail, err := email.Parse(rawMessage)
-		if err != nil {
-			log.Printf("Warning: Failed to parse email: %v", err)
-			continue
-		}
-
-		judgment, err := emailAnalyzer.Analyze(context.Background(), parsedEmail)
-		if err != nil {
-			log.Printf("Warning: Failed to analyze email (Message-ID: %s): %v", parsedEmail.MessageID, err)
-			continue
-		}
-
-		results = append(results, &AnalysisResult{
-			MessageID: parsedEmail.MessageID,
-			Subject:   parsedEmail.Subject,
-			From:      convertAddresses(parsedEmail.From),
-			To:        convertAddresses(parsedEmail.To),
-			Judgment:  judgment,
-		})
+	parsedEmail, err := email.Parse(bytes.NewReader(rawMessage))
+	if err != nil {
+		log.Fatalf("Error parsing email: %v", err)
 	}
+
+	judgment, err := emailAnalyzer.Analyze(context.Background(), parsedEmail)
+	if err != nil {
+		log.Fatalf("Error analyzing email (Message-ID: %s): %v", parsedEmail.MessageID, err)
+	}
+
+	results = append(results, &AnalysisResult{
+		MessageID: parsedEmail.MessageID,
+		Subject:   parsedEmail.Subject,
+		From:      convertAddresses(parsedEmail.From),
+		To:        convertAddresses(parsedEmail.To),
+		Judgment:  judgment,
+	})
 
 	// 5. Output results as JSON
 	output := FinalOutput{
-		SourceFile:      mboxPath,
+		SourceFile:      emlPath,
 		AnalysisResults: results,
 	}
 
