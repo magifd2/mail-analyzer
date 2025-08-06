@@ -14,9 +14,9 @@ The primary goal of this project is to provide a reliable, automated, and struct
 
 The application is divided into the following packages:
 
--   **`main`**: The entry point of the application. It handles command-line argument parsing, orchestrates the workflow, and prints the final JSON output.
+-   **`main`**: The entry point of the application. It handles command-line argument parsing, orchestrates the workflow, and prints the final JSON output. It also manages reading email content from either a file path or standard input.
 -   **`config`**: Manages application configuration. It loads settings from a JSON file and overrides them with environment variables, providing a flexible setup for different environments.
--   **`email`**: Responsible for parsing raw email content (`.eml` format). It extracts key information such as headers, body text, and URLs.
+-   **`email`**: Responsible for parsing raw email content (`.eml` format). It extracts key information such as headers, body text, and URLs. This package also includes logic for automatically detecting and converting various email charsets (including `iso-2022-jp`) to UTF-8.
 -   **`llm`**: Acts as a client for the OpenAI-compatible API. It handles the construction of API requests, including the Tool-Call definitions, and parses the structured JSON response from the LLM.
 -   **`analyzer`**: The core logic layer. It takes the parsed email data from the `email` package, constructs a detailed prompt, and uses the `llm` package to get a structured analysis (`Judgment`).
 
@@ -24,7 +24,7 @@ The application is divided into the following packages:
 
 ```mermaid
 graph TD
-    A[main.go] --> B{EML File}
+    A[main.go] --> B{EML File / Stdin}
     A --> C{config.json / Env Vars}
 
     subgraph Workflow
@@ -45,8 +45,8 @@ graph TD
 ## 3. Data Flow
 
 1.  **Initialization**: The `main` function starts, loading configuration from `config.Load()` and initializing the `llm.OpenAIProvider` and `analyzer.EmailAnalyzer`.
-2.  **EML Reading**: A single `.eml` file is read.
-3.  **Email Parsing**: The raw email message is passed to `email.Parse()`, which returns a `email.ParsedEmail` struct containing the subject, body, URLs, and other relevant headers.
+2.  **EML Reading**: A single `.eml` file is read from either a specified file path or standard input.
+3.  **Email Parsing**: The raw email message is passed to `email.Parse()`, which first detects its character encoding. If the encoding is not UTF-8 (e.g., `iso-2022-jp`), it is converted to UTF-8. Then, `email.Parse()` extracts key information such as headers, body text, and URLs, returning a `email.ParsedEmail` struct.
 4.  **Prompt Construction**: The `analyzer.Analyze()` method receives the `ParsedEmail` struct and calls `buildPrompt()` to create a detailed, text-based prompt for the LLM.
 5.  **LLM Interaction**: `analyzer.Analyze()` calls the `llm.AnalyzeText()` method, passing the prompt and the predefined `report_analysis_result` tool definition.
 6.  **API Request**: `llm.AnalyzeText()` sends a request to the OpenAI API, explicitly asking it to use the `report_analysis_result` tool.

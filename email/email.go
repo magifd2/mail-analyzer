@@ -1,6 +1,7 @@
 package email
 
 import (
+	"bytes"
 	"errors"
 	"fmt"
 	"io"
@@ -30,7 +31,48 @@ type ParsedEmail struct {
 
 // Parse reads an email from an io.Reader and extracts key information.
 func Parse(r io.Reader) (*ParsedEmail, error) {
-	entity, err := message.Read(r)
+	// Read the entire content of the reader into a buffer
+	contentBytes, err := io.ReadAll(r)
+	if err != nil {
+		return nil, fmt.Errorf("failed to read email content: %w", err)
+	}
+
+	// Attempt to detect charset from headers in the raw content
+	headerPart := string(contentBytes)
+	if len(headerPart) > 4096 { // Limit to first 4KB for header scanning
+		headerPart = headerPart[:4096]
+	}
+
+	charsetRe := regexp.MustCompile(`(?i)charset=["']?([^"';\s]+)["']?`)
+	matches := charsetRe.FindStringSubmatch(headerPart)
+
+	var detectedCharset string
+	if len(matches) > 1 {
+		detectedCharset = strings.ToLower(matches[1])
+	}
+
+	var readerToUse io.Reader = bytes.NewReader(contentBytes) // Default to original content
+	if detectedCharset != "" && detectedCharset != "utf-8" {
+		log.Printf("DEBUG: Detected charset '%s'. Attempting to decode before parsing.", detectedCharset)
+		var decoder encoding.Encoding
+		switch detectedCharset {
+		case "iso-2022-jp":
+			decoder = japanese.ISO2022JP
+		case "shift_jis", "shift-jis":
+			decoder = japanese.ShiftJIS
+		case "euc-jp", "euc_jp":
+			decoder = japanese.EUCJP
+		default:
+			log.Printf("Warning: Detected unsupported charset '%s' for pre-decoding. Proceeding without pre-decoding.", detectedCharset)
+			decoder = nil
+		}
+
+		if decoder != nil {
+			readerToUse = transform.NewReader(bytes.NewReader(contentBytes), decoder.NewDecoder())
+		}
+	}
+
+	entity, err := message.Read(readerToUse)
 	if err != nil {
 		return nil, fmt.Errorf("failed to read message entity: %w", err)
 	}

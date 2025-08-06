@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"flag"
 	"fmt"
+	"io"
 	"io/ioutil"
 	"log"
 	"os"
@@ -47,19 +48,45 @@ func main() {
 	// Adjust os.Args after flag parsing
 	args := flag.Args()
 
-	// 1. Load configuration
-	if len(args) < 1 {
-		log.Fatal("Usage: mail-analyzer [--debug|-d] <path/to/your/mail.eml> [config.json]")
-	}
-	emlPath := args[0]
-	configPath := ""
-	if len(args) > 1 {
-		configPath = args[1]
-	}
+	var rawMessage []byte
+	var sourceFile string
+	var err error
 
-	cfg, err := config.Load(configPath)
-	if err != nil {
-		log.Fatalf("Error loading configuration: %v", err)
+	// 1. Load configuration
+	var cfg *config.Config // Declare cfg here
+	configPath := ""
+
+	if len(args) < 1 {
+		// Read from stdin if no file path is provided
+		log.Println("No EML file path provided. Reading from stdin...")
+		rawMessage, err = io.ReadAll(os.Stdin)
+		if err != nil {
+			log.Fatalf("Error reading from stdin: %v", err)
+		}
+		sourceFile = "stdin" // Indicate source is stdin
+
+		// Load config even if reading from stdin
+		cfg, err = config.Load(configPath)
+		if err != nil {
+			log.Fatalf("Error loading configuration: %v", err)
+		}
+	} else {
+		emlPath := args[0]
+		if len(args) > 1 {
+			configPath = args[1]
+		}
+
+		cfg, err = config.Load(configPath)
+		if err != nil {
+			log.Fatalf("Error loading configuration: %v", err)
+		}
+
+		// 3. Read eml file
+		rawMessage, err = os.ReadFile(emlPath)
+		if err != nil {
+			log.Fatalf("Error reading eml file: %v", err)
+		}
+		sourceFile = emlPath
 	}
 
 	// Ensure at least one of OpenAIAPIKey or OpenAIAPIBaseURL is set
@@ -71,12 +98,6 @@ func main() {
 	// 2. Setup analyzer
 	llmProvider := llm.NewOpenAIProvider(cfg)
 	emailAnalyzer := analyzer.NewEmailAnalyzer(llmProvider)
-
-	// 3. Read eml file
-	rawMessage, err := os.ReadFile(emlPath)
-	if err != nil {
-		log.Fatalf("Error reading eml file: %v", err)
-	}
 
 	// 4. Process the message
 	var results []*AnalysisResult
@@ -100,7 +121,7 @@ func main() {
 
 	// 5. Output results as JSON
 	output := FinalOutput{
-		SourceFile:      emlPath,
+		SourceFile:      sourceFile,
 		AnalysisResults: results,
 	}
 

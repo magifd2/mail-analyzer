@@ -7,6 +7,7 @@ This tool is designed for flexibility, allowing it to be easily integrated into 
 ## Features
 
 -   **EML File Analysis**: Analyzes a single email directly from a standard `.eml` file.
+-   **Automatic Charset Handling**: Automatically detects and converts various email charsets (including `iso-2022-jp`) to UTF-8 for seamless processing.
 -   **LLM-Powered Analysis**: Leverages any OpenAI-compatible API with Tool-Calling capabilities for intelligent and structured email analysis.
 -   **Structured JSON Output**: Provides analysis results in a clean, machine-readable format.
 -   **Flexible Configuration**: Configure via a JSON file and/or environment variables.
@@ -59,7 +60,7 @@ mkdir -p ~/.config/mail-analyzer
 ```json
 {
   "openai_api_key": "sk-your_openai_api_key_here",
-  "openai_base_url": "https://api.openai.com/v1/chat/completions",
+  "openai_api_base_url": "https://api.openai.com/v1/chat/completions",
   "model_name": "gpt-4-turbo"
 }
 ```
@@ -95,7 +96,22 @@ go run main.go /path/to/your/email.eml /path/to/your/config.json
 ./mail-analyzer /path/to/your/email.eml /path/to/your/config.json
 ```
 
-If the config path is omitted, the tool will look for `~/.config/mail-analyzer/config.json` and then environment variables.
+### Analyze from Standard Input
+
+You can also pipe the content of an `.eml` file directly to `mail-analyzer`. This is useful for integrating with other tools or scripts.
+
+```sh
+cat /path/to/your/email.eml | ./mail-analyzer
+```
+
+### Debugging
+
+To enable debug logging (output to stderr), use the `--debug` or `-d` flag:
+
+```sh
+./mail-analyzer --debug /path/to/your/email.eml
+cat /path/to/your/email.eml | ./mail-analyzer -d
+```
 
 ---
 
@@ -137,3 +153,5 @@ The tool outputs a single JSON object to standard output containing the analysis
 -   `make build`: Compiles the Go source code and creates the `mail-analyzer` binary.
 -   `make test`: Runs all tests in the project.
 -   `make clean`: Removes the compiled binary.
+
+```
