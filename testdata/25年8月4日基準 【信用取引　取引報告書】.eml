@@ -1,0 +1,127 @@
+Delivered-To: magi.link@gmail.com
+Received: by 2002:a05:7110:148a:b0:272:f0ab:b07e with SMTP id bw10csp957423geb;
+        Sun, 3 Aug 2025 18:08:49 -0700 (PDT)
+X-Forwarded-Encrypted: i=3; AJvYcCVZ9rfjtAXOgJhfGZlASdEOAGKcE8RsoMCKLfWElWSVk7pD2OXRPvFZGk1d0vwi7bHAbW1BGeTQvbY=@gmail.com
+X-Google-Smtp-Source: AGHT+IFprCHNnBXuKPzqhsR82/vt+MNT04SOfmgiVaUkC4EaoJGd3ExgA3ardykOoWaxDX0Pyiaq
+X-Received: by 2002:a05:6a00:4b05:b0:740:9d7c:8f5c with SMTP id d2e1a72fcca58-76bec4b0960mr10387285b3a.18.1754269729198;
+        Sun, 03 Aug 2025 18:08:49 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1754269729; cv=pass;
+        d=google.com; s=arc-20240605;
+        b=lrVBSHIiKCluSv/D31ylUWZPlKaEM/B/tIV9TlrrGpYEhkweXD6NDoO3dWWmyqXYJ9
+         Dk5fnC9Aq3gaLSkTCaI7ZDRlWWrLxCAkjsskVl8qir4NmtHg8V9F8oEI6s+iNhnRHpi0
+         4gFSztksBaB1gu3aM2/NJdQg07Ql/HExW4sS20QP7lpFfCqO0ryMXy3sNihzeBzcF4oI
+         4r6ix2Dypu1rYtdajyoCLIT/rNd8vYSUkFu0rbyE6lZJAgGN2CCS1F4I2pTGbL0nsx8i
+         oybm+5IvdyzvRIZkUbKPWRFbcx2Wu53MdZR03fdZt9zNYXVlUR5GP4Jpff8uIYuiKH+7
+         wksg==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=message-id:subject:to:from:mime-version:dkim-signature:date;
+        bh=0DSXuGeu5Hop2xFledjtTtxK6cM53dUp/fErrI2ENtw=;
+        fh=TO2HmmN7MFVkddU1pQ22nVPRqwFJAqgtCK1sWYb8YuI=;
+        b=MPYU7EdPm+wI7bBUKgJlkUuy5Be7EBLmZLfWfZdA1eKB7RrsLE1JzkT7DHaBv7G3LF
+         ZzHBhVr1Mfw0AGOD7BtUt93wAoRoS1oZ0UZdgaEO+1gfVjrsuZQzFMeGEEr8FACX7z1C
+         mU3tZwrckj67YjezVvkhFgD5H3Ku7LfjPRwLl4oak+HhTSmtDSAUh+X1n1c9/TyTiYSk
+         pgGG6Qkalk1kjJziENohP2WnfNR0/SNS1reC47pAyUxaeYTvMcbnR+cd6xpD2V4eJLBS
+         mNrQklOX0MQDx2IEsuRoiz+BhYn1PfOhztPywDFYPKn5yR8z3A63is8eh1eE6DbAy+mp
+         blgg==;
+        dara=google.com
+ARC-Authentication-Results: i=2; mx.google.com;
+       dkim=pass header.i=@sfhwfg.com header.s=dkim header.b=ptnkgYC1;
+       arc=pass (i=1);
+       spf=fail (google.com: domain of information@sfhwfg.com does not designate 27.120.211.166 as permitted sender) smtp.mailfrom=information@sfhwfg.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=sfhwfg.com
+Return-Path: <information@sfhwfg.com>
+Received: from relay01.cm01.cloud-mail.jp (mail-gw27.cloud-mail.jp. [27.120.211.166])
+        by mx.google.com with ESMTPS id d2e1a72fcca58-76be0bf8623si6115569b3a.170.2025.08.03.18.08.48
+        for <magi.link@gmail.com>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Sun, 03 Aug 2025 18:08:49 -0700 (PDT)
+Received-SPF: fail (google.com: domain of information@sfhwfg.com does not designate 27.120.211.166 as permitted sender) client-ip=27.120.211.166;
+Authentication-Results: mx.google.com;
+       dkim=pass header.i=@sfhwfg.com header.s=dkim header.b=ptnkgYC1;
+       arc=pass (i=1);
+       spf=fail (google.com: domain of information@sfhwfg.com does not designate 27.120.211.166 as permitted sender) smtp.mailfrom=information@sfhwfg.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=sfhwfg.com
+Received: from store045-fbp.cm01.cloud-mail.jp (store045-fbp.cm01.cloud-mail.jp [10.32.71.53]) by relay01.cm01.cloud-mail.jp (3.11r) with ESMTP id 57418lIg011364 for <magi.link@gmail.com>; Mon, 4 Aug 2025 10:08:47 +0900 (JST)
+Authentication-Results: relay01; arc=none
+ARC-Seal:  i=1; a=rsa-sha256; d=cloud-mail.jp; s=a20240201rs; t=1754269727;
+	cv=none; b=4QQEjleY8VnMGvKmExWZ1TAJwHknNJH6OjajgSqAvdRtkExrvuf/N7K0+PjjHMFwotyDVXokFmf7j1wjpZycfEpOSOmV5lk2vJjzvDplt5/87mLVbz++0OHzA1EYIxCg2OSVgEc904KKFpDH4eeUbxuE5js6PMdsH9hfe94sqtEgnxyVU1cdGeQO7OX9Q9GjT50ja7vyqj24eVQhJ2uYx7vbR2/EBheERB80bn4JQbpXlFV0gBg96PmEzBriBYEmTghabamT+kblafu59bS5dgIC6lXRc2IAxZ8k9DQ/Sdnx/2xULD75FeRmM653Or1aQwdMFGZ9AK9khxdXQQgn/g==
+ARC-Message-Signature:  i=1; a=rsa-sha256; d=cloud-mail.jp; s=a20240201rs;
+	t=1754269727; c=relaxed/relaxed;
+	bh=0DSXuGeu5Hop2xFledjtTtxK6cM53dUp/fErrI2ENtw=;
+	h=Date:DKIM-Signature:MIME-Version:From:To:Subject:Message-ID; b=2B/qYcE90yd3pW52Vc5OtdFpti6hi0ewwVSXddujuGna1rC6naM1RTaVeF/bJKC9HTOmSnNtsKXTiLTpubZ5dnGu1XdG90QWZgP+gD6clhvDpXv3dzeF297UlwNgy6aONCOZ1nPezsTs4YuWdD6se7FSvhP+QwvMeBAx5+YmVY1wcAtuAVFMieuuBJm6z5mBzRSCw+rKHGU9mM9O8YiD2shFsc15/YJUpC6b1SOnA25SxhJzvOGZwkNfZXsCFpesEiOgfAaxRNhiiHfzD87kaIUZgKZy+c9xbE276IpqRjHFW7pzqQFF9OJ1NRzCSP21HFC9zR+2N1whEJzA69cXIA==
+ARC-Authentication-Results:  i=1; relay01; arc=none
+X-Mark-Debug: sink= hfrom=information@sfhwfg.com spam=
+Received: from mx03.cm01.cloud-mail.jp (mx03-fbp.cm01.cloud-mail.jp [10.32.68.10]) by store045-fbp.cm01.cloud-mail.jp (3.10pn) with ESMTP id 57418lZT014808 for <magi@kiwi.ne.jp>; Mon, 4 Aug 2025 10:08:47 +0900 (JST)
+Received: from scpa201.cm01.cloud-mail.jp ([10.236.147.1]) by mx03.cm01.cloud-mail.jp (3.11g) with ESMTP id 57418lr8024909 for <magi@kiwi.ne.jp>; Mon, 4 Aug 2025 10:08:47 +0900 (JST)
+Received: from pps.filterd (scpa201.cm01.cloud-mail.jp [127.0.0.1])
+	by scpa201.cm01.cloud-mail.jp (8.18.1.2/8.18.1.2) with ESMTP id 5740ctUc031576
+	for <magi@kiwi.ne.jp>; Mon, 4 Aug 2025 10:08:47 +0900
+Date: Mon, 4 Aug 2025 10:08:47 +0900
+Authentication-Results: cm01.cloud-mail.jp;
+	dkim=pass header.s=dkim header.d=sfhwfg.com;
+	spf=pass smtp.mailfrom=information@sfhwfg.com;
+	dmarc=pass header.from=sfhwfg.com
+Received: from sfhwfg.com (17.29.97.34.bc.googleusercontent.com [34.97.29.17])
+	by scpa201.cm01.cloud-mail.jp (PPS) with ESMTPS id 4891af3af3-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
+	for <magi@kiwi.ne.jp>; Mon, 04 Aug 2025 10:08:47 +0900
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; s=dkim; d=sfhwfg.com;
+ h=Content-Type:MIME-Version:From:To:Subject; i=information@sfhwfg.com;
+ bh=0DSXuGeu5Hop2xFledjtTtxK6cM53dUp/fErrI2ENtw=;
+ b=ptnkgYC1XpFDTmKS7HSE8W/pu5VtQMV4ARgH2BIdgVq+kUtNtTPdxvYheO9n+VIJ5A4hgPR7PVjU
+   ln1Hpm/zxYWOlmzmgv75lBqx0FZjBKAyf8c7+AHK3lsC0IShUs4PvJ4XozbS9znD2Zct1B0O8DjS
+   5yrdbkSo8Ixr4Fqo23o=
+Content-Type: multipart/mixed; boundary="===============0083833482093447847=="
+MIME-Version: 1.0
+From: =?utf-8?b?6YeO5p2R6K2J5Yi4?= <information@sfhwfg.com>
+To: magi@kiwi.ne.jp
+Subject: =?utf-8?b?MjXlubQ45pyINOaXpeWfuua6liDjgJDkv6HnlKjlj5blvJXjgIDlj5Y=?=
+ =?utf-8?b?5byV5aCx5ZGK5pu444CR?=
+Message-ID: <4891af3af3-1@scpa201.cm01.cloud-mail.jp>
+X-Proofpoint-GUID: PhY9CkHRCxJoOVlG9qFfO5QHL5O7f21S
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODA0MDAwMiBTYWx0ZWRfX33VqRoTZSU8M E3d+OK7Efre8bk9wKgKJVNnXmCwYV9rx7S2rY2zURV48VOpqJpMSaN0NKGxJ2lBIfv0ihETyz7b f/8fw8LzZ6W9kqT8H2rnqapmJtEpYMGHSd9zSrjyh4lOe54JY2BERWu+35AphsvCLTtHlYvSdcT
+ rQB8htbM0ZO7nuFnALq6koArCgyeOnR9vMAHvPPiRQl/uFcmiYmyMxCOMW7z14fOal+au/sQuzB +ygvfU03DX4CRtF8I/SJql4RDEPBoK65+nq3umZjZvXa5C18UR8A==
+X-Proofpoint-ORIG-GUID: PhY9CkHRCxJoOVlG9qFfO5QHL5O7f21S
+
+--===============0083833482093447847==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+
+5bmz57Sg44Gv6YeO5p2R6K2J5Yi444KS44GU5oSb6aGn44GE44Gf44Gg44GN44CB6Kqg44Gr44GC
+44KK44GM44Go44GG44GU44GW44GE44G+44GZ44CC44CQ5L+h55So5Y+W5byV44CA5Y+W5byV5aCx
+5ZGK5pu444CR44KSV2Vi5Lqk5LuY44GX44G+44GX44Gf44CCCgrjgqrjg7Pjg6njgqTjg7PjgrXj
+g7zjg5Pjgrnjgavjg63jgrDjgqTjg7PlvozjgIHjgIzos4fnlKPnirbms4Ev5bGl5q2044CN4oaS
+44CM5Y+W5byV5aCx5ZGK5pu4562JV2Vi5Lqk5LuY44CN55S76Z2i44KI44KK44GU56K66KqN44GP
+44Gg44GV44GE44CCCu+8iOabuOmdouOBrumWsuimp+OBq+OBr+WPluW8leODkeOCueODr+ODvOOD
+ieOBjOW/heimgeOBp+OBmeOAgu+8iQoKPOODreOCsOOCpOODsz4KaHR0cHM6Ly9ob21ldHJhZGUt
+bm9tdXJhLmU1b204eS50b3AvP25vbXVyYT00b2Z1bUdZTFd0QThyZHJBNnVQMAoK44GU5LiN5piO
+44Gq54K544GM44GU44GW44GE44G+44GX44Gf44KJ44CB6Kqg44Gr44GK44Gd44KM5YWl44KK44G+
+44GZ44GM5byK56S+44GK5Y+W5byV5bqX44Gu57eP5YuZ6Kqy6ZW344G444GU6YCj57Wh44GP44Gg
+44GV44GE44CCCuOBquOBiuOAgeOBiuWPluW8leW6l+OBrumAo+e1oeWFiOOBjOOBlOS4jeaYjuOB
+quWgtOWQiOOBr+OAgemHjuadkeitieWIuOODm+ODvOODoOODmuODvOOCuOOBq+OBpuOBlOeiuuiq
+jeOBhOOBn+OBoOOBkeOBvuOBmeOAggoK77y/77y/77y/77y/77y/77y/77y/77y/77y/77y/77y/
+77y/77y/77y/77y/77y/77y/77y/77y/77y/77y/77y/77y/77y/77y/Cgrjg7vmnKzjg6Hjg7zj
+g6vjga/jgIHph47mnZHorYnliLjjgqrjg7Pjg6njgqTjg7PjgrXjg7zjg5Pjgrnjgavjg6Hjg7zj
+g6vjgqLjg4njg6zjgrnjgpIK44GU55m76Yyy44GE44Gf44Gg44GE44Gm44GE44KL44GK5a6i5qeY
+44Gr6YCB5L+h44GX44Gm44GK44KK44G+44GZ44CCCumAgeS/oeOCkuS4reatouOBmeOCi+OBk+OB
+qOOBr+OBp+OBjeOBvuOBm+OCk+OBruOBp+OAgQrjgYLjgonjgYvjgZjjgoHjgZTkuobmib/jgY/j
+gaDjgZXjgYTjgIIKCuODu+ODoeODvOODq+OCouODieODrOOCueOBruWkieabtOOCkuOBlOW4jOac
+m+OBruOBiuWuouanmOOBr+OAgQrjg63jgrDjgqTjg7Pjga7jgYbjgYjjgIHjgIzlj6Pluqfmg4Xl
+oLEv5omL57aa44GN77ye44Oh44O844Or44Ki44OJ44Os44K555m76YyyL+WkieabtOOAjeOCiOOC
+igrjgYrmiYvntprjgY3jgY/jgaDjgZXjgYTjgIIKCuODu+acrOODoeODvOODq+OBrumAgeS/oeOC
+ouODieODrOOCueOBr+eZuuS/oeWwgueUqOOBp+OBmeOAggrov5Tkv6Hjg6Hjg7zjg6vjgafjga7j
+gYrllY/jgYTlkIjjgo/jgZvnrYnjga/mib/jgorjgYvjga3jgb7jgZnjga7jgafjgIEK44GC44KJ
+44GL44GY44KB44GU5LqG5om/6aGY44GE44G+44GZ44CCCuKAleKAleKAleKAleKAleKAleKAleKA
+leKAleKAleKAleKAleKAleKAleKAleKAleKAleKAleKAleKAleKAleKAleKAleKAleKAleKAleKA
+leKAleKAleKAleKAleKAleKAleKAleKAlQrph47mnZHorYnliLjmoKrlvI/kvJrnpL7jgIDph5Ho
+no3llYblk4Hlj5blvJXmpa3ogIXjgIDplqLmnbHosqHli5nlsYDplbco6YeR5ZWGKSDnrKwxNDLl
+j7cK5Yqg5YWl5Y2U5Lya77yP5pel5pys6Ki85Yi45qWt5Y2U5Lya44CB5LiA6Iis56S+5Zuj5rOV
+5Lq65pel5pys5oqV6LOH6aGn5ZWP5qWt5Y2U5Lya44CBCuS4gOiIrOekvuWbo+azleS6uumHkeie
+jeWFiOeJqeWPluW8lealreWNlOS8muOAgeS4gOiIrOekvuWbo+azleS6uuesrOS6jOeorumHkeie
+jeWVhuWTgeWPluW8lealreWNlOS8mgrigJXigJXigJXigJXigJXigJXigJXigJXigJXigJXigJXi
+gJXigJXigJXigJXigJXigJXigJXigJXigJXigJXigJXigJXigJXigJXigJXigJXigJXigJXigJXi
+gJXigJXigJXigJXigJUKQ09QWVJJR0hUKEMpIE5PTVVSQSBTRUNVUklUSUVTIENPLiwgTFRELiBB
+TEwgUklHSFRTIFJFU0VSVkVELg==
+
+--===============0083833482093447847==--

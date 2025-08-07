@@ -1,7 +1,6 @@
 package email
 
 import (
-	"bytes"
 	"errors"
 	"fmt"
 	"io"
@@ -16,6 +15,8 @@ import (
 	"golang.org/x/text/encoding"
 	"golang.org/x/text/encoding/japanese"
 	"golang.org/x/text/transform"
+
+	"mail-analyzer/converter"
 )
 
 // ParsedEmail holds the extracted information from an email.
@@ -31,48 +32,13 @@ type ParsedEmail struct {
 
 // Parse reads an email from an io.Reader and extracts key information.
 func Parse(r io.Reader) (*ParsedEmail, error) {
-	// Read the entire content of the reader into a buffer
-	contentBytes, err := io.ReadAll(r)
+	// Convert input reader to UTF-8 using the converter module
+	utf8Reader, err := converter.ConvertToUTF8(r)
 	if err != nil {
-		return nil, fmt.Errorf("failed to read email content: %w", err)
+		return nil, fmt.Errorf("failed to convert email to UTF-8: %w", err)
 	}
 
-	// Attempt to detect charset from headers in the raw content
-	headerPart := string(contentBytes)
-	if len(headerPart) > 4096 { // Limit to first 4KB for header scanning
-		headerPart = headerPart[:4096]
-	}
-
-	charsetRe := regexp.MustCompile(`(?i)charset=["']?([^"';\s]+)["']?`)
-	matches := charsetRe.FindStringSubmatch(headerPart)
-
-	var detectedCharset string
-	if len(matches) > 1 {
-		detectedCharset = strings.ToLower(matches[1])
-	}
-
-	var readerToUse io.Reader = bytes.NewReader(contentBytes) // Default to original content
-	if detectedCharset != "" && detectedCharset != "utf-8" {
-		log.Printf("DEBUG: Detected charset '%s'. Attempting to decode before parsing.", detectedCharset)
-		var decoder encoding.Encoding
-		switch detectedCharset {
-		case "iso-2022-jp":
-			decoder = japanese.ISO2022JP
-		case "shift_jis", "shift-jis":
-			decoder = japanese.ShiftJIS
-		case "euc-jp", "euc_jp":
-			decoder = japanese.EUCJP
-		default:
-			log.Printf("Warning: Detected unsupported charset '%s' for pre-decoding. Proceeding without pre-decoding.", detectedCharset)
-			decoder = nil
-		}
-
-		if decoder != nil {
-			readerToUse = transform.NewReader(bytes.NewReader(contentBytes), decoder.NewDecoder())
-		}
-	}
-
-	entity, err := message.Read(readerToUse)
+	entity, err := message.Read(utf8Reader) // Use the UTF-8 reader here
 	if err != nil {
 		return nil, fmt.Errorf("failed to read message entity: %w", err)
 	}
@@ -147,7 +113,7 @@ func extractBodyAndURLs(entity *message.Entity) (string, []string, error) {
 				// Decode charset if specified
 			charset := partParams["charset"]
 			if charset != "" {
-				log.Printf("DEBUG: Decoding part with charset: %s", charset)
+					log.Printf("DEBUG: Decoding part with charset: %s", charset)
 					decodedContent, decodeErr := decodeCharset(partContent, charset)
 					if decodeErr == nil {
 						partContent = decodedContent

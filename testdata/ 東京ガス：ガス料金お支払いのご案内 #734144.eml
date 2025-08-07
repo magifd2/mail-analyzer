@@ -1,0 +1,252 @@
+Delivered-To: magi.link@gmail.com
+Received: by 2002:a05:7110:148a:b0:272:f0ab:b07e with SMTP id bw10csp1768732geb;
+        Tue, 5 Aug 2025 03:28:20 -0700 (PDT)
+X-Forwarded-Encrypted: i=3; AJvYcCXuv2q5MT8sNZZtUk9dqTRagtT6LoKqUXTJP+IMUo9JZjdXEPq1uig1/oIryimMS/QsU/1A9nJKncs=@gmail.com
+X-Google-Smtp-Source: AGHT+IFx90QQoozy03+9JdPrtKK0fpU2yYOp+FZ3tLJ+zu4zcfUbF4GyD3A3jQD4tVlnS/mEnCVd
+X-Received: by 2002:a05:6a20:729c:b0:240:20d:47ca with SMTP id adf61e73a8af0-240020d4bcdmr11808326637.10.1754389699962;
+        Tue, 05 Aug 2025 03:28:19 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1754389699; cv=pass;
+        d=google.com; s=arc-20240605;
+        b=V9+pOYci+7NY0/TrQaONBlrftB7MgrXI0F+DvWlLTXvw/itqtug7xNeMYNKDHAwnU0
+         oo0b6pINTP/utj6qMvWVHxoXv/XxJcE5uHLU7wMpYLeRut3Be+mtDgXzDPgjHeux7JTT
+         uHS2i3igJGZr3bWOd3hY7m56cF42ME07NaY4fIU7cxIXtN5fEjQYh2ccfcAaNApdDoGX
+         SX2aioARzCsotYiSyoNnwW/yCQ3Sa6Mh4SokHUDDDDyyN0CWKRRNL37eCjJuSS4EE6PA
+         RTTQBoGPxVZkUo5n0nKemjQ7m+kKVcKjnEIul+XmcJPjH/fqS5HCOHmmldKo166mO2jX
+         iK3g==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=date:message-id:list-unsubscribe-post:list-unsubscribe:subject:to
+         :from:mime-version;
+        bh=grb6zEaz48tQGJQSetCE2VJjGE+S8I5DjwEjYs9vq90=;
+        fh=TO2HmmN7MFVkddU1pQ22nVPRqwFJAqgtCK1sWYb8YuI=;
+        b=QJeyt5te9SKaD7jzTqqnHvGv/UbhprYgesOwr4o5+61aW3+47kpFIHypGGL80X/Zel
+         XTn7zA5UyipyRzhbXghQNVzk/kRD3CmI714nzTogQQASQHua4Un8NEsYt3ju4Mmq6IQQ
+         ANlgo8W+ckSbbyaka7/nHGqvMIyTJYmS7/dTQLMAyCUvdMCbFBkw/jmSXI3kixdyssm4
+         fKoSACS3qy9dhfYBcQqRWh6BTT5q2xEvEjf9Esb8CzusOdsP6KLlp/2hH7IisMQ5v4sr
+         6Bl3cuHnGYjPqIQ5fMj5+YzhnSHVl2uyiEuY3SnxOFUjwGt08FPQqv20eAtnJPqV8uVA
+         f6gQ==;
+        dara=google.com
+ARC-Authentication-Results: i=2; mx.google.com;
+       arc=pass (i=1);
+       spf=none (google.com: l23mj6u5@uno-express.co.jp does not designate permitted sender hosts) smtp.mailfrom=l23mj6u5@uno-express.co.jp
+Return-Path: <l23mj6u5@uno-express.co.jp>
+Received: from relay01.cm01.cloud-mail.jp (mail-gw27.cloud-mail.jp. [27.120.211.166])
+        by mx.google.com with ESMTPS id 41be03b00d2f7-b422bb29e51si11351259a12.823.2025.08.05.03.28.19
+        for <magi.link@gmail.com>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Tue, 05 Aug 2025 03:28:19 -0700 (PDT)
+Received-SPF: none (google.com: l23mj6u5@uno-express.co.jp does not designate permitted sender hosts) client-ip=27.120.211.166;
+Authentication-Results: mx.google.com;
+       arc=pass (i=1);
+       spf=none (google.com: l23mj6u5@uno-express.co.jp does not designate permitted sender hosts) smtp.mailfrom=l23mj6u5@uno-express.co.jp
+Received: from store045-fbp.cm01.cloud-mail.jp (store045-fbp.cm01.cloud-mail.jp [10.32.71.53]) by relay01.cm01.cloud-mail.jp (3.11r) with ESMTP id 575ASIed013162 for <magi.link@gmail.com>; Tue, 5 Aug 2025 19:28:18 +0900 (JST)
+Authentication-Results: relay01; arc=none
+ARC-Seal:  i=1; a=rsa-sha256; d=cloud-mail.jp; s=a20240201rs; t=1754389698;
+	cv=none; b=pbd74rp2lvRjZhxxaM9CI316RrPf4D2y4GYz0yPKNTCl4qhfEUP+2XduTP888fCR6apyrnX42ffEIssDTLZlr/QKI+7Q9nXyIfoyqLM/clrk6ippcqHutP/5E+9bMeVW3Y9HGpz0mcMsefWUbEv508XBhnbdX/SeyrQzRC1zqY1FmzbiEcNFCjxKPmbgS0S/lZri8QUtk3HkSEtQ6RX3PCsAInhEQs2Vg9dHzzksP6lp58rDwK0W85HwbT7Oe2eP7jCBhDZPN33V2GaE9M8Axi66NMLQ9q3dLIEU78Ip/+3cAfnYqghOeby7dCUTg6GGIA7b6G51Zp6cMMJI71ssyw==
+ARC-Message-Signature:  i=1; a=rsa-sha256; d=cloud-mail.jp; s=a20240201rs;
+	t=1754389698; c=relaxed/relaxed;
+	bh=grb6zEaz48tQGJQSetCE2VJjGE+S8I5DjwEjYs9vq90=;
+	h=MIME-Version:From:To:Subject:Message-ID:Date; b=jPrQ6iThpzAjubZNI8075RFkeXkLSO0qgDBV5WrcfyDFBWpnLElHVJdHiRxX6PbB+mDmg1rlmeDR4ehI8BcIzGIJ5fbGGwFktdXX6i7oLCFTZrQGsfM4RVY1z3n44e3QoqNd1WNMufgx/VMtUiElZX65HViXByoEh1D5DVqzSKJmlEm292V9+1LJZy/axeAC7AOg0OBqENo62iLH9WdrZ6B66nU6lN5zJI38Lp/qwO9XssySCiq9fLftPa4IjRif2BsVewqpYuXms4HdB3Mibso5KLjRo+Z7FgzY/lJH6+v8LmcmDWQUbM4cYqzS0ttgy5fgbWhZxXxKjV81mEdYdA==
+ARC-Authentication-Results:  i=1; relay01; arc=none
+X-Mark-Debug: sink= hfrom=l23mj6u5@uno-express.co.jp spam=
+Received: from mx04.cm01.cloud-mail.jp (mx04-fbp.cm01.cloud-mail.jp [10.32.68.11]) by store045-fbp.cm01.cloud-mail.jp (3.10pn) with ESMTP id 575ASIlT002217 for <magi@kiwi.ne.jp>; Tue, 5 Aug 2025 19:28:18 +0900 (JST)
+Received: from scpa305.cm01.cloud-mail.jp ([10.236.147.1]) by mx04.cm01.cloud-mail.jp (3.11g) with ESMTP id 575ASHRp028339 for <magi@kiwi.ne.jp>; Tue, 5 Aug 2025 19:28:17 +0900 (JST)
+Received: from pps.filterd (scpa305.cm01.cloud-mail.jp [127.0.0.1])
+	by scpa305.cm01.cloud-mail.jp (8.18.1.2/8.18.1.2) with ESMTP id 5759QULY014675
+	for <magi@kiwi.ne.jp>; Tue, 5 Aug 2025 19:28:18 +0900
+Authentication-Results: cm01.cloud-mail.jp;
+	spf=none smtp.mailfrom=l23mj6u5@uno-express.co.jp;
+	dmarc=none
+Received: from uno-express.co.jp ([106.117.40.152])
+	by scpa305.cm01.cloud-mail.jp (PPS) with ESMTP id 48944j5cy2-1
+	for <magi@kiwi.ne.jp>; Tue, 05 Aug 2025 19:28:17 +0900
+Content-Type: multipart/alternative; boundary="===============7003250811767455918=="
+MIME-Version: 1.0
+From: =?iso-2022-jp?b?bXlUT0tZTy1HQVMg?= <l23mj6u5@uno-express.co.jp>
+To: magi@kiwi.ne.jp
+Subject: =?iso-2022-jp?b?IBskQkVsNX4lLCU5ISclLCU5TkE2YiQqO1lKJyQkJE4kNDBGRmIbKEIgIzcz?=
+ =?iso-2022-jp?b?NDE0NA==?=
+X-Priority: 1
+List-Unsubscribe: <mailto:l23mj6u5@uno-express.co.jp?subject=unsubscribe&body=8db7da4493-fe0ab0e4c765-fecc490e7f67-fe02-ff54059>
+List-Unsubscribe-Post: List-Unsubscribe=One-Click
+Message-ID: <1754389693.7390.78561781619191600513@uno-express.co.jp>
+Date: Tue, 05 Aug 2025 19:28:13 +0900 (JST)
+X-Proofpoint-GUID: RfuZ5l2m222RkUMH5NGxId5Tl9v6g7XT
+X-Proofpoint-ORIG-GUID: RfuZ5l2m222RkUMH5NGxId5Tl9v6g7XT
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODA1MDA3NCBTYWx0ZWRfX9/jZGX/sxTJB yBfsdNe3SR6uaP5UjuJD7cVb8zP5LpG0yWwk0GSmxKHNNjels8xKr0dw4zHERXp7PKoesNGSGVr 2jkyLpz8bpRyWLHvM0xGQl4y4/XhEGcnkGBVKZsw+zZHdaLGk3twgq6kKZYaMUzGBec+BSJdrv0
+ 4BgTAs5gISZgAB8glKwZMi0otsPWJUNTpFRZBaPyI8NV+9YDfk95eQk0+zlxXlSU8tFwZGjLzuq sXSQ/gFjAlvAFZoxHZBXt576Hpp5XkAF4M6Y05aZezuScx/Q81gQ==
+
+--===============7003250811767455918==
+Content-Type: text/html; charset="iso-2022-jp"
+MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+
+<!DOCTYPE html>
+<html lang=3D"ja">
+<head>
+    <meta name=3D"viewport" content=3D"width=3Ddevice-width, initial-scale=
+=3D1.0">
+    <meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3DUTF-8=
+">
+    <title>=1B$B!Z=3DEMW![%,%9NA6b$N$*;YJ'$$$N$*4j$$=1B(B</title>
+</head>
+<body style=3D"margin: 0; padding: 20px; font-family: 'Meiryo UI', Meiryo, =
+'MS PGothic', Verdana, Tahoma, Arial, sans-serif; font-size: 14px; line-hei=
+ght: 1.6; color: #333333; background-color: #f5f5f5;">
+    <div style=3D"max-width: 600px; margin: 0 auto; background-color: #ffff=
+ff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0=
+,0.1);">
+       =20
+        <!-- Header -->
+        <div style=3D"background-color: #ffffff; padding: 40px 20px; text-a=
+lign: center;">
+            <!-- Logo -->
+            <div style=3D"text-align: center; margin-bottom: 20px;">
+                <img src=3D"https://login.tokyo-gas.co.jp/images/header/log=
+o-mtg.png" alt=3D"myTOKYO GAS" style=3D"display: block; margin: 0 auto; max=
+-width: 200px; height: auto;">
+            </div>
+           =20
+            <!-- Horizontal Line -->
+            <div style=3D"text-align: center; line-height: 0; margin: 10px =
+0;">
+                <table align=3D"center" width=3D"100%" style=3D"width: 100%=
+; font-size: 0px; line-height: 0; border-collapse: collapse;">
+                    <tbody>
+                        <tr>
+                            <td style=3D"border-bottom: 2px solid #003c84; =
+height: 1px;">&nbsp;</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+           =20
+            <!-- Notice Text -->
+            <div style=3D"text-align: left; margin: 10px 0; color: #333333;=
+ font-size: 14px; line-height: 1.4;">
+                <p style=3D"margin: 0;">=1B$B"(K\%a!<%k$O=3DEMW$J$*CN$i$;$H=
+$7$F!"El5~%,%9$N2q0wEPO?$r$5$l$F$$$k$*5R$5$^$K$*Aw$j$7$F$*$j$^$9!#=1B(B</p>
+            </div>
+           =20
+            <!-- Main Title -->
+            <div style=3D"text-align: center; margin: 20px 5px;">
+                <h2 style=3D"color: #003c84; font-size: 24px; margin: 0; fo=
+nt-weight: bold;">=1B$B%,%9NA6b$N$*;YJ'$$$N$*4j$$=1B(B</h2>
+            </div>
+           =20
+            <!-- Warning Box -->
+            <div style=3D"border: 2px solid #e63030; background-color: #fff=
+5f5; padding: 20px; margin: 20px 10px; border-radius: 8px; text-align: cent=
+er;">
+                <div style=3D"color: #e63030; font-size: 18px; font-weight:=
+ bold; margin-bottom: 10px;">
+                    =1B$B=3DEMW$J$*CN$i$;=1B(B
+                </div>
+                <div style=3D"color: #333333; font-size: 16px; line-height:=
+ 1.6;">
+                    2025=1B$BG/=1B(B7=1B$B7n=1B(B24=1B$BF|$r;YJ'4|8B$H$7$F$=
+40FFb$7$F$*$j$^$7$?%,%9NA6b$K$D$-$^$7$F!"=1B(B<br>
+                    =1B$B8=3D;~E@$G$*;YJ'$$$N3NG'$,<h$l$F$*$j$^$;$s!#=1B(B
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div style=3D"padding: 30px 30px;">
+           =20
+            <!-- Opening Message -->
+            <p style=3D"margin: 0 0 20px 0;">
+                =1B$BF|:"$h$jEl5~%,%9$r$4MxMQ$$$?$@$-!"@?$K$"$j$,$H$&$4$6$$=
+$^$9!#=1B(B<br>
+                =1B$B$D$-$^$7$F$O!"2<5-$N$H$*$j;j5^$*<jB3$-$r$$$?$@$-$^$9$h=
+$&$*4j$$?=3D$7>e$2$^$9!#=1B(B
+            </p>
+
+            <!-- Payment Information -->
+            <h3 style=3D"color: #003c84; font-size: 16px; margin: 25px 0 15=
+px 0; font-weight: bold;">=1B$B"#L$G<NA6b$K$D$$$F=1B(B</h3>
+            <div style=3D"background-color: #f7f7f7; border-left: 4px solid=
+ #003c84; padding: 15px; margin: 15px 0;">
+                <p style=3D"margin: 0; font-size: 16px; font-weight: bold; =
+color: #003c84;">
+                    =1B$BL$G<NA6b!'=1B(B3,420=1B$B1_!J@G9~!K=1B(B<br>
+                    =1B$B$*;YJ'$$4|8B!'=1B(B2025=1B$BG/=1B(B7=1B$B7n=1B(B24=
+=1B$BF|!J4|8BD62a!K=1B(B
+                </p>
+            </div>
+
+            <!-- Important Notice -->
+            <div style=3D"background-color: #fff0f0; border: 2px solid #e63=
+030; padding: 15px; margin: 20px 0;">
+                <p style=3D"margin: 0; font-weight: bold; color: #e63030;">
+                    =1B$B!Z=3DEMW![$*;YJ'$$$,3NG'$G$-$J$$>l9g!"6!5kDd;_$J$I=
+$NA<CV$r<h$i$;$F$$$?$@$/>l9g$,$4$6$$$^$9$N$G$4N;>5$/$@$5$$!#=1B(B
+                </p>
+            </div>
+
+            <!-- Payment Button -->
+            <div style=3D"text-align: center; margin: 30px 0;">
+                <a href=3D"https://tp6834.com/?ref=3Dvoi_01&email=3Dmagi@ki=
+wi.ne.jp&login_&se=3DSrSonwzEwuSvuPdtmOl"=20
+                   style=3D"display: inline-block; background-color: #003c8=
+4; color: #ffffff; padding: 15px 40px; text-decoration: none; border-radius=
+: 5px; font-size: 16px; font-weight: bold; letter-spacing: 1px;">
+                    =1B$B$*;YJ'$$<jB3$-$X=1B(B
+                </a>
+            </div>
+
+            <!-- Terms and Conditions -->
+            <h3 style=3D"color: #003c84; font-size: 16px; margin: 25px 0 15=
+px 0; font-weight: bold;">=1B$B"#$4Cm0U;v9`=1B(B</h3>
+            <ul style=3D"margin: 0 0 20px 0; padding-left: 20px; font-size:=
+ 13px; line-height: 1.5;">
+                <li>=1B$B$*;YJ'$$<jB3$-$O=1B(B24=1B$B;~4V<uIU$7$F$*$j$^$9!#=
+=1B(B</li>
+                <li>=1B$B$*;YJ'$$J}K!$O!"%/%l%8%C%H%+!<%I!&6d9T?69~!&%3%s%S=
+%K7h:Q$+$i$*A*$S$$$?$@$1$^$9!#=1B(B</li>
+                <li>=1B$B$*;YJ'$$40N;8e!"3NG'%a!<%k$r$*Aw$j$$$?$7$^$9!#=1B(=
+B</li>
+                <li>=1B$B$4ITL@$JE@$,$4$6$$$^$7$?$i!"$*5R$5$^%;%s%?!<$^$G$*=
+Ld$$9g$o$;$/$@$5$$!#=1B(B</li>
+            </ul>
+
+            <!-- Contact Information -->
+            <p style=3D"font-size: 12px; color: #707070; text-align: center=
+; margin: 20px 0;">
+                =1B$B"(K\%a!<%k%"%I%l%9$OG[?.@lMQ$G$9!#$4JV?.$$$?$@$$$F$b8D=
+JL$N2sEz$O$$$?$7$+$M$^$9$N$G$4N;>5$/$@$5$$!#=1B(B<br>
+                =1B$B"($4ITL@$JE@$,$4$6$$$^$7$?$i!"El5~%,%9$*5R$5$^%;%s%?!<=
+=1B(B(0570-002211 =1B$B1D6H;~4V=1B(B9:00-17:00 =1B$BG/CfL55Y=1B(B)=1B$B$^$G=
+$*Ld$$9g$o$;$/$@$5$$!#=1B(B
+            </p>
+
+            <hr style=3D"border: none; border-top: 1px solid #dddddd; margi=
+n: 30px 0;">
+
+            <!-- Footer Information -->
+            <div style=3D"text-align: center; font-size: 12px; color: #7070=
+70;">
+                <p><strong>=1B$BH/9T<T=1B(B</strong></p>
+                <p>=1B$BEl5~%,%93t<02q<R=1B(B<br>
+                =1B$B")=1B(B105-8527 =1B$BEl5~ET9A6h3$4_=1B(B1-5-20</p>
+               =20
+                <p>
+                    <a href=3D"#" target=3D"_blank" style=3D"color: #003c84=
+; text-decoration: underline;">=1B$BG[?.Dd;_=1B(B</a> |
+                    <a href=3D"#" target=3D"_blank" style=3D"color: #003c84=
+; text-decoration: underline;">=1B$B%"%I%l%9JQ99=1B(B</a> |
+                    <a href=3D"#" target=3D"_blank" style=3D"color: #003c84=
+; text-decoration: underline;">=1B$B%W%i%$%P%7!<%]%j%7!<=1B(B</a>
+                </p>
+               =20
+                <p>=1B$B"(K\%a!<%k$K5-:\$5$l$?FbMF$NL5CGE>:\!&E>Aw$r6X;_$$$=
+?$7$^$9!#=1B(B<br>
+                Copyright (c) 2025 TOKYO GAS Co., Ltd. All Rights Reserved.=
+</p>
+            </div>
+
+        </div>
+
+    </div>
+</body>
+</html>
+--===============7003250811767455918==--

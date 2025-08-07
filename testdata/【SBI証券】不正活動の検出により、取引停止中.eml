@@ -1,0 +1,245 @@
+Delivered-To: magi.link@gmail.com
+Received: by 2002:a05:7110:148a:b0:272:f0ab:b07e with SMTP id bw10csp1515522geb;
+        Mon, 4 Aug 2025 15:10:11 -0700 (PDT)
+X-Forwarded-Encrypted: i=4; AJvYcCXaAgyZSMmX5Ndvib6GtmS4WLxaIQcpizN2OK4r/bOb6oaSgOF/KTDP2l0C2YA01/IoJocN+RYofds=@gmail.com
+X-Google-Smtp-Source: AGHT+IECupEfggTo7GSie5Wr8O/3GaAXSTP9BpvTZmWakSj+f7dkXypmuiW05nmJY6RLwiueEW+/
+X-Received: by 2002:a05:6a20:3ca7:b0:240:198:7790 with SMTP id adf61e73a8af0-24001987ab5mr9759747637.10.1754345410764;
+        Mon, 04 Aug 2025 15:10:10 -0700 (PDT)
+ARC-Seal: i=3; a=rsa-sha256; t=1754345410; cv=fail;
+        d=google.com; s=arc-20240605;
+        b=Hoeeb4Yo25WETcyqHyTh0JTIxOEsZe5JLHyesdKZBAHMicUXfGpnOsBLVAg7rYCGGL
+         LPmF0KyHe5pgjwcNJg1TeNiOSDDOnNRWutD1pW6uHhY3rsg3JTKRX+ljho5KqxWlH39D
+         pqligntIXf2Cr3C6e2NlctSR+gidaK2vPc3ABLK6WsJ8BAlkhpbI4xqSAYPcDPctwY6X
+         VpK6hf7jgKGtc4aLbAbgCxLcOAuGOSoV3z8Xgc0KnbFivaSDejia5PfKLprYHeqfJv8x
+         bmK5qAjrky06VvlLmP6w/AA+qzDnLFu4LzHyWN77YDAGDgA+KDItNdGOlKQvPS15fUZo
+         26mA==
+ARC-Message-Signature: i=3; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:to:from:user-agent:subject:message-id
+         :mime-version:date:dkim-signature;
+        bh=veuKyJpVxM09wJ+3Sh+1eLtMuuixlKucIVfP2yGfXws=;
+        fh=NAk33JYWjMc4BfGbvz7ktms1A79fuYk+FIH+03YZBS4=;
+        b=hAHP1NctmGCGce5lzs2mH7dWlarzR9bM5+q0D3cpjuTBKU6Sq2ohPcIw86WznnYw8Y
+         5GR2anH+Up9BGXG/Vvjmcje8CjKG1q8Smss9qlh+EiG17JSZjgZxVM9rXJjgQrDtLBfY
+         STg4qI8m4Pr+rVLaE1y3czVOJwcFpo0xTaWDKqPM89//jAMwalS7DMBPzaXwojdzuGRm
+         OwzSlp5GigA2VpmD+ibD6YYl/uio/TjMT72ebWs7FTLRjsfUMQLmzzvC5HzQKyyaVVxT
+         1b9Cohl1cVQpcQJBeNah96PQnllLh2GhrYZaGrtvr0WlrVqSajtQ4kF7yqV80Xns8/aj
+         yq5Q==;
+        dara=google.com
+ARC-Authentication-Results: i=3; mx.google.com;
+       dkim=pass header.i=@sandwipnews24.com header.s=default header.b=NLAR2vUy;
+       arc=fail (signature failed);
+       spf=fail (google.com: domain of info@sandwipnews24.com does not designate 27.120.211.87 as permitted sender) smtp.mailfrom=info@sandwipnews24.com;
+       dmarc=pass (p=QUARANTINE sp=QUARANTINE dis=NONE) header.from=sandwipnews24.com
+Return-Path: <info@sandwipnews24.com>
+Received: from relayd01.cm01.cloud-mail.jp (mail-gw38.cloud-mail.jp. [27.120.211.87])
+        by mx.google.com with ESMTPS id 41be03b00d2f7-b42346dff23si9384748a12.821.2025.08.04.15.10.10
+        for <magi.link@gmail.com>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Mon, 04 Aug 2025 15:10:10 -0700 (PDT)
+Received-SPF: fail (google.com: domain of info@sandwipnews24.com does not designate 27.120.211.87 as permitted sender) client-ip=27.120.211.87;
+Authentication-Results: mx.google.com;
+       dkim=pass header.i=@sandwipnews24.com header.s=default header.b=NLAR2vUy;
+       arc=fail (signature failed);
+       spf=fail (google.com: domain of info@sandwipnews24.com does not designate 27.120.211.87 as permitted sender) smtp.mailfrom=info@sandwipnews24.com;
+       dmarc=pass (p=QUARANTINE sp=QUARANTINE dis=NONE) header.from=sandwipnews24.com
+Received: from relay01.cm01.cloud-mail.jp (relay01.cm01.cloud-mail.jp [10.32.5.168]) by relayd01.cm01.cloud-mail.jp (3.11r) with ESMTP id 574MA9M2028544 for <magi.link@gmail.com>; Tue, 5 Aug 2025 07:10:09 +0900 (JST)
+Authentication-Results: relayd01; arc=pass
+ARC-Seal:  i=2; a=rsa-sha256; d=cloud-mail.jp; s=a20240201rs; t=1754345409;
+	cv=pass; b=b27IZBVz2iEYzbgaJnlIRHaGHScOzGoq8XEbvj8RXuA3WvqctrLxhQzPNHw/Fi3pjtvTQQc5Ap4n4G8R4J1mXNQT0grHz2QQkDSPD6uu0+kMduIsuV0NClOyvMi3bHFP6H35yClACg+VW4XJ+8oBhgPkyrjdg8TNAxrbOnMXUaw4d5ZNGtHrZygG8Klm4IgjBo23Lc3jO0b1PgrK53euwrjHYtNB3WydYUGj6qWuNUNzeNeTZNOoS6XfvYovcrdZBmFQ7nf/xbZUDjBx3mfPxC305ixpvZi7EnruOF3pLVVdZukP9Qi3TBYYl9CwPnjUG/GCC0LJBQA9kTbLc9OAZw==
+ARC-Message-Signature:  i=2; a=rsa-sha256; d=cloud-mail.jp; s=a20240201rs;
+	t=1754345409; c=relaxed/relaxed;
+	bh=veuKyJpVxM09wJ+3Sh+1eLtMuuixlKucIVfP2yGfXws=;
+	h=DKIM-Signature:Date:MIME-Version:Message-ID:Subject:From:To; b=k+fJTVNvCxpy4newF7Adg1rBg38uF/21bcpJ82UKBkGDtmUmpYTs5ExV1Bt45Ab2ClxggS9BO5wCI+ae3VW00PEF01WHXv+yYipxLmWybV64KEqEiqWttocA9Mq2Urrrgd4yGQecY6bZb8HoJb+BC5D3i5ZScRLomd+MJPZp1zBv1PWAsU4ZZwGIhpOs4bYiVBSTg+G6ftKhFSA4aOjf26CaYC59U+HBvAZfxv9gxYJU8JF/tlb9LZQDseXUvKlqn/mHIXPJfDX9xQ8S/EonTou8El6TxB6qqEZfk8oySq+Mw/2QpyT3IMdwFliicQC6VHpacfu4Fqm5dC7IGVYoBw==
+ARC-Authentication-Results:  i=2; relayd01; arc=pass
+Received: from store045-fbp.cm01.cloud-mail.jp (store045-fbp.cm01.cloud-mail.jp [10.32.71.53]) by relay01.cm01.cloud-mail.jp (3.11r) with ESMTP id 574MA9sf010919 for <magi.link@gmail.com>; Tue, 5 Aug 2025 07:10:09 +0900 (JST)
+Authentication-Results: relay01; arc=none
+ARC-Seal:  i=1; a=rsa-sha256; d=cloud-mail.jp; s=a20240201rs; t=1754345409;
+	cv=none; b=3Qf3FRgxfB7gp/4ZGjCdzxgvbH5+ihdPrAkzFu3uP8iVJQMqRsUNOU9J387nXlIqtf2fiK/QTJfvXCbsssp56SgNh0b77BgeJ+LTzicYEo/kivvvJQJelOJWZ81TO/XNDS+DK5oMAf3DNBqwcfcb6IVoX5BpYf5hzjte3m9It5fi35ypSCyDftK4UHiF73ceSg2yPeZDhdcmkLHAnwXgtPzYuXDJbswvi9lv24/JN6G9OmCFmBQPf1Bk8U0uoYNFPzDNWWZiBeE6mm0GXXHRCZx5ZDjzLIiG9T03lBzqFpNdIVHalTg39uqtS03pO/MPycVLHm9fcJVudoM+uCEe6Q==
+ARC-Message-Signature:  i=1; a=rsa-sha256; d=cloud-mail.jp; s=a20240201rs;
+	t=1754345409; c=relaxed/relaxed;
+	bh=veuKyJpVxM09wJ+3Sh+1eLtMuuixlKucIVfP2yGfXws=;
+	h=DKIM-Signature:Date:MIME-Version:Message-ID:Subject:From:To; b=VSDjoexg23j/xrcIpmfQ2d7VYCaXhx0+zMwrVx3Yes0Rx4oyh652USxvTRotENYyDzckFDY36ZNS3dy9XgOjw7CH6YgouUa98qK4Z2X9Zi1MYO2QEshvMRnLL1a1m/zzBfoi7E1YLdRBSTPinPwcTUCPZZ5363i6LLW0fJi8aiESoSeqPvZMTx9hD7M9haF2lcfBpib6DegoUUqYjmU0SfENimPeknP8s/SPP1boOPMUiutUP/IZXrmmGn/RIbOgQzvMmeTsyJR4sYlGlApHvIRl+i+MKK4SSwMWUTUEeUZmaIX0nvngM02zfGjawBbtt4HMfbexwmhF46qwnP3O0Q==
+ARC-Authentication-Results:  i=1; relay01; arc=none
+X-Mark-Debug: sink=dirty hfrom=info@sandwipnews24.com spam=YES
+Received: from mx04.cm01.cloud-mail.jp (mx04-fbp.cm01.cloud-mail.jp [10.32.68.11]) by store045-fbp.cm01.cloud-mail.jp (3.10pn) with ESMTP id 574MA9eK023500 for <magi@kiwi.ne.jp>; Tue, 5 Aug 2025 07:10:09 +0900 (JST)
+Received: from scpa302.cm01.cloud-mail.jp ([10.236.147.1]) by mx04.cm01.cloud-mail.jp (3.11g) with ESMTP id 574MA82O027423 for <magi@kiwi.ne.jp>; Tue, 5 Aug 2025 07:10:08 +0900 (JST)
+Received: from pps.filterd (scpa302.cm01.cloud-mail.jp [127.0.0.1])
+	by scpa302.cm01.cloud-mail.jp (8.18.1.2/8.18.1.2) with ESMTP id 574Jq0bF031833
+	for <magi@kiwi.ne.jp>; Tue, 5 Aug 2025 07:10:09 +0900
+Authentication-Results: cm01.cloud-mail.jp;
+	dkim=pass header.d=sandwipnews24.com header.s=default;
+	spf=pass smtp.mailfrom=info@sandwipnews24.com;
+	dmarc=pass header.from=sandwipnews24.com
+Received: from mail.sandwipnews24.com (mail.sandwipnews24.com [34.116.80.98])
+	by scpa302.cm01.cloud-mail.jp (PPS) with ESMTPS id 4890dvp73j-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
+	for <magi@kiwi.ne.jp>; Tue, 05 Aug 2025 07:10:08 +0900
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=sandwipnews24.com; s=default; h=Content-Type:Content-Transfer-Encoding:To:
+	From:Subject:Message-ID:MIME-Version:Date:Sender:Reply-To:Cc:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:
+	List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=veuKyJpVxM09wJ+3Sh+1eLtMuuixlKucIVfP2yGfXws=; b=NLAR2vUyfTe38yQBnHnhdWeiOc
+	5XJsLhTAUkcBer2rrF32GMehe0cT5p7zDXiOeHMEcEP0C7+lbHBzuxbnV/CB34+y0G18qXnQET3O4
+	2E5BiNwPl2b0y9vj7EoyW0g3aEcL0rVAKjADnfGvpbfKhXd08WYl48mCP41CqMaDNxI0=;
+Date: Tue, 05 Aug 2025 07:09:59 +0900
+MIME-Version: 1.0
+Message-ID: <AYrpmpQL9UhSYmb7s3on7R@VM-58wA7Xmi>
+Subject: 
+ =?UTF-8?q?=E3=80=90SBI=E8=A8=BC=E5=88=B8=E3=80=91=E4=B8=8D=E6=AD=A3?=
+ =?UTF-8?q?=E6=B4=BB=E5=8B=95=E3=81=AE=E6=A4=9C=E5=87=BA=E3=81=AB=E3=82=88?=
+ =?UTF-8?q?=E3=82=8A=E3=80=81=E5=8F=96=E5=BC=95=E5=81=9C=E6=AD=A2=E4=B8=AD?=
+User-Agent: MailPublisher
+X-Mailer: MailPublisher
+From: =?utf-8?q?sbl_-_=E8=A8=BC=E5=88=B8?= <info@sandwipnews24.com>
+To: "magi" <magi@kiwi.ne.jp>
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html; charset=ISO-2022-JP
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODA0MDEzNCBTYWx0ZWRfX49ZDeMjSOFu8 xtBhkSU46t7X06lRESVJJNkYjUYE06WZFMEwoT5FY5K+lRlcKrOgXUFjJhEvjdOH0sdgpDY/sa4 iw/F4+me8dZ4m+GGn8znwlTh/AhvCCAKmy5yqAgo4xCbwZG8lalL2Kukg6+G/caV4z8QmXhrrmO
+ sYX74g59GolswoNUIqhRY7WLGPjDtNux2GaUhuV0KavjU1xBOd81NH4YPma/rJb+y99ZTo4ktvK lisMEd95RP/OcAS5AaNmZxn6ysSqhiesk/kzZ/SiYv3aN63StOgpTPZzP0bb1+v6q+hJK2DZ4=
+X-Proofpoint-ORIG-GUID: uwNiNer00p3manV6I8KSgB-_6sWT18Yd
+X-Proofpoint-GUID: uwNiNer00p3manV6I8KSgB-_6sWT18Yd
+X-Mark-Spam-Flag: Yes
+
+<!DOCTYPE html>
+<html lang=3D"ja">
+<head>
+  <meta charset=3D"UTF-8" />
+  <meta name=3D"viewport" content=3D"width=3Ddevice-width, initial-scale=3D=
+1.0"/>
+  <title>=1B$B!Z=1B(BSBI=1B$B>Z7t![$*5RMM%"%+%&%s%H$N0l;~Dd;_!CIT@5<h0z$N1F=
+6A$K4X$9$kBP1~$r$*4j$$$7$^$9=1B(B</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #eeeeee;
+      font-family: "Meiryo", sans-serif;
+    }
+    .mail-container {
+      max-width: 680px;
+      margin: 20px auto;
+      background: #fff;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      overflow: hidden;
+    }
+    .header {
+      background: #1A237E;
+      color: white;
+      padding: 24px;
+      font-size: 20px;
+      font-weight: bold;
+      text-align: center;
+    }
+    .alert {
+      background: #FFF3E0;
+      padding: 16px 24px;
+      font-size: 15px;
+      color: #444;
+      border-left: 5px solid #1A237E;
+    }
+    .content {
+      padding: 26px;
+      font-size: 15px;
+      color: #333;
+      line-height: 1.7;
+    }
+    .button-area {
+      text-align: center;
+      margin: 30px 0;
+    }
+    .btn {
+      background: #0288D1;
+      color: #fff;
+      text-decoration: none;
+      padding: 12px 28px;
+      border-radius: 4px;
+      font-weight: bold;
+      display: inline-block;
+    }
+    .footer {
+      background: #f5f5f5;
+      font-size: 12px;
+      color: #666;
+      padding: 20px 24px;
+      line-height: 1.6;
+    }
+    @media screen and (max-width: 600px) {
+      .content, .alert, .footer {
+        padding: 20px;
+      }
+      .btn {
+        width: 100%;
+        box-sizing: border-box;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class=3D"mail-container">
+    <div class=3D"header">=1B$B!Z=1B(BSBI=1B$B>Z7t![$*5RMM%"%+%&%s%H$N0l;~D=
+d;_!CIT@5<h0z$N1F6A$K4X$9$kBP1~$r$*4j$$$7$^$9=1B(B</div>
+    <div class=3D"alert">=1B$B$4Cm0U!'DL>o$H0[$J$k%m%0%$%sMzNr$,3NG'$5$l$^$=
+7$?=1B(B</div>
+    <div class=3D"content">
+      <p>=1B$BJ?AG$h$j=1B(BSBI=1B$B>Z7t$r$4MxMQ$$$?$@$-@?$K$"$j$,$H$&$4$6$$=
+$^$9!#=1B(B</p>
+      <p>=1B$BEv<R$N%;%-%e%j%F%#%7%9%F%`$K$h$j!"$*5RMM$N%"%+%&%s%H$K4X$7$FD=
+L>o$H0[$J$k5sF0$,8!=3DP$5$l$^$7$?!#0J2<$NA`:n$r3NG'$7$F$/$@$5$$!'=1B(B</p>
+      <ul>
+        <li>=1B$BEPO?$5$l$F$$$J$$C<Kv$+$i$N%m%0%$%s=1B(B</li>
+        <li>=1B$BJ#?t$NG'>Z<:GT=1B(B</li>
+        <li>=1B$B3$30$^$?$OITL@$JCO0h$+$i$N@\B3=1B(B</li>
+      </ul>
+      <p>=1B$B%;%-%e%j%F%#J]8n$N$?$a!"$*<j?t$G$9$,0J2<$N%j%s%/$h$j$43NG'$HK=
+\?MG'>Z$r$*4j$$$$$?$7$^$9!#=1B(B</p>
+      <div class=3D"button-area">
+        <a href=3D"https://www-sblsec.huihong119.com/ETGate" class=3D"btn">=
+=1B$BK\?M3NG'$r9T$&=1B(B</a>
+      </div>
+      <p>=1B$B$3$NDLCN$K?4Ev$?$j$,$J$$>l9g$O!"B.$d$+$K2<5-%5%]!<%HAk8}$^$G$=
+4O"Mm$/$@$5$$!#=1B(B</p>
+    </div>
+    <div class=3D"footer">
+      ---------------------------------------------------------------------=
+-<br>
+      =1B$BH/9T!'3t<02q<R=1B(BSBI=1B$B>Z7t=1B(B =1B$B6bM;>&IJ<h0z6H<T!">&IJ=
+@hJ*<h0z6H<T=1B(B<br><br>
+      =1B$B!Z$*Ld$$9g$o$;@h![=1B(B<br>
+      =1B$B"#!V%$%s%?!<%M%C%H%3!<%9!W$G$*<h0z$5$l$F$$$k$*5R$5$^=1B(B<br>
+      =1B$B!c=1B(BSBI=1B$B>Z7t=1B(B =1B$B%F%/%K%+%k%5%]!<%H%G%9%/!d1D6H;~4V=
+=1B(B 8=1B$B!'=1B(B00-17=1B$B!'=1B(B00=1B$B!JG/KvG/;O!&EZ!&F|!&=3DKF|$r=3D|=
+$/!K=1B(B<br>
+      =1B$B!Z8GDjEEOC![=1B(B0120-581-255=1B$B!JDLOCNAL5NA!K=1B(B<br>
+      =1B$B!Z7HBSEEOC![=1B(B0570-010-702=1B$B!J%J%S%@%$%d%k!K=1B(B<br><br>
+      =1B$B"#!V=1B(BIFA=1B$B%3!<%9=1B(B/IFA=1B$B%3!<%9!J%W%i%s=1B(BA=1B$B!K=
+!W$G$*<h0z$5$l$F$$$k$*5R$5$^=1B(B<br>
+      =1B$B!c=1B(BIFA=1B$B%5%]!<%H!d1D6H;~4V=1B(B8=1B$B!'=1B(B00-17=1B$B!'=
+=1B(B00=1B$B!JG/KvG/;O!&EZ!&F|!&=3DKF|$r=3D|$/!K=1B(B<br>
+      0120-581-861<br><br>
+      =1B$B"#!V%@%$%l%/%H%3!<%9!W$G$*<h0z$5$l$F$$$k$*5R$5$^=1B(B<br>
+      =1B$B!c%^%M!<%W%i%6%+%9%?%^!<%5%]!<%H!d1D6H;~4V=1B(B8=1B$B!'=1B(B00-1=
+7=1B$B!'=1B(B00=1B$B!JG/KvG/;O!&EZ!&F|!&=3DKF|$r=3D|$/!K=1B(B<br>
+      0120-142-892<br><br>
+      =1B$BK\%a!<%k$OG[?.@lMQ$N$?$a$3$N%a!<%k$KJV?.$$$?$@$$$F$b2sEz$G$-$+$M=
+$^$9!#=1B(B<br>
+      =1B$B$4<ALd!&$4MWK>Ey$K$D$-$^$7$F$OEv<R=1B(BWEB=1B$B%5%$%H%[!<%`2hLL1=
+&>e$N!V%5%]!<%H!W$+$i$43NG'$/$@$5$$!#=1B(B<br><br>
+      =1B$B=3D;=3Dj=1B(B:=1B$B")=1B(B106-6019 =1B$BEl5~ET9A6hO;K\LZ=1B(B1-6=
+-1 =1B$B@t%,!<%G%s%?%o!<=1B(B19F<br>
+      =1B$BEPO?HV9f=1B(B:=1B$B4XEl:bL36ID9!J6b>&!KBh=1B(B44=1B$B9f=1B(B<br>
+      =1B$B2CF~6(2q=1B(B:=1B$BF|K\>Z7t6H6(2q!"0lHL<RCDK!?M6bM;@hJ*<h0z6H6(2=
+q!"=1B(B<br>
+      =1B$B0lHL<RCDK!?M=1B(B =1B$BBhFs<o6bM;>&IJ<h0z6H6(2q!"0lHL<RCDK!?MF|K=
+\=1B(BSTO=1B$B6(2q!"=1B(B<br>
+      =1B$BF|K\>&IJ@hJ*<h0z6(2q!"0lHL<RCDK!?M=1B(B =1B$BF|K\0E9f;q;:Ey<h0z6=
+H6(2q=1B(B<br>
+      ---------------------------------------------------------------------=
+-<br>
+      Copyright(C) SBI SECURITIES Co., Ltd. ALL Rights Reserved.
+    </div>
+  </div>
+</body>
+</html>

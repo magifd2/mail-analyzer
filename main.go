@@ -65,7 +65,13 @@ func main() {
 		}
 		sourceFile = "stdin" // Indicate source is stdin
 
-		// Load config even if reading from stdin
+		// Determine config path for stdin case
+		homeDir, err := os.UserHomeDir()
+		if err != nil {
+			log.Fatalf("Error getting user home directory: %v", err)
+		}
+		configPath = fmt.Sprintf("%s/.config/mail-analyzer/config.json", homeDir)
+
 		cfg, err = config.Load(configPath)
 		if err != nil {
 			log.Fatalf("Error loading configuration: %v", err)
@@ -73,7 +79,14 @@ func main() {
 	} else {
 		emlPath := args[0]
 		if len(args) > 1 {
-			configPath = args[1]
+			configPath = args[1] // configPath is set if provided as second argument
+		} else {
+			// If only EML path is provided, use default config path
+			homeDir, err := os.UserHomeDir()
+			if err != nil {
+				log.Fatalf("Error getting user home directory: %v", err)
+			}
+			configPath = fmt.Sprintf("%s/.config/mail-analyzer/config.json", homeDir)
 		}
 
 		cfg, err = config.Load(configPath)

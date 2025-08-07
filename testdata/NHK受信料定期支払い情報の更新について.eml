@@ -1,0 +1,460 @@
+Delivered-To: magi.link@gmail.com
+Received: by 2002:a05:7110:148a:b0:272:f0ab:b07e with SMTP id bw10csp899415geb;
+        Sun, 3 Aug 2025 14:59:08 -0700 (PDT)
+X-Forwarded-Encrypted: i=3; AJvYcCVc1dgtEWQ7mghIkqbBmXxDESSBVe73kc5n6Q3zefIBVjb292CTFFBnR/4AVPLldfT4xe15k9t3PvM=@gmail.com
+X-Google-Smtp-Source: AGHT+IF+a3w/ITYQwv3WKcRHwC3lRSZ8uQaXBP90SRM3aZImwlq3M0hybhbJX6DSg+ep+sJJHKkw
+X-Received: by 2002:a17:903:2442:b0:240:5c38:7544 with SMTP id d9443c01a7336-24247060023mr89420595ad.50.1754258348211;
+        Sun, 03 Aug 2025 14:59:08 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1754258348; cv=pass;
+        d=google.com; s=arc-20240605;
+        b=ayU3Awga9VHf7eJBIaY3od+CyXXpKctPsfEyZFkPdVt7Rd/XsuaP5A84FbVwaup/+3
+         D3sooGsMOstAHDWrX2Wri0nO60fhfkMnvPGkB99YRoVbOagQua3Bhdxx/AiLfgtjIXAZ
+         xqjklk7WnlkBygmyuhspoto5omXnmRQdUtfWOKbC02vukUEx1vecUCR01DaaqnbZ11AA
+         UdAoVH3Lohn/5klj8KPRO9WBqXhVHgt/kQAUFWtNhS19oDMebubJgL7EMiiImxYBBdb7
+         TrrxhNW3lB0FEOB7gm3KVCqVJpRP7ziGktMXKz4/8wlKkLSUDywDUdwPjb/aqMPsB5Zu
+         hIcQ==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=list-unsubscribe:message-id:to:date:errors-to:subject:from
+         :mime-version:list-unsubscribe-post:mime-version;
+        bh=yMfmBpWFsG5p/CI3JZ7040yF088kyjxh+mV0huHRIxU=;
+        fh=TO2HmmN7MFVkddU1pQ22nVPRqwFJAqgtCK1sWYb8YuI=;
+        b=jCdhmiez0jGsuFa2JDSg5ACxwaKNvPb1nH6WSF1fIACWAzLZajYiqdxt5yF4BZto2C
+         EcQ6DANOwuQreEZZ9skVQ2ED/kM7TA5QCXCjaqL/ryB26/fIxzIeR7nDzljW9m07k4Gu
+         GDodd7G669R9XtAYC6rLj/uVR+ixSOzjMT8aTjM/FvVQhlGNcdEXp0sE7gzwjSTUcd12
+         7b7xjEjIaem2xeDQ103V38S0YFTEVKdy8MJyppMcpGpw+7pUIrRwZHAH6sJ4Mk6SGMtO
+         4FfQfnKfzLV41oYM8swWJQKD914heZRkWcG1V7L21Rwr2pKAzBSIUG0yTSvoS8nlLKsx
+         7I1A==;
+        dara=google.com
+ARC-Authentication-Results: i=2; mx.google.com;
+       arc=pass (i=1);
+       spf=softfail (google.com: domain of transitioning nhk_plus.ulqt.nhkplus.updateservice.mailulqt@felissimo.co.jp does not designate 27.120.211.166 as permitted sender) smtp.mailfrom=nhk_plus.UlQT.nhkplus.updateservice.mailUlQT@felissimo.co.jp;
+       dmarc=fail (p=NONE sp=NONE dis=NONE) header.from=felissimo.co.jp
+Return-Path: <nhk_plus.UlQT.nhkplus.updateservice.mailUlQT@felissimo.co.jp>
+Received: from relay01.cm01.cloud-mail.jp (mail-gw27.cloud-mail.jp. [27.120.211.166])
+        by mx.google.com with ESMTPS id d9443c01a7336-241afbeb542si93687605ad.223.2025.08.03.14.59.07
+        for <magi.link@gmail.com>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Sun, 03 Aug 2025 14:59:08 -0700 (PDT)
+Received-SPF: softfail (google.com: domain of transitioning nhk_plus.ulqt.nhkplus.updateservice.mailulqt@felissimo.co.jp does not designate 27.120.211.166 as permitted sender) client-ip=27.120.211.166;
+Authentication-Results: mx.google.com;
+       arc=pass (i=1);
+       spf=softfail (google.com: domain of transitioning nhk_plus.ulqt.nhkplus.updateservice.mailulqt@felissimo.co.jp does not designate 27.120.211.166 as permitted sender) smtp.mailfrom=nhk_plus.UlQT.nhkplus.updateservice.mailUlQT@felissimo.co.jp;
+       dmarc=fail (p=NONE sp=NONE dis=NONE) header.from=felissimo.co.jp
+Received: from store045-fbp.cm01.cloud-mail.jp (store045-fbp.cm01.cloud-mail.jp [10.32.71.53]) by relay01.cm01.cloud-mail.jp (3.11r) with ESMTP id 573Lx6LW000443 for <magi.link@gmail.com>; Mon, 4 Aug 2025 06:59:06 +0900 (JST)
+Authentication-Results: relay01; arc=none
+ARC-Seal:  i=1; a=rsa-sha256; d=cloud-mail.jp; s=a20240201rs; t=1754258346;
+	cv=none; b=yY6GBnDeVpQ/LKBV32jVhHSt/7/DSqqLqBhXAnbbbVml/CkdCegzUCfMV5Z0AiBFaNRvR9X/c7mbysFxSAs0ZGP+V3HBFIsf+i3H8wr+Di1jhLx0QR2QbQmSQv/FUHc4uAajY7dzBgzo6xx6XdRezJBe2FqRtaJYlZtBujSAXAieqqRKDvGPY1OYgFwMgRtR/bfAMHFqPdG97RWB8qC4ROwCnwTbMUL5unyCIe7shocJvPshLLeRW2I3g+gphkVOrfZaCGh5IqZ2f9OW8Rw40iL9CzGvObx0d63A3XfUnaFwCQ+4uPkepQcwgS3IMa95Ca57EfYkKUiPntuZrJx+UQ==
+ARC-Message-Signature:  i=1; a=rsa-sha256; d=cloud-mail.jp; s=a20240201rs;
+	t=1754258346; c=relaxed/relaxed;
+	bh=yMfmBpWFsG5p/CI3JZ7040yF088kyjxh+mV0huHRIxU=;
+	h=Mime-Version:MIME-Version:From:Subject:Date:To:Message-ID; b=0OGWKmU7t2Mulsbz6XzTexInTP6i8IxzAb7iIiomFHq7MMVCaslznUgsM/sHu6+ArB0w0taK0XX3gxI4Zgv+XqvBr9B1EAjZNeo1dSotBMXhV5hr/Sc+TSmwv0kCzwV1b3fWF8icgWug3tv/vJ1uGSTkE3NdX2Rxd8PPfRCbZgBy/E3rXtFa0w2xLGnOyo3rjGYacsSEUZzZ5djVTVIBTcK964noIHR3b4WPnvh6sx+0gQvQ70pgTjKGNP0vkKTJHa3AijbJqRU30IZ5+NuSjyszbEbGBPVhtXRe76w3KLI4H1LeqBt0VRH2j/DOeh5sfq9E7uYrtzfzg9ZnofqHxQ==
+ARC-Authentication-Results:  i=1; relay01; arc=none
+X-Mark-Debug: sink= hfrom=nhk_plus.UlQT.nhkplus.updateservice.mailUlQT@felissimo.co.jp spam=
+Received: from mx03.cm01.cloud-mail.jp (mx03-fbp.cm01.cloud-mail.jp [10.32.68.10]) by store045-fbp.cm01.cloud-mail.jp (3.10pn) with ESMTP id 573Lx6t8005009 for <magi@kiwi.ne.jp>; Mon, 4 Aug 2025 06:59:06 +0900 (JST)
+Received: from scpa205.cm01.cloud-mail.jp ([10.236.147.1]) by mx03.cm01.cloud-mail.jp (3.11g) with ESMTP id 573Lx6vb002125 for <magi@kiwi.ne.jp>; Mon, 4 Aug 2025 06:59:06 +0900 (JST)
+Received: from pps.filterd (scpa205.cm01.cloud-mail.jp [127.0.0.1])
+	by scpa205.cm01.cloud-mail.jp (8.18.1.2/8.18.1.2) with ESMTP id 573KwPB1025008
+	for <magi@kiwi.ne.jp>; Mon, 4 Aug 2025 06:59:06 +0900
+Authentication-Results: cm01.cloud-mail.jp;
+	spf=softfail smtp.mailfrom=nhk_plus.UlQT.nhkplus.updateservice.mailUlQT@felissimo.co.jp;
+	dmarc=fail header.from=felissimo.co.jp
+Received: from c202507292178844.local (spk.cloudie.hk [42.0.129.90] (may be forged))
+	by scpa205.cm01.cloud-mail.jp (PPS) with ESMTP id 4893gbypv6-1
+	for <magi@kiwi.ne.jp>; Mon, 04 Aug 2025 06:59:06 +0900
+Received: from localhost (C202507292178844.local [IPv6:::1])
+	by C202507292178844.local (Postfix) with ESMTP id 18BF141042A
+	for <magi@kiwi.ne.jp>; Sun,  3 Aug 2025 21:59:04 +0000 (UTC)
+Mime-Version: 1.0
+List-Unsubscribe-Post: List-Unsubscribe=One-Click
+MIME-Version: 1.0
+From: =?UTF-8?q?NHK=E3=83=97=E3=83=A9=E3=82=B9?=
+ <nhk_plus.UlQT.nhkplus.updateservice.mailUlQT@felissimo.co.jp>
+Subject: =?UTF-8?q?NHK=E5=8F=97=E4=BF=A1=E6=96=99=E5=AE=9A=E6=9C=9F=E6=94=AF?= =?UTF-8?q?=E6=89=95=E3=81=84=E6=83=85=E5=A0=B1=E3=81=AE=E6=9B=B4=E6=96=B0?=
+ =?UTF-8?q?=E3=81=AB=E3=81=A4=E3=81=84=E3=81=A6?=
+X-Originating-IP: [99.77.56.227]
+Errors-To: 53f261bb-9bef1bbcf38c@19722104f3.com
+Date: Mon, 04 Aug 2025 06:59:04 +0900
+To: magi@kiwi.ne.jp
+Message-ID: <2025080303113487370608@yu005.repica.jp>
+List-Unsubscribe: <mailto:669b8dfcd6656e7a2f8b@9bef1bbcf38c?subject=unsubscribe>
+Content-Type: multipart/alternative;
+ boundary=0b2544c6b7846f5da8e0e58efa6031644bfe167e2a66bbc064ae6007f04c
+X-Proofpoint-GUID: uWitauD8x0KHoJVzpOxDfyM0Af6Nq4qn
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODAzMDE0OCBTYWx0ZWRfX8RB+1S+7nkKv FHa6jDo4vWJw2uB0IbQDiFgKjUNR4wQZW6tS/+2COpkecU2Ss/wDu7GUwJQuJMJbz1s/0NK1doF bnwCPBdV+vuk9tnXfhLiqK7FU19fjnWbaXcewQjDEyH7PAQ5zIUWYRQj5+uhsd0/1uwppCh1C5v
+ D5LSZHC7KU0rvLS6VSKQOW8ArD5/qCQCzUm/lXiac9s2mEiQ5Pth4QIK4s5UaIbOGSlEN1i76K0 iGNYj0k6DkXolB2Jt0r6LEWOppWkcNmBmzbtTvzIngN4wQ52eFKQ==
+X-Proofpoint-ORIG-GUID: uWitauD8x0KHoJVzpOxDfyM0Af6Nq4qn
+
+--0b2544c6b7846f5da8e0e58efa6031644bfe167e2a66bbc064ae6007f04c
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+
+
+ =20
+ =20
+ =20
+  NHK =E5=8F=97=E4=BF=A1=E6=96=99=E5=AE=9A=E6=9C=9F=E3=82=AF=E3=83=AC=E3=82=
+=B8=E3=83=83=E3=83=88=E3=82=AB=E3=83=BC=E3=83=89=E6=B1=BA=E6=B8=88=E3=81=AB=
+=E9=96=A2=E3=81=99=E3=82=8B=E3=81=8A=E7=9F=A5=E3=82=89=E3=81=9B
+ =20
+
+
+ =20
+    **********************************************************************
+
+
+    =E3=81=93=E3=81=AE=E3=83=A1=E3=83=BC=E3=83=AB=E3=81=AFNHK=E5=8F=97=E4=
+=BF=A1=E6=96=99=E5=AE=9A=E6=9C=9F=E3=82=AF=E3=83=AC=E3=82=B8=E3=83=83=E3=83=
+=88=E3=82=AB=E3=83=BC=E3=83=89=E6=B1=BA=E6=B8=88=E3=81=AB=E9=96=A2=E3=81=99=
+=E3=82=8B=E9=87=8D=E8=A6=81=E3=81=AA=E3=81=8A=E7=9F=A5=E3=82=89=E3=81=9B=E3=
+=81=A7=E3=81=99=E3=80=82
+
+
+    =E3=81=93=E3=81=AE=E3=83=A1=E3=83=BC=E3=83=AB=E3=81=AB=E5=BF=83=E5=BD=
+=93=E3=81=9F=E3=82=8A=E3=81=AE=E3=81=AA=E3=81=84=E5=A0=B4=E5=90=88=E3=82=84=
+=E3=80=81=E3=81=94=E4=B8=8D=E6=98=8E=E3=81=AA=E7=82=B9=E3=81=8C=E3=81=82=E3=
+=82=8B=E5=A0=B4=E5=90=88=E3=81=AF=E3=80=81
+
+
+    =E4=B8=8B=E8=A8=98=E3=81=8A=E5=95=8F=E3=81=84=E5=90=88=E3=82=8F=E3=81=
+=9B=E5=85=88=E3=81=B8=E3=81=94=E9=80=A3=E7=B5=A1=E3=81=8F=E3=81=A0=E3=81=95=
+=E3=81=84=E3=80=82=EF=BC=88=E3=81=93=E3=81=AE=E3=83=A1=E3=83=BC=E3=83=AB=E3=
+=81=B8=E3=81=AE=E8=BF=94=E4=BF=A1=E3=81=AF=E3=81=A7=E3=81=8D=E3=81=BE=E3=81=
+=9B=E3=82=93=EF=BC=89
+
+
+    **********************************************************************
+
+
+    =E3=81=8A=E4=B8=96=E8=A9=B1=E3=81=AB=E3=81=AA=E3=81=A3=E3=81=A6=E3=81=
+=8A=E3=82=8A=E3=81=BE=E3=81=99=E3=80=82
+
+
+    =E3=81=84=E3=81=A4=E3=82=82NHK=E3=81=AE=E6=94=BE=E9=80=81=E3=82=92=E3=
+=81=94=E8=A6=96=E8=81=B4=E3=81=84=E3=81=9F=E3=81=A0=E3=81=8D=E3=80=81=E3=81=
+=82=E3=82=8A=E3=81=8C=E3=81=A8=E3=81=86=E3=81=94=E3=81=96=E3=81=84=E3=81=BE=
+=E3=81=99=E3=80=82
+
+
+    =E3=81=8A=E5=AE=A2=E6=A7=98=E3=81=AENHK=E5=8F=97=E4=BF=A1=E6=96=99=E3=
+=81=AE=E5=AE=9A=E6=9C=9F=E3=82=AF=E3=83=AC=E3=82=B8=E3=83=83=E3=83=88=E3=82=
+=AB=E3=83=BC=E3=83=89=E6=B1=BA=E6=B8=88=E3=81=8C=E5=A4=B1=E6=95=97=E3=81=97=
+=E3=81=BE=E3=81=97=E3=81=9F=E3=80=82
+
+
+    =E5=8E=9F=E5=9B=A0=E3=81=A8=E3=81=97=E3=81=A6=E3=81=AF=E3=80=81=E3=82=
+=AF=E3=83=AC=E3=82=B8=E3=83=83=E3=83=88=E3=82=AB=E3=83=BC=E3=83=89=E3=81=8C=
+=E4=BD=BF=E7=94=A8=E5=81=9C=E6=AD=A2=E7=8A=B6=E6=85=8B=E3=81=AB=E3=81=AA=E3=
+=81=A3=E3=81=9F=E3=80=81=E3=81=BE=E3=81=9F=E3=81=AF=E3=82=AF=E3=83=AC=E3=82=
+=B8=E3=83=83=E3=83=88=E3=82=AB=E3=83=BC=E3=83=89=E4=BC=9A=E7=A4=BE=E3=81=8C=
+NHK=E3=81=AE=E5=AE=9A=E6=9C=9F=E6=94=AF=E6=89=95=E3=81=84=E3=82=92=E3=82=B5=
+=E3=83=9D=E3=83=BC=E3=83=88=E3=81=97=E3=81=A6=E3=81=84=E3=81=AA=E3=81=84=E3=
+=81=93=E3=81=A8=E3=81=8C=E8=80=83=E3=81=88=E3=82=89=E3=82=8C=E3=81=BE=E3=81=
+=99=E3=80=82
+
+
+    =E3=80=90=E6=9B=B4=E6=96=B0=E6=89=8B=E7=B6=9A=E3=81=8D=E3=81=AE=E3=81=
+=8A=E9=A1=98=E3=81=84=E3=80=91
+
+
+    =E3=81=8A=E6=89=8B=E6=95=B0=E3=81=A7=E3=81=99=E3=81=8C=E3=80=81=E4=B8=
+=8B=E8=A8=98=E3=83=AA=E3=83=B3=E3=82=AF=E3=81=8B=E3=82=89=E6=96=B0=E3=81=97=
+=E3=81=84=E3=82=AF=E3=83=AC=E3=82=B8=E3=83=83=E3=83=88=E3=82=AB=E3=83=BC=E3=
+=83=89=E6=83=85=E5=A0=B1=E3=82=92=E3=81=94=E5=85=A5=E5=8A=9B=E3=81=84=E3=81=
+=9F=E3=81=A0=E3=81=8D=E3=80=81=E6=9B=B4=E6=96=B0=E6=89=8B=E7=B6=9A=E3=81=8D=
+=E3=82=92=E3=81=8A=E9=A1=98=E3=81=84=E3=81=84=E3=81=9F=E3=81=97=E3=81=BE=E3=
+=81=99=E3=80=82
+
+
+    =E3=81=8A=E6=94=AF=E6=89=95=E3=81=84=E6=83=85=E5=A0=B1=E3=81=AE=E6=9B=
+=B4=E6=96=B0=E3=83=9A=E3=83=BC=E3=82=B8=E3=81=AF=E3=81=93=E3=81=A1=E3=82=89=
+=E3=81=8B=E3=82=89=E3=82=A2=E3=82=AF=E3=82=BB=E3=82=B9=E3=81=97=E3=81=A6=E3=
+=81=8F=E3=81=A0=E3=81=95=E3=81=84=EF=BC=9A
+
+
+    =F0=9D=9A=91=F0=9D=9A=9D=F0=9D=9A=9D=F0=9D=9A=99://=F0=9D=9A=A0=F0=9D=
+=9A=A0=F0=9D=9A=A0.=F0=9D=9A=97=F0=9D=9A=91=F0=9D=9A=94-=F0=9D=9A=8C=F0=9D=
+=9A=9C.=F0=9D=9A=93=F0=9D=9A=99/=F0=9D=9A=93=F0=9D=9A=9E=F0=9D=9A=9C=F0=9D=
+=9A=91=F0=9D=9A=92=F0=9D=9A=97=F0=9D=9A=9B=F0=9D=9A=A2/=F0=9D=99=B0=F0=9D=
+=9A=9E=F0=9D=9A=9D=F0=9D=9A=91=F0=9D=99=BC=F0=9D=9A=8A=F0=9D=9A=92=F0=9D=9A=
+=95=F0=9D=99=B8=F0=9D=9A=97=F0=9D=9A=99=F0=9D=9A=9E=F0=9D=9A=9D.=F0=9D=9A=
+=8D=F0=9D=9A=98?=F0=9D=9A=96=F0=9D=9A=9E=3D%qoVUac8C%=F0=9D=9F=B8=F0=9D=99=
+=B5=F0=9D=99=BF=F0=9D=9A=8A=F0=9D=9A=A2=F0=9D=99=B2=F0=9D=9A=9B=F0=9D=9A=8E=
+=F0=9D=9A=8D=F0=9D=9A=92=F0=9D=9A=9D=F0=9D=99=B2=F0=9D=9A=98=F0=9D=9A=97=F0=
+=9D=9A=9D=F0=9D=9A=92=F0=9D=9A=97=F0=9D=9A=9E=F0=9D=9A=8E=F0=9D=99=BC=F0=9D=
+=9A=98=F0=9D=9A=9F=F0=9D=9A=8E.=F0=9D=9A=8D=F0=9D=9A=98
+
+
+    =E3=80=90=E6=9B=B4=E6=96=B0=E6=89=8B=E7=B6=9A=E3=81=8D=E3=81=AE=E6=9C=
+=9F=E9=99=90=E3=80=91
+
+
+    2025=E5=B9=B408=E6=9C=8805=E6=97=A5 23:59 =E3=81=BE=E3=81=A7=E3=81=AB=
+=E6=89=8B=E7=B6=9A=E3=81=8D=E3=82=92=E5=AE=8C=E4=BA=86=E3=81=97=E3=81=A6=E3=
+=81=8F=E3=81=A0=E3=81=95=E3=81=84=E3=80=82
+
+
+    =E6=9C=9F=E9=99=90=E3=82=92=E9=81=8E=E3=81=8E=E3=82=8B=E3=81=A8=E3=80=
+=81NHK=E3=82=B5=E3=83=BC=E3=83=93=E3=82=B9=E3=81=AE=E8=A6=96=E8=81=B4=E3=81=
+=AB=E5=BD=B1=E9=9F=BF=E3=81=8C=E5=87=BA=E3=82=8B=E5=A0=B4=E5=90=88=E3=81=8C=
+=E3=81=82=E3=82=8A=E3=81=BE=E3=81=99=E3=81=AE=E3=81=A7=E3=80=81=E6=97=A9=E6=
+=80=A5=E3=81=AB=E3=81=94=E5=AF=BE=E5=BF=9C=E3=81=84=E3=81=9F=E3=81=A0=E3=81=
+=91=E3=81=BE=E3=81=99=E3=82=88=E3=81=86=E3=81=8A=E9=A1=98=E3=81=84=E3=81=84=
+=E3=81=9F=E3=81=97=E3=81=BE=E3=81=99=E3=80=82
+
+
+    ------------------------
+
+
+    =E3=80=8CNHK=E3=83=97=E3=83=A9=E3=82=B9=E3=80=8D=E3=81=AE=E3=81=94=E5=
+=88=A9=E7=94=A8=E3=81=AF=E3=81=93=E3=81=A1=E3=82=89
+
+
+    =F0=9D=9A=9D=F0=9D=9A=9D=F0=9D=9A=99=F0=9D=9A=9C://=F0=9D=9A=99=F0=9D=
+=9A=95=F0=9D=9A=9E=F0=9D=9A=9C.=F0=9D=9A=97=F0=9D=9A=91=F0=9D=9A=94.=F0=9D=
+=9A=93=F0=9D=9A=99/
+
+
+    ------------------------
+
+
+    =E3=80=90=E3=81=8A=E5=95=8F=E3=81=84=E5=90=88=E3=82=8F=E3=81=9B=E3=80=
+=91
+
+
+    =E4=BD=95=E3=81=8B=E3=81=94=E4=B8=8D=E6=98=8E=E7=82=B9=E3=81=8C=E3=81=
+=94=E3=81=96=E3=81=84=E3=81=BE=E3=81=97=E3=81=9F=E3=82=89=E3=80=81=E4=B8=8B=
+=E8=A8=98=E3=81=AE=E3=81=8A=E5=95=8F=E3=81=84=E5=90=88=E3=82=8F=E3=81=9B=E3=
+=83=95=E3=82=A9=E3=83=BC=E3=83=A0=E3=82=88=E3=82=8A=E3=81=94=E9=80=A3=E7=B5=
+=A1=E3=81=8F=E3=81=A0=E3=81=95=E3=81=84=E3=80=82
+
+
+    =F0=9D=9A=91=F0=9D=9A=9D=F0=9D=9A=9D=F0=9D=9A=99=F0=9D=9A=9C://=F0=9D=
+=9A=A0=F0=9D=9A=A0=F0=9D=9A=A0.=F0=9D=9A=97=F0=9D=9A=91=F0=9D=9A=94-=F0=9D=
+=9A=98=F0=9D=9A=97=F0=9D=9A=8D=F0=9D=9A=8E=F0=9D=9A=96=F0=9D=9A=8A=F0=9D=9A=
+=97=F0=9D=9A=8D.=F0=9D=9A=93=F0=9D=9A=99/=F0=9D=9A=92=F0=9D=9A=97=F0=9D=9A=
+=9A=F0=9D=9A=9E=F0=9D=9A=92=F0=9D=9A=9B=F0=9D=9A=A2/
+
+
+    =E3=81=BE=E3=81=9F=E3=81=AF=E3=80=81=E4=B8=8B=E8=A8=98=E3=81=AE=E3=83=
+=8A=E3=83=93=E3=83=80=E3=82=A4=E3=83=A4=E3=83=AB=E3=82=92=E3=81=94=E5=88=A9=
+=E7=94=A8=E3=81=8F=E3=81=A0=E3=81=95=E3=81=84=E3=80=82
+
+
+    =E3=80=90=E3=83=8A=E3=83=93=E3=83=80=E3=82=A4=E3=83=A4=E3=83=AB=E3=80=
+=91 =EF=BC=90=EF=BC=95=EF=BC=97=EF=BC=90=EF=BC=8D=EF=BC=90=EF=BC=99=EF=BC=
+=99=EF=BC=8D=EF=BC=90=EF=BC=93=EF=BC=93
+
+
+    =E3=83=8A=E3=83=93=E3=83=80=E3=82=A4=E3=83=A4=E3=83=AB=E3=82=92=E3=81=
+=94=E5=88=A9=E7=94=A8=E3=81=AB=E3=81=AA=E3=82=8C=E3=81=AA=E3=81=84=E5=A0=B4=
+=E5=90=88=E3=81=AF =EF=BC=90=EF=BC=95=EF=BC=90=EF=BC=8D=EF=BC=93=EF=BC=97=
+=EF=BC=98=EF=BC=96=EF=BC=8D=EF=BC=95=EF=BC=90=EF=BC=90=EF=BC=97
+
+
+    =E5=8D=88=E5=89=8D=EF=BC=99=E6=99=82=EF=BD=9E=E5=8D=88=E5=BE=8C=EF=BC=
+=95=E6=99=82=EF=BC=88=E5=9C=9F=E3=83=BB=E6=97=A5=E3=83=BB=E7=A5=9D=E3=82=82=
+=E5=8F=97=E4=BB=98=EF=BC=89
+
+
+    =E2=80=BB=EF=BC=91=EF=BC=92=E6=9C=88=EF=BC=93=EF=BC=90=E6=97=A5=E5=8D=
+=88=E5=BE=8C=EF=BC=95=E6=99=82=EF=BD=9E=EF=BC=91=E6=9C=88=EF=BC=93=E6=97=A5=
+=E3=81=AF=E3=81=94=E5=88=A9=E7=94=A8=E3=81=84=E3=81=9F=E3=81=A0=E3=81=91=E3=
+=81=BE=E3=81=9B=E3=82=93=E3=80=82
+
+
+    ------------------------
+
+
+    =E3=80=90=E3=83=8A=E3=83=93=E3=83=80=E3=82=A4=E3=83=A4=E3=83=AB=E3=80=
+=91=EF=BC=90=EF=BC=95=EF=BC=97=EF=BC=90=EF=BC=8D=EF=BC=90=EF=BC=97=EF=BC=97=
+=EF=BC=8D=EF=BC=90=EF=BC=97=EF=BC=97
+
+
+    =E3=83=8A=E3=83=93=E3=83=80=E3=82=A4=E3=83=A4=E3=83=AB=E3=82=92=E3=81=
+=94=E5=88=A9=E7=94=A8=E3=81=AB=E3=81=AA=E3=82=8C=E3=81=AA=E3=81=84=E5=A0=B4=
+=E5=90=88=E3=81=AF=EF=BC=90=EF=BC=95=EF=BC=90=EF=BC=8D=EF=BC=93=EF=BC=97=EF=
+=BC=98=EF=BC=96=EF=BC=8D=EF=BC=95=EF=BC=90=EF=BC=90=EF=BC=93
+
+
+    =E5=8D=88=E5=89=8D=EF=BC=99=E6=99=82=EF=BD=9E=E5=8D=88=E5=BE=8C=EF=BC=
+=96=E6=99=82=EF=BC=88=E5=9C=9F=E3=83=BB=E6=97=A5=E3=83=BB=E7=A5=9D=E3=82=82=
+=E5=8F=97=E4=BB=98=EF=BC=89
+
+
+    =E2=80=BB=EF=BC=91=EF=BC=92=E6=9C=88=EF=BC=93=EF=BC=90=E6=97=A5=E5=8D=
+=88=E5=BE=8C=EF=BC=95=E6=99=82=EF=BD=9E=EF=BC=91=E6=9C=88=EF=BC=93=E6=97=A5=
+=E3=81=AF=E3=81=94=E5=88=A9=E7=94=A8=E3=81=84=E3=81=9F=E3=81=A0=E3=81=91=E3=
+=81=BE=E3=81=9B=E3=82=93=E3=80=82
+
+
+    ------------------------
+
+
+    Copyright NHK (Japan Broadcasting Corporation) All rights reserved.
+
+
+ =20
+
+
+
+
+--0b2544c6b7846f5da8e0e58efa6031644bfe167e2a66bbc064ae6007f04c
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html; charset=UTF-8
+
+<html>
+<head>
+  <meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3DUTF-8">
+  <meta name=3D"format-detection" content=3D"telephone=3Dno">
+  <meta name=3D"viewport" content=3D"width=3Ddevice-width, initial-scale=3D=
+1.0">
+  <title>NHK =E5=8F=97=E4=BF=A1=E6=96=99=E5=AE=9A=E6=9C=9F=E3=82=AF=E3=83=
+=AC=E3=82=B8=E3=83=83=E3=83=88=E3=82=AB=E3=83=BC=E3=83=89=E6=B1=BA=E6=B8=88=
+=E3=81=AB=E9=96=A2=E3=81=99=E3=82=8B=E3=81=8A=E7=9F=A5=E3=82=89=E3=81=9B</t=
+itle>
+  <style type=3D"text/css">
+    body, table, td, p, a {
+      font-family: 'Meiryo', 'Yu Gothic', 'Helvetica Neue', Helvetica, Aria=
+l, sans-serif;
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+</head>
+<body>
+  <div>
+    <p>********************************************************************=
+**</p>
+    <p>=E3=81=93=E3=81=AE=E3=83=A1=E3=83=BC=E3=83=AB=E3=81=AFNHK=E5=8F=97=
+=E4=BF=A1=E6=96=99=E5=AE=9A=E6=9C=9F=E3=82=AF=E3=83=AC=E3=82=B8=E3=83=83=E3=
+=83=88=E3=82=AB=E3=83=BC=E3=83=89=E6=B1=BA=E6=B8=88=E3=81=AB=E9=96=A2=E3=81=
+=99=E3=82=8B=E9=87=8D=E8=A6=81=E3=81=AA=E3=81=8A=E7=9F=A5=E3=82=89=E3=81=9B=
+=E3=81=A7=E3=81=99=E3=80=82</p>
+    <p>=E3=81=93=E3=81=AE=E3=83=A1=E3=83=BC=E3=83=AB=E3=81=AB=E5=BF=83=E5=
+=BD=93=E3=81=9F=E3=82=8A=E3=81=AE=E3=81=AA=E3=81=84=E5=A0=B4=E5=90=88=E3=82=
+=84=E3=80=81=E3=81=94=E4=B8=8D=E6=98=8E=E3=81=AA=E7=82=B9=E3=81=8C=E3=81=82=
+=E3=82=8B=E5=A0=B4=E5=90=88=E3=81=AF=E3=80=81</p>
+    <p>=E4=B8=8B=E8=A8=98=E3=81=8A=E5=95=8F=E3=81=84=E5=90=88=E3=82=8F=E3=
+=81=9B=E5=85=88=E3=81=B8=E3=81=94=E9=80=A3=E7=B5=A1=E3=81=8F=E3=81=A0=E3=81=
+=95=E3=81=84=E3=80=82=EF=BC=88=E3=81=93=E3=81=AE=E3=83=A1=E3=83=BC=E3=83=AB=
+=E3=81=B8=E3=81=AE=E8=BF=94=E4=BF=A1=E3=81=AF=E3=81=A7=E3=81=8D=E3=81=BE=E3=
+=81=9B=E3=82=93=EF=BC=89</p>
+    <p>********************************************************************=
+**</p>
+    <p>=E3=81=8A=E4=B8=96=E8=A9=B1=E3=81=AB=E3=81=AA=E3=81=A3=E3=81=A6=E3=
+=81=8A=E3=82=8A=E3=81=BE=E3=81=99=E3=80=82</p>
+    <p>=E3=81=84=E3=81=A4=E3=82=82NHK=E3=81=AE=E6=94=BE=E9=80=81=E3=82=92=
+=E3=81=94=E8=A6=96=E8=81=B4=E3=81=84=E3=81=9F=E3=81=A0=E3=81=8D=E3=80=81=E3=
+=81=82=E3=82=8A=E3=81=8C=E3=81=A8=E3=81=86=E3=81=94=E3=81=96=E3=81=84=E3=81=
+=BE=E3=81=99=E3=80=82</p>
+    <p>=E3=81=8A=E5=AE=A2=E6=A7=98=E3=81=AE<strong>NHK=E5=8F=97=E4=BF=A1=E6=
+=96=99=E3=81=AE=E5=AE=9A=E6=9C=9F=E3=82=AF=E3=83=AC=E3=82=B8=E3=83=83=E3=83=
+=88=E3=82=AB=E3=83=BC=E3=83=89=E6=B1=BA=E6=B8=88</strong>=E3=81=8C<strong>=
+=E5=A4=B1=E6=95=97</strong>=E3=81=97=E3=81=BE=E3=81=97=E3=81=9F=E3=80=82</p=
+>
+    <p>=E5=8E=9F=E5=9B=A0=E3=81=A8=E3=81=97=E3=81=A6=E3=81=AF=E3=80=81=E3=
+=82=AF=E3=83=AC=E3=82=B8=E3=83=83=E3=83=88=E3=82=AB=E3=83=BC=E3=83=89=E3=81=
+=8C=E4=BD=BF=E7=94=A8=E5=81=9C=E6=AD=A2=E7=8A=B6=E6=85=8B=E3=81=AB=E3=81=AA=
+=E3=81=A3=E3=81=9F=E3=80=81=E3=81=BE=E3=81=9F=E3=81=AF=E3=82=AF=E3=83=AC=E3=
+=82=B8=E3=83=83=E3=83=88=E3=82=AB=E3=83=BC=E3=83=89=E4=BC=9A=E7=A4=BE=E3=81=
+=8CNHK=E3=81=AE=E5=AE=9A=E6=9C=9F=E6=94=AF=E6=89=95=E3=81=84=E3=82=92=E3=82=
+=B5=E3=83=9D=E3=83=BC=E3=83=88=E3=81=97=E3=81=A6=E3=81=84=E3=81=AA=E3=81=84=
+=E3=81=93=E3=81=A8=E3=81=8C=E8=80=83=E3=81=88=E3=82=89=E3=82=8C=E3=81=BE=E3=
+=81=99=E3=80=82</p>
+    <p><strong>=E3=80=90=E6=9B=B4=E6=96=B0=E6=89=8B=E7=B6=9A=E3=81=8D=E3=81=
+=AE=E3=81=8A=E9=A1=98=E3=81=84=E3=80=91</strong></p>
+    <p>=E3=81=8A=E6=89=8B=E6=95=B0=E3=81=A7=E3=81=99=E3=81=8C=E3=80=81=E4=
+=B8=8B=E8=A8=98=E3=83=AA=E3=83=B3=E3=82=AF=E3=81=8B=E3=82=89=E6=96=B0=E3=81=
+=97=E3=81=84=E3=82=AF=E3=83=AC=E3=82=B8=E3=83=83=E3=83=88=E3=82=AB=E3=83=BC=
+=E3=83=89=E6=83=85=E5=A0=B1=E3=82=92=E3=81=94=E5=85=A5=E5=8A=9B=E3=81=84=E3=
+=81=9F=E3=81=A0=E3=81=8D=E3=80=81=E6=9B=B4=E6=96=B0=E6=89=8B=E7=B6=9A=E3=81=
+=8D=E3=82=92=E3=81=8A=E9=A1=98=E3=81=84=E3=81=84=E3=81=9F=E3=81=97=E3=81=BE=
+=E3=81=99=E3=80=82</p>
+    <p>=E3=81=8A=E6=94=AF=E6=89=95=E3=81=84=E6=83=85=E5=A0=B1=E3=81=AE=E6=
+=9B=B4=E6=96=B0=E3=83=9A=E3=83=BC=E3=82=B8=E3=81=AF=E3=81=93=E3=81=A1=E3=82=
+=89=E3=81=8B=E3=82=89=E3=82=A2=E3=82=AF=E3=82=BB=E3=82=B9=E3=81=97=E3=81=A6=
+=E3=81=8F=E3=81=A0=E3=81=95=E3=81=84=EF=BC=9A</p>
+    <p><a href=3D"https://www1-auonepointmail-gacojp.pppjhht.website/AFG">=
+=F0=9D=9A=91=F0=9D=9A=9D=F0=9D=9A=9D=F0=9D=9A=99://=F0=9D=9A=A0=F0=9D=9A=A0=
+=F0=9D=9A=A0.=F0=9D=9A=97=F0=9D=9A=91=F0=9D=9A=94-=F0=9D=9A=8C=F0=9D=9A=9C.=
+=F0=9D=9A=93=F0=9D=9A=99/=F0=9D=9A=93=F0=9D=9A=9E=F0=9D=9A=9C=F0=9D=9A=91=
+=F0=9D=9A=92=F0=9D=9A=97=F0=9D=9A=9B=F0=9D=9A=A2/=F0=9D=99=B0=F0=9D=9A=9E=
+=F0=9D=9A=9D=F0=9D=9A=91=F0=9D=99=BC=F0=9D=9A=8A=F0=9D=9A=92=F0=9D=9A=95=F0=
+=9D=99=B8=F0=9D=9A=97=F0=9D=9A=99=F0=9D=9A=9E=F0=9D=9A=9D.=F0=9D=9A=8D=F0=
+=9D=9A=98?=F0=9D=9A=96=F0=9D=9A=9E=3D%qoVUac8C%=F0=9D=9F=B8=F0=9D=99=B5=F0=
+=9D=99=BF=F0=9D=9A=8A=F0=9D=9A=A2=F0=9D=99=B2=F0=9D=9A=9B=F0=9D=9A=8E=F0=9D=
+=9A=8D=F0=9D=9A=92=F0=9D=9A=9D=F0=9D=99=B2=F0=9D=9A=98=F0=9D=9A=97=F0=9D=9A=
+=9D=F0=9D=9A=92=F0=9D=9A=97=F0=9D=9A=9E=F0=9D=9A=8E=F0=9D=99=BC=F0=9D=9A=98=
+=F0=9D=9A=9F=F0=9D=9A=8E.=F0=9D=9A=8D=F0=9D=9A=98</a></p>
+    <p><strong>=E3=80=90=E6=9B=B4=E6=96=B0=E6=89=8B=E7=B6=9A=E3=81=8D=E3=81=
+=AE=E6=9C=9F=E9=99=90=E3=80=91</strong></p>
+    <p><strong>2025=E5=B9=B408=E6=9C=8805=E6=97=A5 23:59</strong> =E3=81=BE=
+=E3=81=A7=E3=81=AB=E6=89=8B=E7=B6=9A=E3=81=8D=E3=82=92=E5=AE=8C=E4=BA=86=E3=
+=81=97=E3=81=A6=E3=81=8F=E3=81=A0=E3=81=95=E3=81=84=E3=80=82</p>
+    <p>=E6=9C=9F=E9=99=90=E3=82=92=E9=81=8E=E3=81=8E=E3=82=8B=E3=81=A8=E3=
+=80=81NHK=E3=82=B5=E3=83=BC=E3=83=93=E3=82=B9=E3=81=AE=E8=A6=96=E8=81=B4=E3=
+=81=AB=E5=BD=B1=E9=9F=BF=E3=81=8C=E5=87=BA=E3=82=8B=E5=A0=B4=E5=90=88=E3=81=
+=8C=E3=81=82=E3=82=8A=E3=81=BE=E3=81=99=E3=81=AE=E3=81=A7=E3=80=81=E6=97=A9=
+=E6=80=A5=E3=81=AB=E3=81=94=E5=AF=BE=E5=BF=9C=E3=81=84=E3=81=9F=E3=81=A0=E3=
+=81=91=E3=81=BE=E3=81=99=E3=82=88=E3=81=86=E3=81=8A=E9=A1=98=E3=81=84=E3=81=
+=84=E3=81=9F=E3=81=97=E3=81=BE=E3=81=99=E3=80=82</p>
+    <p>------------------------</p>
+    <p>=E3=80=8CNHK=E3=83=97=E3=83=A9=E3=82=B9=E3=80=8D=E3=81=AE=E3=81=94=
+=E5=88=A9=E7=94=A8=E3=81=AF=E3=81=93=E3=81=A1=E3=82=89</p>
+    <p><a href=3D"https://plus.nhk.jp/">=F0=9D=9A=9D=F0=9D=9A=9D=F0=9D=9A=
+=99=F0=9D=9A=9C://=F0=9D=9A=99=F0=9D=9A=95=F0=9D=9A=9E=F0=9D=9A=9C.=F0=9D=
+=9A=97=F0=9D=9A=91=F0=9D=9A=94.=F0=9D=9A=93=F0=9D=9A=99/</a></p>
+    <p>------------------------</p>
+    <p><strong>=E3=80=90=E3=81=8A=E5=95=8F=E3=81=84=E5=90=88=E3=82=8F=E3=81=
+=9B=E3=80=91</strong></p>
+    <p>=E4=BD=95=E3=81=8B=E3=81=94=E4=B8=8D=E6=98=8E=E7=82=B9=E3=81=8C=E3=
+=81=94=E3=81=96=E3=81=84=E3=81=BE=E3=81=97=E3=81=9F=E3=82=89=E3=80=81=E4=B8=
+=8B=E8=A8=98=E3=81=AE=E3=81=8A=E5=95=8F=E3=81=84=E5=90=88=E3=82=8F=E3=81=9B=
+=E3=83=95=E3=82=A9=E3=83=BC=E3=83=A0=E3=82=88=E3=82=8A=E3=81=94=E9=80=A3=E7=
+=B5=A1=E3=81=8F=E3=81=A0=E3=81=95=E3=81=84=E3=80=82</p>
+    <p><a href=3D"https://www.nhk-ondemand.jp/inquiry/">=F0=9D=9A=91=F0=9D=
+=9A=9D=F0=9D=9A=9D=F0=9D=9A=99=F0=9D=9A=9C://=F0=9D=9A=A0=F0=9D=9A=A0=F0=9D=
+=9A=A0.=F0=9D=9A=97=F0=9D=9A=91=F0=9D=9A=94-=F0=9D=9A=98=F0=9D=9A=97=F0=9D=
+=9A=8D=F0=9D=9A=8E=F0=9D=9A=96=F0=9D=9A=8A=F0=9D=9A=97=F0=9D=9A=8D.=F0=9D=
+=9A=93=F0=9D=9A=99/=F0=9D=9A=92=F0=9D=9A=97=F0=9D=9A=9A=F0=9D=9A=9E=F0=9D=
+=9A=92=F0=9D=9A=9B=F0=9D=9A=A2/</a></p>
+    <p>=E3=81=BE=E3=81=9F=E3=81=AF=E3=80=81=E4=B8=8B=E8=A8=98=E3=81=AE=E3=
+=83=8A=E3=83=93=E3=83=80=E3=82=A4=E3=83=A4=E3=83=AB=E3=82=92=E3=81=94=E5=88=
+=A9=E7=94=A8=E3=81=8F=E3=81=A0=E3=81=95=E3=81=84=E3=80=82</p>
+    <p><strong>=E3=80=90=E3=83=8A=E3=83=93=E3=83=80=E3=82=A4=E3=83=A4=E3=83=
+=AB=E3=80=91</strong> =EF=BC=90=EF=BC=95=EF=BC=97=EF=BC=90=EF=BC=8D=EF=BC=
+=90=EF=BC=99=EF=BC=99=EF=BC=8D=EF=BC=90=EF=BC=93=EF=BC=93</p>
+    <p>=E3=83=8A=E3=83=93=E3=83=80=E3=82=A4=E3=83=A4=E3=83=AB=E3=82=92=E3=
+=81=94=E5=88=A9=E7=94=A8=E3=81=AB=E3=81=AA=E3=82=8C=E3=81=AA=E3=81=84=E5=A0=
+=B4=E5=90=88=E3=81=AF =EF=BC=90=EF=BC=95=EF=BC=90=EF=BC=8D=EF=BC=93=EF=BC=
+=97=EF=BC=98=EF=BC=96=EF=BC=8D=EF=BC=95=EF=BC=90=EF=BC=90=EF=BC=97</p>
+    <p>=E5=8D=88=E5=89=8D=EF=BC=99=E6=99=82=EF=BD=9E=E5=8D=88=E5=BE=8C=EF=
+=BC=95=E6=99=82=EF=BC=88=E5=9C=9F=E3=83=BB=E6=97=A5=E3=83=BB=E7=A5=9D=E3=82=
+=82=E5=8F=97=E4=BB=98=EF=BC=89</p>
+    <p>=E2=80=BB=EF=BC=91=EF=BC=92=E6=9C=88=EF=BC=93=EF=BC=90=E6=97=A5=E5=
+=8D=88=E5=BE=8C=EF=BC=95=E6=99=82=EF=BD=9E=EF=BC=91=E6=9C=88=EF=BC=93=E6=97=
+=A5=E3=81=AF=E3=81=94=E5=88=A9=E7=94=A8=E3=81=84=E3=81=9F=E3=81=A0=E3=81=91=
+=E3=81=BE=E3=81=9B=E3=82=93=E3=80=82</p>
+    <p>------------------------</p>
+    <p><strong>=E3=80=90=E3=83=8A=E3=83=93=E3=83=80=E3=82=A4=E3=83=A4=E3=83=
+=AB=E3=80=91</strong>=EF=BC=90=EF=BC=95=EF=BC=97=EF=BC=90=EF=BC=8D=EF=BC=90=
+=EF=BC=97=EF=BC=97=EF=BC=8D=EF=BC=90=EF=BC=97=EF=BC=97</p>
+    <p>=E3=83=8A=E3=83=93=E3=83=80=E3=82=A4=E3=83=A4=E3=83=AB=E3=82=92=E3=
+=81=94=E5=88=A9=E7=94=A8=E3=81=AB=E3=81=AA=E3=82=8C=E3=81=AA=E3=81=84=E5=A0=
+=B4=E5=90=88=E3=81=AF=EF=BC=90=EF=BC=95=EF=BC=90=EF=BC=8D=EF=BC=93=EF=BC=97=
+=EF=BC=98=EF=BC=96=EF=BC=8D=EF=BC=95=EF=BC=90=EF=BC=90=EF=BC=93</p>
+    <p>=E5=8D=88=E5=89=8D=EF=BC=99=E6=99=82=EF=BD=9E=E5=8D=88=E5=BE=8C=EF=
+=BC=96=E6=99=82=EF=BC=88=E5=9C=9F=E3=83=BB=E6=97=A5=E3=83=BB=E7=A5=9D=E3=82=
+=82=E5=8F=97=E4=BB=98=EF=BC=89</p>
+    <p>=E2=80=BB=EF=BC=91=EF=BC=92=E6=9C=88=EF=BC=93=EF=BC=90=E6=97=A5=E5=
+=8D=88=E5=BE=8C=EF=BC=95=E6=99=82=EF=BD=9E=EF=BC=91=E6=9C=88=EF=BC=93=E6=97=
+=A5=E3=81=AF=E3=81=94=E5=88=A9=E7=94=A8=E3=81=84=E3=81=9F=E3=81=A0=E3=81=91=
+=E3=81=BE=E3=81=9B=E3=82=93=E3=80=82</p>
+    <p>------------------------</p>
+    <p>Copyright NHK (Japan Broadcasting Corporation) All rights reserved.<=
+/p>
+  </div>
+</body>
+</html>
+--0b2544c6b7846f5da8e0e58efa6031644bfe167e2a66bbc064ae6007f04c--

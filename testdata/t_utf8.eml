@@ -1,0 +1,316 @@
+Delivered-To: magi.link@gmail.com
+Received: by 2002:a05:7110:4711:b0:272:f0ab:b07e with SMTP id u17csp417127ged;
+        Wed, 6 Aug 2025 13:03:58 -0700 (PDT)
+X-Forwarded-Encrypted: i=3; AJvYcCWbybP46oHHEiqWlCS+4UeWV720MTTYWIgh2Y33Xg7Ba6Mae4H0YJWBBERSPJi6krTFDTm9J1ESTlQ=@gmail.com
+X-Google-Smtp-Source: AGHT+IFQ4v+Pzc6WkheKe6x/I8+w8Gf2CftqCKvKdbCO2F6iMth/Rb1PKuD44XotPeQ0QPfGqolP
+X-Received: by 2002:a05:6a20:938e:b0:231:acae:1977 with SMTP id adf61e73a8af0-240313ba317mr7202961637.15.1754510637570;
+        Wed, 06 Aug 2025 13:03:57 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1754510637; cv=pass;
+        d=google.com; s=arc-20240605;
+        b=Ueu481eGvqjLTs8hG9Ug4zF9yHTlL9po0OAr79qhWOCCNvRlFgx4swlrsM6vwEfrDS
+         qCGJQHbg3M3+Cwj77shakOxhiBdViu71k3/rRTLI8LRUsVoACVHUpD3M9GVk5O699YGl
+         TXHfvS+y/5cAIhmuCXjhz/8tvBZfoM1dc9lt+zLbSQhWUIicnPAHlkb2WrSeuR11X6PQ
+         Z2CunZOwKHGqCzZL4931Up2greUOuQ0Kq/apMtG4oH6kq6Jst9P+F9bbSJrYvbi2o22+
+         xecAPC6MSy44kIVxX42PgvIS2xkeU9wBByoeSvB17cJq10FdzXPTyUSj99+zRmOkdZtB
+         Pn4Q==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=message-id:date:list-unsubscribe:list-unsubscribe-post
+         :content-transfer-encoding:to:subject:errors-to:sender:from
+         :mime-version:dkim-signature;
+        bh=rF+fOAs1Yyt3dVNCofvdWQ8LfOUGtsxW8zulVP3beog=;
+        fh=TO2HmmN7MFVkddU1pQ22nVPRqwFJAqgtCK1sWYb8YuI=;
+        b=ChZYRxJZZShxGaeqFcgq1Q7YV/v4q2+AjZQe49QXMAOd72BEH4hxRluIpmlAXRibh1
+         9SpT+ZGOL6EWXJ56zDcReK2ijOECu/D2Psciu2DqsUPufVHM1FURPcGYuix/KgVxaEtY
+         5ijxJ+ic9G8ScH6widTpbU6jpPIEvZwUiY0Eizlts/MjkHdeGkxUfSi+AODMJyiYGLBw
+         mSehcIGR3VP+XwEjfWZRV46AtMS/U4vtJXQjNt2qHtFwTVmXn0yTG3JtSSz3yzBiMLMa
+         LLG8fEioq/Lbq1qFs6sR48ElUcSq96kRugNw7baFK8HxNi/thqsAmrfOvypBG5+G2xV8
+         7PEQ==;
+        dara=google.com
+ARC-Authentication-Results: i=2; mx.google.com;
+       dkim=pass header.i=@itmedia.co.jp header.s=20240121-magfire header.b=HWpBplv5;
+       arc=pass (i=1);
+       spf=softfail (google.com: domain of transitioning magowner-mailmag-enterprise@itmedia.co.jp does not designate 27.120.211.166 as permitted sender) smtp.mailfrom=magowner-mailmag-enterprise@itmedia.co.jp;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=itmedia.co.jp
+Return-Path: <magowner-mailmag-enterprise@itmedia.co.jp>
+Received: from relay01.cm01.cloud-mail.jp (mail-gw27.cloud-mail.jp. [27.120.211.166])
+        by mx.google.com with ESMTPS id d2e1a72fcca58-76c2ec625f6si1454702b3a.371.2025.08.06.13.03.57
+        for <magi.link@gmail.com>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Wed, 06 Aug 2025 13:03:57 -0700 (PDT)
+Received-SPF: softfail (google.com: domain of transitioning magowner-mailmag-enterprise@itmedia.co.jp does not designate 27.120.211.166 as permitted sender) client-ip=27.120.211.166;
+Authentication-Results: mx.google.com;
+       dkim=pass header.i=@itmedia.co.jp header.s=20240121-magfire header.b=HWpBplv5;
+       arc=pass (i=1);
+       spf=softfail (google.com: domain of transitioning magowner-mailmag-enterprise@itmedia.co.jp does not designate 27.120.211.166 as permitted sender) smtp.mailfrom=magowner-mailmag-enterprise@itmedia.co.jp;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=itmedia.co.jp
+Received: from store045-fbp.cm01.cloud-mail.jp (store045-fbp.cm01.cloud-mail.jp [10.32.71.53]) by relay01.cm01.cloud-mail.jp (3.11r) with ESMTP id 576K3uDo018412 for <magi.link@gmail.com>; Thu, 7 Aug 2025 05:03:56 +0900 (JST)
+Authentication-Results: relay01; arc=none
+ARC-Seal:  i=1; a=rsa-sha256; d=cloud-mail.jp; s=a20240201rs; t=1754510636;
+	cv=none; b=BuNyaeYMeoXbWxEPa+ZODfWWaUsEYCzq5z7RXnD1BLNHIXUKozqpcNSmyY5JjInhzEF9GsOWGV8xP3CnGA8IlRET50lZld0fg+RBY+yXcjlmhGAhYbYCGhSYULSp7qUhyasJQMJ0U1UflJVYmiUQbif7XresVWv2AeEQj8MEM5p33Iv5BrEguqTSy7tqtxVVxn56ifxjaZjPoAtxgQ9wUIcPBrzNClRwWfBi9c7Wd6Vz57wTDDDvN6lSea7k8qMEFl/4RR93NaW/Sb7d9/mc/2oVkFtJ/y6k1yBHuLTkCi9es1Qvm0vcisHhOBHe9VESp/xvWK1XBU3D4RBCq5kGVw==
+ARC-Message-Signature:  i=1; a=rsa-sha256; d=cloud-mail.jp; s=a20240201rs;
+	t=1754510636; c=relaxed/relaxed;
+	bh=rF+fOAs1Yyt3dVNCofvdWQ8LfOUGtsxW8zulVP3beog=;
+	h=DKIM-Signature:MIME-Version:From:Subject:To:Date:Message-Id; b=ogNoIReBWIhmg71htauBy7Ep8I4kq5Yyw639xjmxmH5wz7/iCT/5kz27XCQVU07at0yQfc94MONQIuDDxnGt2V/poTSaPsR9b2BtN1nYs+WiNEU2t+AQK0UDj/KQQbRPudotmGYtFK7HUhZstuj4sESOrodk7Wqb0qGEbRLR4COxiRwy1rWccMzj7hwZWF153DqYDscOzTGlevUF92pIVatHneRWFwhfSExBcMYn1MPJW//V9EZdPXvRnAGe3Rpp6MS92BRmwTtJZKWg1fF7i1CsC9Wz9xQ8pl2O0UWYZBRSLZ/JgXA9ahKkhZYcb96IPWjmZ4exOyFVIsHHOunE5g==
+ARC-Authentication-Results:  i=1; relay01; arc=none
+X-Mark-Debug: sink= hfrom=enterprise-mail@itmedia.co.jp spam=
+Received: from mx03.cm01.cloud-mail.jp (mx03-fbp.cm01.cloud-mail.jp [10.32.68.10]) by store045-fbp.cm01.cloud-mail.jp (3.10pn) with ESMTP id 576K3t7r022902 for <magi@kiwi.ne.jp>; Thu, 7 Aug 2025 05:03:55 +0900 (JST)
+Received: from scpa307.cm01.cloud-mail.jp ([10.236.147.1]) by mx03.cm01.cloud-mail.jp (3.11g) with ESMTP id 576K3tTT025507 for <magi@kiwi.ne.jp>; Thu, 7 Aug 2025 05:03:55 +0900 (JST)
+Received: from pps.filterd (scpa307.cm01.cloud-mail.jp [127.0.0.1])
+	by scpa307.cm01.cloud-mail.jp (8.18.1.2/8.18.1.2) with ESMTP id 576H97RG000934
+	for <magi@kiwi.ne.jp>; Thu, 7 Aug 2025 05:03:55 +0900
+Authentication-Results: cm01.cloud-mail.jp;
+	dkim=pass header.s=20240121-magfire header.d=itmedia.co.jp;
+	spf=pass smtp.mailfrom=magowner-mailmag-enterprise@itmedia.co.jp;
+	dmarc=pass header.from=itmedia.co.jp
+Received: from magfire14.itmedia.co.jp (magfire14.itmedia.co.jp [52.197.194.93])
+	by scpa307.cm01.cloud-mail.jp (PPS) with ESMTPS id 48bpwjdneb-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
+	for <magi@kiwi.ne.jp>; Thu, 07 Aug 2025 05:03:55 +0900
+Received: from itmms01.itmedia.co.jp (unknown [10.0.20.248])
+	by magfire14.itmedia.co.jp (Postfix) with ESMTP id 2FE675100C
+	for <magi@kiwi.ne.jp>; Thu,  7 Aug 2025 05:03:55 +0900 (JST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=itmedia.co.jp;
+	s=20240121-magfire; t=1754510635;
+	bh=AfPS2CEkYA6lxuXul6JLg62XLz9Oban9OJ8ZsZsRiyc=;
+	h=MIME-Version:From:Sender:Subject:To:Content-Type:
+	 Content-Transfer-Encoding:List-Unsubscribe-Post:List-Unsubscribe:
+	 Date:Message-Id;
+	b=HWpBplv5FdytAbKRNUAgsZBO0KLN6gV5yP3bBznEqRXEraob9sKR1nr+7U+5Ds8Cp
+	 YBTI0Iou9JoOXdnaoBM+fv4SSjMR0mTV07Jko/Qn/z7UHoM2OSVDE2WcZuCMCM07h4
+	 1pkLnVot7XCgR6+mpUyh2l1NGHPaMnE3J5vWiAc/oW3pXOsjG4paI6iwdKQim4OYqA
+	 zRajStFakKYk3xpt913O4xyDnIJ4fJmbtWBwgHpvUuQRl+JSeUFa4LDJi3bCihps71
+	 aoMdp4G+nMy8ZOphUVSkJ+J6ZH7TgRt/PshkH8ZSCy1iHHFRy0KWGwdfckplB1G6M4
+	 C2DCu3nOET4EQ==
+Received: by itmms01.itmedia.co.jp (Postfix, from userid 5600)
+	id 55C7E41FAC; Thu,  7 Aug 2025 05:03:54 +0900 (JST)
+MIME-Version: 1.0
+From: ITmedia
+ =?ISO-2022-JP?B?GyRCJSglcyU/ITwlVyVpJSQlOhsoQiAbJEIlYSE8JWsbKEI=?=
+ =?ISO-2022-JP?B?GyRCJV4lLCU4JXMbKEI=?= <enterprise-mail@itmedia.co.jp>
+Sender: magowner-mailmag-enterprise@itmedia.co.jp
+Errors-To: magowner-mailmag-enterprise@itmedia.co.jp
+Subject: =?ISO-2022-JP?B?GyRCPCtGMDxWO3Y4TiRHJUYlOSVpJE4bKEJBdXRvcGlsb3Q=?=
+ =?ISO-2022-JP?B?GyRCJEskYkBVRyQkLCQiJGskSCQ5JGtIPTdoGyhCIFsbJEIlKiVrGyhC?=
+ =?ISO-2022-JP?B?GyRCJT8lSiVGJSMlViEmJVYlbSUwGyhCXQ==?=
+To: magi@kiwi.ne.jp
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+List-Unsubscribe-Post: List-Unsubscribe=One-Click
+List-Unsubscribe: <https://id.itmedia.co.jp/mail_unsubscribe_apply?s=UsKdZjeMDTcexLQl&p=gCMH2hfibH9ol3ni>
+Date: Thu,  7 Aug 2025 05:03:54 +0900 (JST)
+Message-Id: <20250807050354.16618@itmms-248600.itmedia.co.jp>
+X-Proofpoint-GUID: Yg13znO6L_mQPGa1vCoZigYfVccAInU8
+X-Proofpoint-ORIG-GUID: Yg13znO6L_mQPGa1vCoZigYfVccAInU8
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODA2MDEzNCBTYWx0ZWRfXwAt7Yu/5KVYw /K9ty1ebeYAVC8LZvPJ90RaByTg09imPG8G2selsZrzYev3TmaUkbiY8IvAuxPPaMvatI3fewky pTTXUwXT/tW7GSYeL+iO13BoeJTdP7UG4rVJEWWucxVde6KNJR5S13OUSlTcVJI37BjsUBT6LBy
+ qXZL1KPOTkpRcmwtN1Ydt41qXw84qApcEjlH3qRm+cPDtsKz2Ycuph09FAXGIqrHPiROuSmk2nF eajaR1AMByN/rvr9hSYVIPPFogFSh8OC6a1CBsiYY9FOKbEizrYM6rBTK6tvPBuYe6w9wTrks=
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━……‥‥・・
+【ITmedia エンタープライズ メールマガジン 木曜版：オルタナティブ・ブログ】
+2025.8/7
+━━━━━━━━━━━━━━━━━━━━━ 
+http://blogs.itmedia.co.jp/
+
+オルタナティブ・ブログは、当社の寄稿者を中心とする多彩なブロガー陣が、ブログ
+の特徴を生かして情報を発信し、読者とのダイレクトなコミュニケーションを図る
+“IT系実名ビジネスブログ・メディア”です。
+
+┌────────────────────────────────────┐
+│●　オルタナティブ・ブログ運営事務局のオススメエントリー　●　　　　　　
+└────────────────────────────────────┘
+8月——と言えば「夏休み」ですが、例年以上の暑さが続いているせいか、外で遊ん
+でいる子どもはほとんど見掛けません。みんなクーラーの効いた部屋で勉強したり、
+ゲームで遊んだり、ネット動画を見たりしているのでしょうか。
+いつの時代も、夏休みで悩ましいのは宿題です。大量の宿題を残り1〜2日でやるなん
+てのは、ハッキリ言って無理ゲーですから、とにかくさっさと終わらせるに限りま
+す。
+あと、宿題の中には自由研究や工作もありますね。自分で一から作るれるなら最高で
+すが、既存のモノを組み立てるのもアリです。長い休みを利用して、大作に挑んでも
+らいたいです。
+今週ピックアップしたのは、吉田賢治郎さんのエントリーです。子どもも大人も楽し
+めるペーパークラフトが満載です。どうぞご覧ください。
+
+簡単なものから超精巧まで！リアルなペーパークラフトを作ろう！（2025年）
+https://re.itmedia.co.jp/SFv19NhV
+
+　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　（編集部：澤田）
+┌────────────────────────────────────┐
+│●　オルタナティブ・ブログ　アクセスTOP10　（7/31〜8/6）●
+└────────────────────────────────────┘
+☆1 マクドナルドが求人サイトで6400万件流出の123456なパスで考える本当の弱点
+新倉茂彦の情報セキュリティAtoZ：
+https://re.itmedia.co.jp/SFv19LAk
+
+☆2 時間が足りない？　〜1日を48時4V$K$7$F$_$k$H$$$&;W9M<B83
+Mostly Harmless：
+https://re.itmedia.co.jp/SFv19Ne1
+
+☆3 マイナンバーカードを更新したら
+路の上で：
+https://re.itmedia.co.jp/SFv19LCg
+
+☆4 50歳くらいの管理職の方から、こんなご相談を頂きました
+ITソリューション塾：
+https://re.itmedia.co.jp/SFv19LFa
+
+☆5 日本のAI利用率は相変わらず低い　〜鍵を握るのは従業員教育
+Mostly Harmless：
+https://re.itmedia.co.jp/SFv19N9b
+
+☆6 令和版　粋でカッコいい人になるための十か条
+色々やってる社長のブログ：
+https://re.itmedia.co.jp/SFv19Nd3
+
+☆7 「この1年で3人辞めてしまいました」／なぜ優秀な若手は辞めていくのか？
+ITソリューション塾：
+https://re.itmedia.co.jp/SFv19LEc
+
+☆8 10年目の答え合わせ　〜AIに代替された職業は
+Mostly Harmless：
+https://re.itmedia.co.jp/SFv1c9X6
+
+☆9 老害を考察する
+色々やってる社長のブログ：
+https://re.itmedia.co.jp/SFv19LBi
+
+☆10 なぜ、テレビはオールドメディアだとか、オワコ%s$@$H8@$o$l$k$N$+
+「走れ！プロジェクトマネージャー！」：
+https://re.itmedia.co.jp/SFv19Lzm
+
+
+┌────────────────────────────────────┐
+│●　新着ピックアップ　●　　　　　　　　　　　　　　　　　　　　　　　　
+└────────────────────────────────────┘
+この1週間に投稿されたエントリーの中から、PickUpしてお届けします。
+
+▼自動車事故でテスラのAutopilotにも責任があるとする判決
+森崎修司の「どうやってはかるの？」：
+https://re.itmedia.co.jp/SFv19Nc5
+
+▼最新カンバンガイドの日本語版が公開された
+ITとビジネスの可能性：
+https://re.itmedia.co.jp/SFv1c9Uc
+
+▼生成AIはそもそもPoCに向いていないのではないか
+Mostly Harmless：
+https://re.itmedia.co.jp/SFv19Nb7
+
+▼表示速度を落とさず世界観を伝えるデザイン｜ブランドサイトの最適化戦略
+SEO対策温故知新：
+https://re.itmedia.co.jp/SFv19Lxq
+
+▼セキュリティソフト市場、AIとクラウドで急成長
+『ビジネス2.0』の視点：
+https://re.itmedia.co.jp/SFv1c9W8
+
+▼SIerの未来を拓く「脱人月シナリオ」とは？ AI時代を勝ち抜くための圧倒的技
+術力
+ITソリューション塾：
+https://re.itmedia.co.jp/SFv19Na9
+
+▼メタバースで「大人に８０年前の広島、長崎を体験」させられれば、、
+けんじろう と コラボろう！：
+https://re.itmedia.co.jp/SFv19NfZ
+
+▼驚くべき上海交通大学のIT人材育成詳細とその即戦力志向。IT人材不足の日本には
+チャンス
+経営者が読むNVIDIAのフィジカルAI / ADAS業界日報 by 今泉大輔：
+https://re.itmedia.co.jp/SFv19LDe
+
+▼スピーチが苦手な人々に送るワンポイントアドバイス
+色々やってる社長のブログ：
+https://re.itmedia.co.jp/SFv1c9Va
+
+▼『「やさしさ」の免罪符』を読んで
+路の上で：
+https://re.itmedia.co.jp/SFv19Lyo
+
+▼コインパーキング考察
+「走れ！プロジェクトマネージャー！」：
+https://re.itmedia.co.jp/SFv19NgX
+
+
+■オルタナティブ・ブログに掲載される全てのエントリーを見るには、
+　RSSフィードをご利用ください。
+
+　オルタナティブ・ブログ全体RSSフィード
+https://re.itmedia.co.jp/SFv19N8d
+
+---------------------------------------------------------------------------
+■【Amazonギフトカード プレゼント】中堅・中小企業の情シス向けセミナー開催
+---------------------------------------------------------------------------
+
+2025年9月8日〜12日にわたって、中堅・中小企業向けウェビナーを開催します。セッ
+ションテーマは「情シスの変革」「セキュリティ」「PC管理」「データ活用」「情報
+共有」の5テーマ。独立行政法人情報処理推進機構やスノーピークビジネスソリュー
+ションなど、各分野の専門家や企業のIT担当者が登壇し、現場課題の解決のヒントを
+語ります。
+
+＞＞＞＞変わる情シス　現場で乗り越える、中堅中小企業のIT課題解決ガイド
+https://re.itmedia.co.jp/SFlCUTFf
+
+---------------------------------------------------------------------------
+■抽選で「Amazonギフトカード（500円分）」が当たるアンケート実施中！
+---------------------------------------------------------------------------
+現在、以下のアンケートを実施しています。回答いただいた方全員に、1アンケート
+につきキーマンズポイント【30ポイント】をプレゼント、さらに抽選で3名さまに【A
+mazonギフトカード500円分】をプレゼントします！
+データ活用とBIツールの利用状況に関するアンケートを実施しています。データ分析
+ツールの導入と運用にはいくつかのハードルを乗り越える必要があります。皆さんの
+お勤め先ではBIツールの導入、活用は進んでいますか。データ活用とBIツールの利用
+に関する現状をお聞かせください。
+＞＞＞＞データ活用とBIツールの利用状況に関するアンケート
+https://re.itmedia.co.jp/SFlCUWOU
+
+
+== TechTarget info ---------------------------------------------------------
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━…………・・・
+★TechTargetジャパンのお薦めバックナンバーをピックアップしてお知らせします。
+━━━━━━━━━━━━━━━━━━━(,(,(,(,(,(,(,(,(,(,(,(,!D!D!D!D!&!&!&
+
+■ 「Windowsが好きな人」「Linuxにハマる人」を分ける根本的な違い
+https://re.itmedia.co.jp/SFlhR2Ir
+
+■ 「RAGの精度がイマイチ」なら試してみるべき“改善のヒント”はこれだ
+https://re.itmedia.co.jp/SFlhR7xI
+
+■ 「VMwareからの移行、今計画しなければ手遅れに」——Gartnerの警告
+https://re.itmedia.co.jp/SFlhR4je
+
+■ いまさら聞けない「仮想マシン」と「コンテナ」の違い　使い分け方は？
+https://re.itmedia.co.jp/SFlhR7BA
+
+■ ハッキング大会でVMwareの脆弱性が露呈　ESXiでは“初の侵害報告”も
+https://re.itmedia.co.jp/SFlhR15J
+
+--------------------------------------------------------------------------==
+
+========== ITmedia エンタープライズ メールマガジン ==========
+
+・このメールは送信専用メールアドレスから配信されています。
+　このままご返信いただいてもお答えできませんのでご了承ください。
+
+・ユーザー情報や利用サービスの確認、配信先の変更、配信停止などは
+　%"%$%F%#%a%G%#%"IDのMyページより行ってください。
+
+■Myページ
+  https://id.itmedia.co.jp/#utm=etm.20250807.footer
+├パスワード再設定
+  https://id.itmedia.co.jp/password_reset#utm=etm.20250807.footer
+├メールマガジンの配信停止
+  https://id.itmedia.co.jp/service#utm=etm.20250807.footer
+├アイティメディアIDに関するお問い合わせ
+  https://id.itmedia.co.jp/help/inquiry.html#utm=etm.20250807.footer
+└アイティメディアIDに関するヘルプ／よくあるご質問
+  https://id.itmedia.co.jp/help/#utm=etm.20250807.footer
+
+・記事内容に関するお問い合わせは下記のURLをご利用ください。
+  https://corp.itmedia.co.jp/media/inquiry/articles/#utm=etm.20250807.footer
+
+・個人情報に関する方針は下記のURLをご覧ください。
+  https://corp.itmedia.co.jp/corp/privacy/#utm=etm.20250807.footer
+
+============================================================================
+発行：アイティメディア株式会社　ITmedia Inc.
+〒102-0094　東京都千代田区紀尾井町3-12 紀尾井町ビル 12/13F
+============================================================================
+Copyright(C) 2025　ITmedia Inc. All rights reserved.

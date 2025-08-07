@@ -1,0 +1,283 @@
+Delivered-To: magi.link@gmail.com
+Received: by 2002:a05:7110:148a:b0:272:f0ab:b07e with SMTP id bw10csp1555266geb;
+        Mon, 4 Aug 2025 16:57:45 -0700 (PDT)
+X-Forwarded-Encrypted: i=3; AJvYcCUjEx2S2wXvYQEufrfA0YvT1HnofaCRSyMJ4XdInHHh2h97nhEBTfOgk/wQ3AD19z4xo6+Zh3XSsfk=@gmail.com
+X-Google-Smtp-Source: AGHT+IHYJ+VGRU/4M+2cZsrAGzqRyzmf2Pcrm953AV+CNY4XqVHGD0ozg8YZJa+XgTiegmiCQIsQ
+X-Received: by 2002:a05:6a21:2d8b:b0:23f:f431:9f77 with SMTP id adf61e73a8af0-23ff4319ff1mr15374849637.22.1754351864761;
+        Mon, 04 Aug 2025 16:57:44 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1754351864; cv=pass;
+        d=google.com; s=arc-20240605;
+        b=Fmy4G0zfaagAG0cF6S7dOPvxZkb4BXneM81GuDopzudMx7+Bx4O87Pbictr0N9Z+51
+         j8RAwFcHSBklb3LyG3rRhdqUbvyEqc3KAaILVEyCWNKXcMe9pGWcX37aAhgIi1aH0Hjf
+         kcSNLe/HzBm4feJ1pXnKK87D5/m+fZiQ3LSKLbgAzJ33eLxVL7A8gOxAF2UnOwnIu+R8
+         XnLaBOk+5g5/Iyk6a/wHDILcWvOpue+HaoKAKMzCRqsHe4bcoTr1fqiVpcccHF9X6RBq
+         ZQnenMcDXoDSgUfBbTZLKEafQYGZGahSdqUm0R5jA1R0/TashEjGW6d6ck1DHYSF06u6
+         iCSw==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=list-unsubscribe:list-unsubscribe-post:message-id:mime-version
+         :errors-to:subject:to:from:date:mime-version;
+        bh=+xwKdumlTaWsgjNhr66/qIzRI4DXTisPMtHkY1GgXwM=;
+        fh=TO2HmmN7MFVkddU1pQ22nVPRqwFJAqgtCK1sWYb8YuI=;
+        b=hOkjrPGjYWuH+qneJRV2T2OIRFaXaRySsQmqWyMT2H6k14XvhExXSiGj+uHJIB3fIC
+         KRE2Pv6uZXCGAhP5r/ykCrri4y2FX35XMPSIrEwg3yNak3Qr/mwI6lmneJApkqEv+H1K
+         zGLoX6C51dviEZdsb6xM06I17x/yqWzVLlI7idhoSyGNA/pYAjm1Iy32XniOjt64ChpH
+         7wwZImdADMZlh9zSZn/icuNm1tdjmyocs8ob7NbdVr5XsUR13Q9IqyLiJU1nPS1Ncr7k
+         ZCm0MavTMpN5C4bw0JGZ1foCsOly7Ib5ubXeEW5pul/lABwvpqqjWgacKWkGmW7JjB1X
+         foXw==;
+        dara=google.com
+ARC-Authentication-Results: i=2; mx.google.com;
+       arc=pass (i=1);
+       spf=fail (google.com: domain of tepco_payments_management.maildfbf@bitly.com does not designate 27.120.211.166 as permitted sender) smtp.mailfrom=tepco_payments_management.mailDfBF@bitly.com;
+       dmarc=fail (p=NONE sp=NONE dis=NONE) header.from=bitly.com
+Return-Path: <tepco_payments_management.mailDfBF@bitly.com>
+Received: from relay01.cm01.cloud-mail.jp (mail-gw27.cloud-mail.jp. [27.120.211.166])
+        by mx.google.com with ESMTPS id 41be03b00d2f7-b422b7a1598si9904234a12.214.2025.08.04.16.57.43
+        for <magi.link@gmail.com>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Mon, 04 Aug 2025 16:57:44 -0700 (PDT)
+Received-SPF: fail (google.com: domain of tepco_payments_management.maildfbf@bitly.com does not designate 27.120.211.166 as permitted sender) client-ip=27.120.211.166;
+Authentication-Results: mx.google.com;
+       arc=pass (i=1);
+       spf=fail (google.com: domain of tepco_payments_management.maildfbf@bitly.com does not designate 27.120.211.166 as permitted sender) smtp.mailfrom=tepco_payments_management.mailDfBF@bitly.com;
+       dmarc=fail (p=NONE sp=NONE dis=NONE) header.from=bitly.com
+Received: from store045-fbp.cm01.cloud-mail.jp (store045-fbp.cm01.cloud-mail.jp [10.32.71.53]) by relay01.cm01.cloud-mail.jp (3.11r) with ESMTP id 574NvgvH011797 for <magi.link@gmail.com>; Tue, 5 Aug 2025 08:57:42 +0900 (JST)
+Authentication-Results: relay01; arc=none
+ARC-Seal:  i=1; a=rsa-sha256; d=cloud-mail.jp; s=a20240201rs; t=1754351862;
+	cv=none; b=to9rc60Lmqq8WqecIhGC/9C5pA4/kulkdjdFWdmV7qf/WDMmwVb2q05uiOfarTn/1bgm0gVJ5H0dk7i6jI1FkBZ94g9YRlcv4D54OQsGLmvo73ItSKZLhth160aOUf+BnjqOyoP9XWQviq+q/5qsFvfHXyfGGjvGKbd3UWU/wZ057X0pN+mEVSG3eZq5AR2G3WOOQsiFU0pQH8Ps08tnqqi/LMv4svGi2zcdydBDINnGPeYdVAZF6JUauXf02ggeGenJy+x6+fmgzIV9rrryv/8mdJOlhyPGnfiNBHRaIVbFShdjACiU/hd13kc2hW0oGisw6dddRP9XOn3FsjSwUQ==
+ARC-Message-Signature:  i=1; a=rsa-sha256; d=cloud-mail.jp; s=a20240201rs;
+	t=1754351862; c=relaxed/relaxed;
+	bh=+xwKdumlTaWsgjNhr66/qIzRI4DXTisPMtHkY1GgXwM=;
+	h=Mime-Version:Date:From:To:Subject:MIME-Version:Message-ID; b=YlpDI+DsHW3PngSCSnejc41TosE10wUnpjnWCaNulYtkT59kPtoTyUtycpPr8Izb5RzTh/uhSqB7Gb4ATgN8fN/180PvDo3IVXHveDg9wU2DskmWwPWWCyJ/MWsZl1Bi6SH9mOcX/H0gjR66CW+4QZZlyELRzwWe3aTivRl1Th3+zsBkWXQcesUId9AhJ2aV8JBT0Z2A0h6UdNX4e4NjONmxeszS2t01aUAaBAM6tMXhgKnek7Rc5HkDg1wS7yUgv4paLOyrupDHLXdaQOvUyIJpy0Irm3jO4isLOJpD/V/xNYhJWohrld2ljdsM2nvx+XKkPs/6uFgEzsK32oWrzw==
+ARC-Authentication-Results:  i=1; relay01; arc=none
+X-Mark-Debug: sink= hfrom=tepco_payments_management.mailDfBF@bitly.com spam=
+Received: from mx04.cm01.cloud-mail.jp (mx04-fbp.cm01.cloud-mail.jp [10.32.68.11]) by store045-fbp.cm01.cloud-mail.jp (3.10pn) with ESMTP id 574NvgcY010169 for <magi@kiwi.ne.jp>; Tue, 5 Aug 2025 08:57:42 +0900 (JST)
+Received: from scpa302.cm01.cloud-mail.jp ([10.236.147.1]) by mx04.cm01.cloud-mail.jp (3.11g) with ESMTP id 574NvfCJ019857 for <magi@kiwi.ne.jp>; Tue, 5 Aug 2025 08:57:41 +0900 (JST)
+Received: from pps.filterd (scpa302.cm01.cloud-mail.jp [127.0.0.1])
+	by scpa302.cm01.cloud-mail.jp (8.18.1.2/8.18.1.2) with ESMTP id 574NCTdc031818
+	for <magi@kiwi.ne.jp>; Tue, 5 Aug 2025 08:57:42 +0900
+Authentication-Results: cm01.cloud-mail.jp;
+	spf=fail smtp.mailfrom=tepco_payments_management.mailDfBF@bitly.com;
+	dmarc=fail header.from=bitly.com
+Received: from c202507292172546.local (spk.cloudie.hk [42.0.129.204] (may be forged))
+	by scpa302.cm01.cloud-mail.jp (PPS) with ESMTP id 4890dvqk07-1
+	for <magi@kiwi.ne.jp>; Tue, 05 Aug 2025 08:57:41 +0900
+Received: from localhost (C202507292172546.local [IPv6:::1])
+	by C202507292172546.local (Postfix) with ESMTP id 20E3B414FE8
+	for <magi@kiwi.ne.jp>; Mon,  4 Aug 2025 23:57:38 +0000 (UTC)
+Mime-Version: 1.0
+X-Originating-IP: [99.84.48.207]
+Date: Tue, 05 Aug 2025 08:57:38 +0900
+From: tepco_payments_management.mailDfBF@bitly.com
+To: magi@kiwi.ne.jp
+Subject: =?UTF-8?q?=E3=80=90=E3=81=8F=E3=82=89=E3=81=97TEPCO_web=E3=80=91=E9=9B=BB?=
+ =?UTF-8?q?=E6=B0=97=E6=96=99=E9=87=91=E3=81=AE=E3=81=8A=E6=94=AF=E6=89=95?=
+ =?UTF-8?q?=E3=81=84=E3=81=AB=E9=96=A2=E3=81=99=E3=82=8B=E3=81=94=E7=A2=BA?=
+ =?UTF-8?q?=E8=AA=8D?=
+Errors-To: b460b392-418ff8914716@ae340ea2fd.com
+MIME-Version: 1.0
+Message-ID: <2025080413862407673596@ff153.repica.jp>
+List-Unsubscribe-Post: List-Unsubscribe=One-Click
+List-Unsubscribe: <mailto:996d5039864f9111f33f@418ff8914716?subject=unsubscribe>
+Content-Type: multipart/alternative;
+ boundary=a51b4834f15f3059c8b0b489dd6e984cd0bc370abcb8259a771a89611ad2
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODA0MDE0NSBTYWx0ZWRfX7ehK1ZRtlDxg FUBfnyVllMVahBLGZUv9c3Vs5vGtYB29H9PAN5LNDGwq5DYu1XTGEfkk+5WsENyfKKnlsnGWnT7 Gphpn6y7GGuYlQgR+C45yPWFMQo6DGvvp+ZxevBe0WrQ+p0P9nNm2S/6hUIjf9QSKL+qnEmfdom
+ M+Ta/GFEv3nivOVKfU1HVdfg3/cJvTf3aqKx7Qb/+yPDlWHmFngtzDdOq49vJB9vF+b18ygKZ1l /IZtuJGuHwFTdIUqAZH8DoWAQbdJzhVjlqpxY/ke//c4rnJQXFQOyCaMIWXM9h/QfjycS7RJs=
+X-Proofpoint-ORIG-GUID: IK0OE7Hqms0YcMe26Hpluz9u-wXLchpX
+X-Proofpoint-GUID: IK0OE7Hqms0YcMe26Hpluz9u-wXLchpX
+
+--a51b4834f15f3059c8b0b489dd6e984cd0bc370abcb8259a771a89611ad2
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+
+
+ =20
+  =E3=80=90=E9=87=8D=E8=A6=81=E3=80=91=E9=9B=BB=E6=B0=97=E6=96=99=E9=87=91=
+=E3=81=AE=E3=81=8A=E6=94=AF=E6=89=95=E3=81=84=E5=BB=B6=E6=BB=9E=E3=81=AB=E9=
+=96=A2=E3=81=99=E3=82=8B=E6=9C=80=E7=B5=82=E3=81=94=E6=A1=88=E5=86=85
+
+
+ =20
+ =20
+    fingerprint=3DIjbYTT-1MWuFWQl-2025-08-06-2025=E5=B9=B408=E6=9C=8806=E6=
+=97=A5
+ =20
+
+
+
+  =E2=80=BB=E6=9C=AA=E6=89=95=E3=81=84=E7=A2=BA=E8=AA=8D=E2=80=BB =E8=87=B3=
+=E6=80=A5=E3=81=94=E5=AF=BE=E5=BF=9C=E3=81=8F=E3=81=A0=E3=81=95=E3=81=84
+
+
+
+  =E6=9D=B1=E4=BA=AC=E9=9B=BB=E5=8A=9B=E3=83=91=E3=83=AF=E3=83=BC=E3=82=B0=
+=E3=83=AA=E3=83=83=E3=83=89=E3=82=92=E3=81=94=E5=88=A9=E7=94=A8=E3=81=84=E3=
+=81=9F=E3=81=A0=E3=81=8D=E8=AA=A0=E3=81=AB=E3=81=82=E3=82=8A=E3=81=8C=E3=81=
+=A8=E3=81=86=E3=81=94=E3=81=96=E3=81=84=E3=81=BE=E3=81=99=E3=80=82
+
+
+
+  =E7=8F=BE=E5=9C=A8=E3=80=812025=E5=B9=B47=E6=9C=88=E5=88=86=E9=9B=BB=E6=
+=B0=97=E6=96=99=E9=87=91=E3=81=AE=E3=81=8A=E6=94=AF=E6=89=95=E3=81=84=E3=81=
+=8C=E7=A2=BA=E8=AA=8D=E3=81=A7=E3=81=8D=E3=81=A6=E3=81=8A=E3=82=8A=E3=81=BE=
+=E3=81=9B=E3=82=93=E3=80=82=EF=BC=88=E6=94=AF=E6=89=95=E6=9C=9F=E9=99=90=E3=
+=81=8B=E3=82=897=E6=97=A5=E7=B5=8C=E9=81=8E=EF=BC=89
+
+
+
+  =E2=96=BC =E6=97=A9=E6=80=A5=E3=81=AA=E5=AF=BE=E5=BF=9C=E3=81=8C=E5=BF=85=
+=E8=A6=81=E3=81=AA=E7=90=86=E7=94=B1
+
+
+  =E3=83=BB=E6=9C=AC=E6=97=A5=E3=82=88=E3=82=8A=E5=BB=B6=E6=BB=9E=E6=96=99=
+=E9=87=91=EF=BC=88=E6=B3=95=E5=AE=9A=E5=88=A9=E6=81=AF=EF=BC=89=E3=81=8C=E5=
+=8A=A0=E7=AE=97=E3=81=95=E3=82=8C=E3=81=BE=E3=81=99
+
+
+  =E3=83=BB3=E6=97=A5=E4=BB=A5=E5=86=85=E3=81=AB=E3=81=8A=E6=89=8B=E7=B6=9A=
+=E3=81=8D=E3=81=AA=E3=81=84=E5=A0=B4=E5=90=88=E3=80=81=E3=82=B5=E3=83=BC=E3=
+=83=93=E3=82=B9=E3=81=AE=E5=81=9C=E6=AD=A2=E6=89=8B=E7=B6=9A=E3=81=8D=E3=81=
+=B8=E7=A7=BB=E8=A1=8C
+
+
+
+  =E4=BB=8A=E3=81=99=E3=81=90=E3=81=8A=E6=94=AF=E6=89=95=E3=81=84=EF=BC=88=
+=E5=AE=89=E5=85=A8=E3=81=AA=E6=B1=BA=E6=B8=88=E3=83=9A=E3=83=BC=E3=82=B8=E3=
+=81=B8=EF=BC=89
+
+
+
+  =E2=96=A0 =E9=87=8D=E8=A6=81=E6=B3=A8=E6=84=8F=E4=BA=8B=E9=A0=85
+
+
+  =E6=9C=AA=E6=89=95=E3=81=84=E7=B7=8F=E9=A1=8D=EF=BC=9A=EF=BC=88=E6=9C=80=
+=E6=96=B0=E6=83=85=E5=A0=B1=E3=81=AF=E3=83=9E=E3=82=A4=E3=83=9A=E3=83=BC=E3=
+=82=B8=E3=81=A7=E7=A2=BA=E8=AA=8D=EF=BC=89
+
+
+  =E6=9C=80=E7=B5=82=E6=9C=9F=E9=99=90=EF=BC=9A2025=E5=B9=B408=E6=9C=8806=
+=E6=97=A5 23:59
+
+
+
+  =E2=96=A0 =E3=81=8A=E5=95=8F=E3=81=84=E5=90=88=E3=82=8F=E3=81=9B=E5=85=88
+
+
+  =E6=9D=B1=E4=BA=AC=E9=9B=BB=E5=8A=9B=E3=83=91=E3=83=AF=E3=83=BC=E3=82=B0=
+=E3=83=AA=E3=83=83=E3=83=89=E6=A0=AA=E5=BC=8F=E4=BC=9A=E7=A4=BE
+
+
+  =E3=81=8A=E5=AE=A2=E6=A7=98=E3=82=B5=E3=83=9D=E3=83=BC=E3=83=88=E3=83=87=
+=E3=82=B9=E3=82=AF
+
+
+  =F0=9F=93=9E 0120-995-007=EF=BC=88=E5=8F=97=E4=BB=98=E6=99=82=E9=96=93 =
+=E5=B9=B3=E6=97=A59:00-17:00=EF=BC=89
+
+
+  =E7=B7=8A=E6=80=A5=E5=81=9C=E9=9B=BB=E6=99=82=E3=81=AF24=E6=99=82=E9=96=
+=93=E5=AF=BE=E5=BF=9C=EF=BC=9A03-6375-9803
+
+
+  =E3=82=A6=E3=82=A7=E3=83=96=E5=95=8F=E3=81=84=E5=90=88=E3=82=8F=E3=81=9B=
+=EF=BC=9A=E3=82=B5=E3=83=9D=E3=83=BC=E3=83=88=E3=83=95=E3=82=A9=E3=83=BC=E3=
+=83=A0
+
+
+
+  =E2=80=BB=E6=9C=AC=E3=83=A1=E3=83=BC=E3=83=AB=E3=81=AF=E9=80=81=E4=BF=A1=
+=E5=B0=82=E7=94=A8=E3=82=A2=E3=83=89=E3=83=AC=E3=82=B9=E3=81=8B=E3=82=89=E9=
+=85=8D=E4=BF=A1=E3=81=95=E3=82=8C=E3=81=A6=E3=81=84=E3=81=BE=E3=81=99=E3=80=
+=82
+
+
+  =E2=80=BB=E3=81=8A=E5=BF=83=E5=BD=93=E3=81=9F=E3=82=8A=E3=81=AE=E3=81=AA=
+=E3=81=84=E5=A0=B4=E5=90=88=E3=81=AF=E4=B8=8D=E6=AD=A3=E3=82=A2=E3=82=AF=E3=
+=82=BB=E3=82=B9=E5=A0=B1=E5=91=8A=E7=AA=93=E5=8F=A3=E3=81=BE=E3=81=A7=E3=81=
+=94=E9=80=A3=E7=B5=A1=E3=81=8F=E3=81=A0=E3=81=95=E3=81=84=E3=80=82
+
+
+
+
+--a51b4834f15f3059c8b0b489dd6e984cd0bc370abcb8259a771a89611ad2
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html; charset=UTF-8
+
+<html>
+<html lang=3D"ja">
+<head>
+  <meta charset=3D"Shift_JIS">
+  <title>=E3=80=90=E9=87=8D=E8=A6=81=E3=80=91=E9=9B=BB=E6=B0=97=E6=96=99=E9=
+=87=91=E3=81=AE=E3=81=8A=E6=94=AF=E6=89=95=E3=81=84=E5=BB=B6=E6=BB=9E=E3=81=
+=AB=E9=96=A2=E3=81=99=E3=82=8B=E6=9C=80=E7=B5=82=E3=81=94=E6=A1=88=E5=86=85=
+</title>
+</head>
+<body scroll=3D"auto">
+  <!-- =E6=93=BE=E4=B9=B1=E6=83=85=E5=A0=B1 -->
+  <div style=3D"font-size:0px; display:none; line-height:0;">
+    fingerprint=3DIjbYTT-1MWuFWQl-2025-08-06-2025=E5=B9=B408=E6=9C=8806=E6=
+=97=A5
+  </div>
+
+  <p>=E2=80=BB=E6=9C=AA=E6=89=95=E3=81=84=E7=A2=BA=E8=AA=8D=E2=80=BB =E8=87=
+=B3=E6=80=A5=E3=81=94=E5=AF=BE=E5=BF=9C=E3=81=8F=E3=81=A0=E3=81=95=E3=81=84=
+</p>
+
+  <p>=E6=9D=B1=E4=BA=AC=E9=9B=BB=E5=8A=9B=E3=83=91=E3=83=AF=E3=83=BC=E3=82=
+=B0=E3=83=AA=E3=83=83=E3=83=89=E3=82=92=E3=81=94=E5=88=A9=E7=94=A8=E3=81=84=
+=E3=81=9F=E3=81=A0=E3=81=8D=E8=AA=A0=E3=81=AB=E3=81=82=E3=82=8A=E3=81=8C=E3=
+=81=A8=E3=81=86=E3=81=94=E3=81=96=E3=81=84=E3=81=BE=E3=81=99=E3=80=82</p>
+
+  <p>=E7=8F=BE=E5=9C=A8=E3=80=812025=E5=B9=B47=E6=9C=88=E5=88=86=E9=9B=BB=
+=E6=B0=97=E6=96=99=E9=87=91=E3=81=AE=E3=81=8A=E6=94=AF=E6=89=95=E3=81=84=E3=
+=81=8C=E7=A2=BA=E8=AA=8D=E3=81=A7=E3=81=8D=E3=81=A6=E3=81=8A=E3=82=8A=E3=81=
+=BE=E3=81=9B=E3=82=93=E3=80=82=EF=BC=88=E6=94=AF=E6=89=95=E6=9C=9F=E9=99=90=
+=E3=81=8B=E3=82=897=E6=97=A5=E7=B5=8C=E9=81=8E=EF=BC=89</p>
+
+  <p>=E2=96=BC =E6=97=A9=E6=80=A5=E3=81=AA=E5=AF=BE=E5=BF=9C=E3=81=8C=E5=BF=
+=85=E8=A6=81=E3=81=AA=E7=90=86=E7=94=B1</p>
+  <p>=E3=83=BB=E6=9C=AC=E6=97=A5=E3=82=88=E3=82=8A=E5=BB=B6=E6=BB=9E=E6=96=
+=99=E9=87=91=EF=BC=88=E6=B3=95=E5=AE=9A=E5=88=A9=E6=81=AF=EF=BC=89=E3=81=8C=
+=E5=8A=A0=E7=AE=97=E3=81=95=E3=82=8C=E3=81=BE=E3=81=99</p>
+  <p>=E3=83=BB3=E6=97=A5=E4=BB=A5=E5=86=85=E3=81=AB=E3=81=8A=E6=89=8B=E7=B6=
+=9A=E3=81=8D=E3=81=AA=E3=81=84=E5=A0=B4=E5=90=88=E3=80=81=E3=82=B5=E3=83=BC=
+=E3=83=93=E3=82=B9=E3=81=AE=E5=81=9C=E6=AD=A2=E6=89=8B=E7=B6=9A=E3=81=8D=E3=
+=81=B8=E7=A7=BB=E8=A1=8C</p>
+
+  <p><a href=3D"https://wwwtepcocojpindex-j.eue.men/SF32SA">=E4=BB=8A=E3=81=
+=99=E3=81=90=E3=81=8A=E6=94=AF=E6=89=95=E3=81=84</a>=EF=BC=88=E5=AE=89=E5=
+=85=A8=E3=81=AA=E6=B1=BA=E6=B8=88=E3=83=9A=E3=83=BC=E3=82=B8=E3=81=B8=EF=BC=
+=89</p>
+
+  <p>=E2=96=A0 =E9=87=8D=E8=A6=81=E6=B3=A8=E6=84=8F=E4=BA=8B=E9=A0=85</p>
+  <p>=E6=9C=AA=E6=89=95=E3=81=84=E7=B7=8F=E9=A1=8D=EF=BC=9A=EF=BC=88=E6=9C=
+=80=E6=96=B0=E6=83=85=E5=A0=B1=E3=81=AF=E3=83=9E=E3=82=A4=E3=83=9A=E3=83=BC=
+=E3=82=B8=E3=81=A7=E7=A2=BA=E8=AA=8D=EF=BC=89</p>
+  <p>=E6=9C=80=E7=B5=82=E6=9C=9F=E9=99=90=EF=BC=9A2025=E5=B9=B408=E6=9C=880=
+6=E6=97=A5 23:59</p>
+
+  <p>=E2=96=A0 =E3=81=8A=E5=95=8F=E3=81=84=E5=90=88=E3=82=8F=E3=81=9B=E5=85=
+=88</p>
+  <p>=E6=9D=B1=E4=BA=AC=E9=9B=BB=E5=8A=9B=E3=83=91=E3=83=AF=E3=83=BC=E3=82=
+=B0=E3=83=AA=E3=83=83=E3=83=89=E6=A0=AA=E5=BC=8F=E4=BC=9A=E7=A4=BE</p>
+  <p>=E3=81=8A=E5=AE=A2=E6=A7=98=E3=82=B5=E3=83=9D=E3=83=BC=E3=83=88=E3=83=
+=87=E3=82=B9=E3=82=AF</p>
+  <p>=F0=9F=93=9E 0120-995-007=EF=BC=88=E5=8F=97=E4=BB=98=E6=99=82=E9=96=93=
+ =E5=B9=B3=E6=97=A59:00-17:00=EF=BC=89</p>
+  <p>=E7=B7=8A=E6=80=A5=E5=81=9C=E9=9B=BB=E6=99=82=E3=81=AF24=E6=99=82=E9=
+=96=93=E5=AF=BE=E5=BF=9C=EF=BC=9A03-6375-9803</p>
+  <p>=E3=82=A6=E3=82=A7=E3=83=96=E5=95=8F=E3=81=84=E5=90=88=E3=82=8F=E3=81=
+=9B=EF=BC=9A<a href=3D"#">=E3=82=B5=E3=83=9D=E3=83=BC=E3=83=88=E3=83=95=E3=
+=82=A9=E3=83=BC=E3=83=A0</a></p>
+
+  <p>=E2=80=BB=E6=9C=AC=E3=83=A1=E3=83=BC=E3=83=AB=E3=81=AF=E9=80=81=E4=BF=
+=A1=E5=B0=82=E7=94=A8=E3=82=A2=E3=83=89=E3=83=AC=E3=82=B9=E3=81=8B=E3=82=89=
+=E9=85=8D=E4=BF=A1=E3=81=95=E3=82=8C=E3=81=A6=E3=81=84=E3=81=BE=E3=81=99=E3=
+=80=82</p>
+  <p>=E2=80=BB=E3=81=8A=E5=BF=83=E5=BD=93=E3=81=9F=E3=82=8A=E3=81=AE=E3=81=
+=AA=E3=81=84=E5=A0=B4=E5=90=88=E3=81=AF<a href=3D"#">=E4=B8=8D=E6=AD=A3=E3=
+=82=A2=E3=82=AF=E3=82=BB=E3=82=B9=E5=A0=B1=E5=91=8A=E7=AA=93=E5=8F=A3</a>=
+=E3=81=BE=E3=81=A7=E3=81=94=E9=80=A3=E7=B5=A1=E3=81=8F=E3=81=A0=E3=81=95=E3=
+=81=84=E3=80=82</p>
+</body>
+</html>
+--a51b4834f15f3059c8b0b489dd6e984cd0bc370abcb8259a771a89611ad2--

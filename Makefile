@@ -1,4 +1,3 @@
-
 # Go parameters
 GOCMD=go
 GOBUILD=$(GOCMD) build
@@ -7,23 +6,32 @@ GOTEST=$(GOCMD) test
 GOMODTIDY=$(GOCMD) mod tidy
 GOLINT=golangci-lint
 
-# Binary name
+# Project details
 BINARY_NAME=mail-analyzer
+DIST_DIR=./dist
+
+# Get the latest git tag for versioning
+GIT_TAG=$(shell git describe --tags --always --dirty --match "v*" 2>/dev/null || echo "dev")
+# LDFLAGS for setting the version
+LDFLAGS=-ldflags "-X main.version=$(GIT_TAG)"
 
 .PHONY: all build clean test lint tidy vulncheck help
 
 all: build
 
-# Build the application
-build:
-	@echo "Building $(BINARY_NAME)..."
-	$(GOBUILD) -o $(BINARY_NAME) main.go
+# Build for the current OS/Arch
+build: $(DIST_DIR)/$(shell go env GOOS)/$(shell go env GOARCH)/$(BINARY_NAME)
 
-# Clean the binary
+$(DIST_DIR)/$(shell go env GOOS)/$(shell go env GOARCH)/$(BINARY_NAME):
+	@echo "Building for $(shell go env GOOS)/$(shell go env GOARCH)..."
+	@mkdir -p $(@D) # Ensure output directory exists
+	$(GOBUILD) $(LDFLAGS) -o $@ main.go
+
+# Clean up build artifacts
 clean:
-	@echo "Cleaning..."
+	@echo "Cleaning up..."
 	$(GOCLEAN)
-	rm -f $(BINARY_NAME)
+	@rm -rf $(DIST_DIR)
 
 # Run tests
 test:
@@ -50,11 +58,10 @@ vulncheck:
 # Display help
 help:
 	@echo "Available commands:"
-	@echo "  build      - Build the application"
-	@echo "  clean      - Clean the binary"
+	@echo "  build      - Build the application for the current OS/Arch"
+	@echo "  clean      - Clean all build artifacts"
 	@echo "  test       - Run tests"
 	@echo "  lint       - Run linter"
 	@echo "  tidy       - Tidy go modules"
 	@echo "  vulncheck  - Check for vulnerabilities in dependencies"
 	@echo "  help       - Display this help message"
-
