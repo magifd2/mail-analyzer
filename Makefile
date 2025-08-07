@@ -3,65 +3,139 @@ GOCMD=go
 GOBUILD=$(GOCMD) build
 GOCLEAN=$(GOCMD) clean
 GOTEST=$(GOCMD) test
-GOMODTIDY=$(GOCMD) mod tidy
-GOLINT=golangci-lint
 
 # Project details
 BINARY_NAME=mail-analyzer
-DIST_DIR=./dist
+OUTPUT_DIR=dist
+MODULE_PATH := $(shell go list -m)
 
-# Get the latest git tag for versioning
-GIT_TAG=$(shell git describe --tags --always --dirty --match "v*" 2>/dev/null || echo "dev")
-# LDFLAGS for setting the version
-LDFLAGS=-ldflags "-X main.version=$(GIT_TAG)"
+# Versioning
+VERSION := $(shell git describe --tags --always --dirty --match "v*" | sed 's/^v//')
+LDFLAGS=-ldflags "-s -w -X 'main.version=$(VERSION)'"
 
-.PHONY: all build clean test lint tidy vulncheck help
+# Installation paths
+PREFIX?=/usr/local
+BIN_DIR=$(PREFIX)/bin
 
-all: build
+# OS detection
+UNAME_S := $(shell uname -s)
+
+.PHONY: all build clean test cross-compile install uninstall build-mac-universal build-linux build-windows package-all vulncheck help
+
+help:
+	@echo "Usage: make [PREFIX=/path/to/install]"
+	@echo ""
+	@echo "Commands:"
+	@echo "  all             : Builds for current OS/Arch and cross-compiles for all platforms."
+	@echo "  build           : Builds the binary for the current OS and architecture."
+	@echo "  test            : Runs all tests."
+	@echo "  lint            : Runs linters (golangci-lint)."
+	@echo "  vulncheck       : Runs vulnerability check (govulncheck)."
+	@echo "  clean           : Cleans up build artifacts."
+	@echo "  install         : Builds for the current architecture and installs the binary."
+	@echo "  uninstall       : Uninstalls the binary."
+	@echo "  cross-compile   : Cross-compiles for all target platforms (macOS, Linux, Windows)."
+	@echo "  help            : Displays this help message."
+	@echo ""
+	@echo "Variables:"
+	@echo "  PREFIX          : Installation prefix for 'install' and 'uninstall' commands."
+	@echo "                    Defaults to /usr/local. Use PREFIX=~ for user-local installation."
+
+all: vulncheck build cross-compile
 
 # Build for the current OS/Arch
-build: $(DIST_DIR)/$(shell go env GOOS)/$(shell go env GOARCH)/$(BINARY_NAME)
-
-$(DIST_DIR)/$(shell go env GOOS)/$(shell go env GOARCH)/$(BINARY_NAME):
+build:
 	@echo "Building for $(shell go env GOOS)/$(shell go env GOARCH)..."
-	@mkdir -p $(@D) # Ensure output directory exists
-	$(GOBUILD) $(LDFLAGS) -o $@ main.go
-
-# Clean up build artifacts
-clean:
-	@echo "Cleaning up..."
-	$(GOCLEAN)
-	@rm -rf $(DIST_DIR)
+	@mkdir -p $(OUTPUT_DIR)/$(shell go env GOOS)-$(shell go env GOARCH)
+	@$(GOBUILD) $(LDFLAGS) -o $(OUTPUT_DIR)/$(shell go env GOOS)-$(shell go env GOARCH)/$(BINARY_NAME) .
 
 # Run tests
 test:
 	@echo "Running tests..."
-	$(GOTEST) -v -timeout 10s ./...
+	@$(GOTEST) -v ./...
 
-# Run linter
+# Run linters
 lint:
-	@echo "Running linter..."
-	@which $(GOLINT) > /dev/null || (echo "golangci-lint not found, installing..."; $(GOCMD) install github.com/golangci/golangci-lint/cmd/golangci-lint@latest)
-	$(GOLINT) run
+	@echo "Running linters..."
+	@$(GOCMD) run github.com/golangci/golangci-lint/cmd/golangci-lint@latest run ./...
 
-# Tidy modules
-tidy:
-	@echo "Tidying go modules..."
-	$(GOMODTIDY)
-
-# Check for vulnerabilities in dependencies
+# Run vulnerability check
 vulncheck:
-	@echo "Checking for vulnerabilities..."
-	@which govulncheck > /dev/null || (echo "govulncheck not found, installing..."; $(GOCMD) install golang.org/x/vuln/cmd/govulncheck@latest)
-	govulncheck ./...
+	@echo "Running vulnerability check..."
+	@$(GOCMD) run golang.org/x/vuln/cmd/govulncheck@latest ./...
 
-# Display help
-help:
-	@echo "Available commands:"
-	@echo "  build      - Build the application for the current OS/Arch"
-	@echo "  clean      - Clean all build artifacts"
-	@echo "  test       - Run tests"
-	@echo "  lint       - Run linter"
-	@echo "  tidy       - Tidy go modules"
-	@echo "  vulncheck  - Check for vulnerabilities in dependencies"
-	@echo "  help       - Display this help message"
+# Clean up build artifacts
+clean:
+	@echo "Cleaning up..."
+	@$(GOCLEAN)
+	@rm -f $(BINARY_NAME)
+	@rm -rf $(OUTPUT_DIR)
+	@rm -f extract_release_notes.go release_notes.txt
+
+# Install the binary
+# Usage: make install (installs to /usr/local/bin)
+#        make install PREFIX=~ (installs to ~/bin)
+install: build
+	@echo "Installing $(BINARY_NAME) to $(BIN_DIR)..."
+	@mkdir -p $(BIN_DIR)
+	@cp $(OUTPUT_DIR)/$(shell go env GOOS)-$(shell go env GOARCH)/$(BINARY_NAME) $(BIN_DIR)/
+	@echo "Installation complete."
+
+# Uninstall the binary
+# Note: This does NOT remove configuration files.
+# Usage: make uninstall (uninstalls from /usr/local/bin)
+#        make uninstall PREFIX=~ (uninstalls from ~/bin)
+uninstall:
+	@echo "Uninstalling $(BINARY_NAME) from $(BIN_DIR)..."
+	@rm -f $(BIN_DIR)/$(BINARY_NAME)
+	@echo "Uninstallation complete. Configuration files are kept."
+
+# Cross-compile for all target platforms
+cross-compile: build-mac-universal build-linux build-windows package-all
+	@echo "Cross-compilation and packaging finished. Release assets are in the $(OUTPUT_DIR)/ directory."
+
+# Build for Linux (amd64)
+build-linux:
+	@echo "Building for Linux (amd64)..."
+	@mkdir -p $(OUTPUT_DIR)/linux-amd64
+	@GOOS=linux GOARCH=amd64 $(GOBUILD) $(LDFLAGS) -o $(OUTPUT_DIR)/linux-amd64/$(BINARY_NAME) .
+
+# Build for Windows (amd64)
+build-windows:
+	@echo "Building for Windows (amd64)..."
+	@mkdir -p $(OUTPUT_DIR)/windows-amd64
+	@GOOS=windows GOARCH=amd64 $(GOBUILD) $(LDFLAGS) -o $(OUTPUT_DIR)/windows-amd64/$(BINARY_NAME).exe .
+
+# Build macOS Universal Binary
+build-mac-universal:
+	@echo "Building for macOS (Universal)..."
+	@mkdir -p $(OUTPUT_DIR)/darwin-universal
+	# Build for amd64
+	@GOOS=darwin GOARCH=amd64 $(GOBUILD) $(LDFLAGS) -o $(OUTPUT_DIR)/$(BINARY_NAME)-darwin-amd64 .
+	# Build for arm64
+	@GOOS=darwin GOARCH=arm64 $(GOBUILD) $(LDFLAGS) -o $(OUTPUT_DIR)/$(BINARY_NAME)-darwin-arm64 .
+	# Combine with lipo
+	@lipo -create -output $(OUTPUT_DIR)/darwin-universal/$(BINARY_NAME) $(OUTPUT_DIR)/$(BINARY_NAME)-darwin-amd64 $(OUTPUT_DIR)/$(BINARY_NAME)-darwin-arm64
+	# Ad-hoc sign the universal binary
+	@codesign -s - $(OUTPUT_DIR)/darwin-universal/$(BINARY_NAME)
+	# Clean up intermediate files
+	@rm $(OUTPUT_DIR)/$(BINARY_NAME)-darwin-amd64 $(OUTPUT_DIR)/$(BINARY_NAME)-darwin-arm64
+	@echo "Created Universal binary at $(OUTPUT_DIR)/darwin-universal/$(BINARY_NAME)"
+
+# Package all binaries into archives
+package-all: package-darwin package-linux package-windows
+
+# Package macOS binary
+package-darwin:
+	@echo "Packaging macOS binary..."
+	@cd $(OUTPUT_DIR)/darwin-universal && tar -czvf ../$(BINARY_NAME)-$(VERSION)-darwin-universal.tar.gz $(BINARY_NAME)
+
+# Package Linux binary
+package-linux:
+	@echo "Packaging Linux binary..."
+	@cd $(OUTPUT_DIR)/linux-amd64 && tar -czvf ../$(BINARY_NAME)-$(VERSION)-linux-amd64.tar.gz $(BINARY_NAME)
+
+# Package Windows binary
+package-windows:
+	@echo "Packaging Windows binary..."
+	@cd $(OUTPUT_DIR)/windows-amd64 && zip -r ../$(BINARY_NAME)-$(VERSION)-windows-amd64.zip $(BINARY_NAME).exe
